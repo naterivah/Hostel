@@ -1,0 +1,57 @@
+#Tarif
+tarif.couleur: Color
+tarif.bebe: Price of a baby bed
+tarif.liste: List of prices
+tarif.liste.retour: Back to the list of prices
+tarif.aucun: No price found.
+tarif.modifier: Edit the price of color  %name% 
+tarif.ajouter: Add a price
+tarif.ajouter.succes: Price %name% successfully added!
+tarif.modifier.succes: Price %name% successfully edited!
+tarif.supprimer.succes: Price %name% successfully deleted! 
+
+#Calendrier
+calendrier.label: Calendar
+calendrier.datej: Date
+calendrier.nbredispo: Number of availabilities
+calendrier.liste: Calendar of dates
+calendrier.liste.retour: Back to the calendar
+calendrier.aucun: No date found
+calendrier.modifier:  Edit the date  %name% 
+calendrier.ajouter: Add a date
+calendrier.ajouter.succes: Date %name% successfully added!
+calendrier.modifier.succes: Date %name% successfully edited!
+calendrier.supprimer.succes: Date %name% successfully deleted! 
+
+#Modele
+modele.label: Model
+modele.bain: Bathroom
+modele.douche: Shower
+modele.wc: Toilet
+modele.nbrelit2: Number of double beds
+modele.nbrelit1: Number of single beds
+modele.liste: List of models
+modele.liste.retour: Back to the list of models
+modele.aucun: No price found.
+modele.modifier: Edit the model %name% 
+modele.ajouter: Add a model
+modele.ajouter.succes: Model %name% successfully added!
+modele.modifier.succes: Model %name% successfully edited!
+modele.supprimer.succes: Model %name% successfully deleted! 
+
+#Chambre
+chambre.etage: Floor
+chambre.litbebe: Bed for baby
+chambre.liste: List of rooms
+chambre.liste.retour: Back to the list of rooms
+chambre.aucun: No room found.
+chambre.modifier: Edit the room %name% 
+chambre.ajouter: Add a room
+chambre.ajouter.succes: Room %name% successfully added!
+chambre.modifier.succes: Room %name% successfully edited!
+chambre.supprimer.succes: Room %name% successfully deleted! 
+
+#Général
+enregistrer: Save
+modifier: Edit
+supprimer: Delete

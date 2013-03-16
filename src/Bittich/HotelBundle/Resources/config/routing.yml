@@ -1,0 +1,103 @@
+
+#*******************************************************************************************************
+#Accueil************************************************************************************************
+#*******************************************************************************************************
+
+hotel_accueil:
+    pattern:  /{_locale}
+    defaults: { _controller: BittichHotelBundle:Accueil:index, _locale: fr }
+    requirements:
+      _locale: fr|en
+      
+#*******************************************************************************************************
+#Tarif**************************************************************************************************
+#*******************************************************************************************************
+
+hotel_tarif_lister:
+    pattern: /{_locale}/tarif/liste
+    defaults: { _controller: BittichHotelBundle:Tarif:lister, _locale: fr }
+    requirements:
+      _locale: fr|en
+
+hotel_tarif_ajouter:
+    pattern: /{_locale}/tarif/ajouter
+    defaults: { _controller: BittichHotelBundle:Tarif:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+
+hotel_tarif_editer:
+    pattern: /{_locale}/tarif/editer/{id}
+    defaults: { _controller: BittichHotelBundle:Tarif:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+      
+hotel_tarif_supprimer:
+    pattern: /{_locale}/tarif/supprimer/{id}
+    defaults: { _controller: BittichHotelBundle:Tarif:supprimer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+
+#*******************************************************************************************************
+#Modele*************************************************************************************************
+#*******************************************************************************************************
+
+hotel_modele_lister:
+    pattern: /{_locale}/modele/liste
+    defaults: { _controller: BittichHotelBundle:Modele:lister, _locale: fr }
+    requirements:
+      _locale: fr|en
+
+hotel_modele_ajouter:
+    pattern: /{_locale}/modele/ajouter
+    defaults: { _controller: BittichHotelBundle:Modele:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+
+hotel_modele_editer:
+    pattern: /{_locale}/modele/editer/{id}
+    defaults: { _controller: BittichHotelBundle:Modele:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+      
+hotel_modele_supprimer:
+    pattern: /{_locale}/modele/supprimer/{id}
+    defaults: { _controller: BittichHotelBundle:Modele:supprimer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+      
+#*******************************************************************************************************
+#Chambre************************************************************************************************
+#*******************************************************************************************************
+
+hotel_chambre_lister:
+    pattern: /{_locale}/chambre/liste
+    defaults: { _controller: BittichHotelBundle:Chambre:lister, _locale: fr }
+    requirements:
+      _locale: fr|en
+
+hotel_chambre_ajouter:
+    pattern: /{_locale}/chambre/ajouter
+    defaults: { _controller: BittichHotelBundle:Chambre:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+
+hotel_chambre_editer:
+    pattern: /{_locale}/chambre/editer/{id}
+    defaults: { _controller: BittichHotelBundle:Chambre:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+      
+hotel_chambre_supprimer:
+    pattern: /{_locale}/chambre/supprimer/{id}
+    defaults: { _controller: BittichHotelBundle:Chambre:supprimer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+

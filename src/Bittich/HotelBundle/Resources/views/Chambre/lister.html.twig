@@ -1,0 +1,43 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ "chambre.liste"|trans }}
+{% endblock %}
+
+
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('message') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+    <table border="1">
+        <caption>{{ "chambre.liste"|trans|upper }}</caption>
+
+        <tr>
+            <th>N°</th>
+            <th>{{ "chambre.etage"|trans }}</th>
+            <th>{{ "chambre.litbebe"|trans }}</th>
+            <th>{{ "modele.label"|trans }}</th>
+            <th colspan="2">Options</th>
+        </tr>
+            {% for cha in chambres %}
+        <tr>
+            <td>{{cha.id}}</td>
+            <td>{{cha.etage}}</td>
+
+            <td>{{cha.litbebe}}</td>
+            <td>{{cha.modele.id}}</td>
+            <td>    <p><a href=" {{path('hotel_chambre_editer',{'id' : cha.id})}}">{{"modifier"|trans}}</a></p></td>
+            
+           <td>    <p><a href=" {{path('hotel_chambre_supprimer',{'id' : cha.id})}}">{{"supprimer"|trans}}</a></p></td>
+
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5" style="background-color:#FF0000">{{"chambre.aucun" |trans}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <p><a href=" {{path('hotel_chambre_ajouter')}}">{{"chambre.ajouter"|trans}}</a></p>
+{% endblock %}

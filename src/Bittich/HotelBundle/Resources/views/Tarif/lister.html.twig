@@ -1,0 +1,40 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ "tarif.liste"|trans }}
+{% endblock %}
+
+
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('message') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+    <table border="1">
+        <caption>{{ "tarif.liste"|trans|upper }}</caption>
+
+        <tr>
+            <th>ID</th>
+            <th>{{ "tarif.couleur"|trans }}</th>
+            <th>{{ "tarif.bebe"|trans }}</th>
+            <th colspan="2">Options</th>
+        </tr>
+            {% for tar in tarifs %}
+        <tr>
+            <td>{{tar.id}}</td>
+            <td>{{tar.couleur}}</td>
+            <td>{{tar.prixlitbebe}}</td>
+            <td>    <p><a href=" {{path('hotel_tarif_editer',{'id' : tar.id})}}">{{"modifier"|trans}}</a></p></td>
+            
+           <td>    <p><a href=" {{path('hotel_tarif_supprimer',{'id' : tar.id})}}">{{"supprimer"|trans}}</a></p></td>
+
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5" style="background-color:#FF0000">{{"tarif.aucun" |trans}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <p><a href=" {{path('hotel_tarif_ajouter')}}">{{"tarif.ajouter"|trans}}</a></p>
+{% endblock %}

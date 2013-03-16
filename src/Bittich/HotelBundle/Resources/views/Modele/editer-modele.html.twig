@@ -1,0 +1,53 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ typeAction }}
+{% endblock %}
+{% block content %}  
+<p>{{typeAction}}</p>
+            {% if form is defined %}
+<form action ="" method="post" {{form_enctype(form)}}>
+               {# {{form_widget(form)}}   -> version courte #}
+        <div class="erreur">
+                        {{form_errors(form)}}
+            </div>
+            <table border ="1">
+                <tr>
+                    <td> {{ form_label(form.bain) }} </td>
+                    <td> {{ form_label(form.douche) }} </td>
+                   <td> {{ form_label(form.wc) }} </td>
+                    <td> {{ form_label(form.nbrelit2) }} </td>
+                    <td> {{ form_label(form.nbrelit1) }} </td>
+
+                </tr>
+                <tr>
+                    <td> 
+                         {{ form_errors(form.bain) }}  
+                         {{ form_widget(form.bain) }} 
+                    </td>
+                    <td> 
+                         {{ form_errors(form.douche) }}  
+                         {{ form_widget(form.douche) }} 
+                    </td>                 
+                    <td> 
+                         {{ form_errors(form.wc) }}  
+                         {{ form_widget(form.wc) }} 
+                    </td>
+                    <td> 
+                         {{ form_errors(form.nbrelit2) }}  
+                         {{ form_widget(form.nbrelit2) }} 
+                    </td>
+                    <td> 
+                         {{ form_errors(form.nbrelit1) }}  
+                         {{ form_widget(form.nbrelit1) }} 
+                    </td>
+                </tr>
+
+                 </table>
+               {{ form_rest(form) }} 
+{#fonction obligatoire, va permettre d'ajouter les champs qui n'ont pas été renseigné plus haut#}
+        <input type="submit" value="{{'enregistrer'|trans}}"/>
+
+                        </form>
+            {% endif %}
+                        <p><a href=" {{path('hotel_modele_lister')}}">{{"modele.liste.retour"|trans}}</a></p>
+ {% endblock %}

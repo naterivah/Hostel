@@ -1,0 +1,3 @@
+bittich_hotel_locale:
+    resource: "@BittichHotelBundle/Resources/config/routing.yml"
+    prefix:   /hotel

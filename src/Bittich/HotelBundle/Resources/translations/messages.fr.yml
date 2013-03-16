@@ -1,0 +1,57 @@
+#Tarif
+tarif.couleur: Couleur
+tarif.bebe: Tarif d'un lit bébé
+tarif.liste: Liste des tarifs
+tarif.liste.retour: Retour à la liste des tarifs
+tarif.aucun: Aucun tarif trouvé.
+tarif.modifier: Modifier le tarif couleur %name%
+tarif.ajouter: Ajouter un tarif
+tarif.ajouter.succes: Tarif %name% ajouté avec succès!
+tarif.modifier.succes: Tarif %name% modifié avec succès!
+tarif.supprimer.succes: Tarif %name% supprimé avec succès!
+
+#Modele
+modele.label: Modèle
+modele.bain: Salle de bain
+modele.douche: Douche
+modele.wc: Toilette
+modele.nbrelit2: Nombre de lits double
+modele.nbrelit1: Nombre de lits simple
+modele.liste: Liste des modèles
+modele.liste.retour: Retour à la liste des modèles
+modele.aucun: Aucun modèle trouvé
+modele.modifier: Modifier le modèle %name% 
+modele.ajouter: Ajouter un modèle
+modele.ajouter.succes: Modèle %name% ajouté avec succès!
+modele.modifier.succes: Modèle %name% modifié avec succès!
+modele.supprimer.succes: Modèle %name% supprimé avec succès! 
+
+#Calendrier
+calendrier.label: Calendrier
+calendrier.datej: Date
+calendrier.nbredispo: Nombre de disponibilités
+calendrier.liste: Calendrier de dates
+calendrier.liste.retour: Retour au calendrier
+calendrier.aucun: Aucune date trouvée
+calendrier.modifier: Modifier la date %name% 
+calendrier.ajouter: Ajouter une date
+calendrier.ajouter.succes: Date %name% ajoutée avec succès!
+calendrier.modifier.succes: Date %name% modifiée avec succès!
+calendrier.supprimer.succes: Date %name% supprimée avec succès! 
+
+#Chambre
+chambre.etage: Etage
+chambre.litbebe: Lit bébé
+chambre.liste: Liste des chambres
+chambre.liste.retour: Retour à la liste des chambres
+chambre.aucun: Aucune chambre trouvée
+chambre.modifier: Modifier la chambre %name% 
+chambre.ajouter: Ajouter une chambre
+chambre.ajouter.succes: Chambre %name% ajoutée avec succès!
+chambre.modifier.succes: Chambre %name% modifiée avec succès!
+chambre.supprimer.succes: chambre %name% supprimée avec succès! 
+
+#Général
+enregistrer: Enregistrer
+modifier: Modifier
+supprimer: Supprimer

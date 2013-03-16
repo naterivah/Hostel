@@ -1,0 +1,11 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+Under Construction over there
+{% endblock %}
+
+{% block content %}
+     <p><a href=" {{path('hotel_modele_lister')}}">{{"modele.liste"|trans}}</a></p>
+     <p><a href=" {{path('hotel_tarif_lister')}}">{{"tarif.liste"|trans}}</a></p>
+     <p><a href=" {{path('hotel_chambre_lister')}}">{{"chambre.liste"|trans}}</a></p>
+
+{% endblock %}

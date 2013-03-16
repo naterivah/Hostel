@@ -1,0 +1,40 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ typeAction }}
+{% endblock %}
+{% block content %}  
+<p>{{typeAction}}</p>
+            {% if form is defined %}
+<form action ="" method="post" {{form_enctype(form)}}>
+               {# {{form_widget(form)}}   -> version courte #}
+        <div class="erreur">
+                        {{form_errors(form)}}
+            </div>
+            <table border ="1">
+                <tr>
+                    <td> {{ form_label(form.etage) }} </td>
+                    <td> {{ form_label(form.litbebe) }} </td>
+                    <td> {{ form_label(form.modele) }} </td>
+
+                </tr>
+                <tr>
+                    <td> {{ form_errors(form.etage) }}  
+                             {{ form_widget(form.etage) }} 
+                        </td>
+                        <td> {{ form_errors(form.litbebe) }} 
+                             {{ form_widget(form.litbebe) }}
+                            </td>
+                            <td> {{ form_errors(form.modele) }} 
+                             {{ form_widget(form.modele) }}
+                                </td>
+                            </tr>
+
+                        </table>
+               {{ form_rest(form) }} 
+{#fonction obligatoire, va permettre d'ajouter les champs qui n'ont pas été renseigné plus haut#}
+                        <input type="submit" value="{{'enregistrer'|trans}}"/>
+
+                    </form>
+            {% endif %}
+                    <p><a href=" {{path('hotel_chambre_lister')}}">{{"chambre.liste.retour"|trans}}</a></p>
+ {% endblock %}

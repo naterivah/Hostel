@@ -1,0 +1,7 @@
+parameters:
+#    bittich_hotel.example.class: Bittich\HotelBundle\Example
+
+services:
+#    bittich_hotel.example:
+#        class: %bittich_hotel.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
