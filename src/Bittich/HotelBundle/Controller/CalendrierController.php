@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Bittich\HotelBundle\Entity\Chambre;
 use Bittich\HotelBundle\Form\ChambreType;
 use \Bittich\HotelBundle\Repository\ChambreRepository;
+//comm
 /**
  * Description of AccueilController
  *
