@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Tarif
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Bittich\HotelBundle\Entity\TarifRepository")
+ * @ORM\Entity(repositoryClass="Bittich\HotelBundle\Repository\TarifRepository")
  */
 class Tarif
 {

@@ -1,2 +1,3 @@
 erreur.nom.minlength: This field should have {{ limit }} characters minimum
 erreur.champs.vide: This field should not be empty
+date.unique: A date should be unique!

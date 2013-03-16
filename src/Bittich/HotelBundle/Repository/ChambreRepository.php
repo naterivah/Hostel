@@ -13,6 +13,8 @@ class ChambreRepository extends EntityRepository {
     public function getChambreAvecModele() {
         $qb = $this->createQueryBuilder('a')
                 ->leftJoin('a.modele', 'm')
+                ->leftJoin('a.disponibilites','d')
+                ->addSelect('d')
                 ->addSelect('m');
 
         return $qb->getQuery()

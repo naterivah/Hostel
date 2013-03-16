@@ -1,0 +1,55 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ "calendrier.liste"|trans }}
+{% endblock %}
+
+
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('message') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+    <table border="1">
+        <caption>{{ "calendrier.liste"|trans|upper }}</caption>
+
+        <tr>
+         
+            <th>{{ "calendrier.datej"|trans }}</th>
+            <th>{{ "tarif.couleur"|trans }}</th>
+            <th>{{ "calendrier.nbredispo"|trans }}</th>
+            <th>{{ "chambre.disponibilites"|trans }}</th>
+
+            <th colspan="2">Options</th>
+        </tr>
+            {% for cal in calendriers %}
+        <tr>
+            <td>{{cal.datej|date('d/m/Y')}}</td>
+            <td>{{cal.tarif.couleur}}</td>
+            <td>{{cal.chambres|length}}</td>
+            <td>
+             {% if cal.chambres is empty %}
+                {{'chambre.aucun'|trans}}
+                {% else %}
+
+                    <select>
+                     {% for dispo in cal.chambres %}
+                            <option value="{{dispo.id}}">{{'chambre.etagenumero'|trans({'%etage%':dispo.etage, '%numero%':dispo.id})}}</option> 
+                {% endfor %}
+                        </select>
+                   
+          {% endif %}</td>
+            <td>    <p><a href=" {{path('hotel_calendrier_editer',{'id' : cal.id})}}">{{"modifier"|trans}}</a></p></td>
+            
+           <td>    <p><a href=" {{path('hotel_calendrier_supprimer',{'id' : cal.id})}}">{{"supprimer"|trans}}</a></p></td>
+
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="6" style="background-color:#FF0000">{{"calendrier.aucun" |trans}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <p><a href=" {{path('hotel_calendrier_ajouter')}}">{{"calendrier.ajouter"|trans}}</a></p>
+{% endblock %}

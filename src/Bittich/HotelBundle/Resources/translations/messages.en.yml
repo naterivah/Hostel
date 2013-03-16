@@ -17,12 +17,12 @@ calendrier.nbredispo: Number of availabilities
 calendrier.liste: Calendar of dates
 calendrier.liste.retour: Back to the calendar
 calendrier.aucun: No date found
-calendrier.modifier:  Edit the date  %name% 
+calendrier.modifier:  Edit the date
 calendrier.ajouter: Add a date
-calendrier.ajouter.succes: Date %name% successfully added!
-calendrier.modifier.succes: Date %name% successfully edited!
-calendrier.supprimer.succes: Date %name% successfully deleted! 
-
+calendrier.ajouter.succes: Date successfully added!
+calendrier.modifier.succes: Date  successfully edited!
+calendrier.supprimer.succes: Date successfully deleted! 
+calendrier.disponibilites: Availabilities
 #Modele
 modele.label: Model
 modele.bain: Bathroom
@@ -50,6 +50,8 @@ chambre.ajouter: Add a room
 chambre.ajouter.succes: Room %name% successfully added!
 chambre.modifier.succes: Room %name% successfully edited!
 chambre.supprimer.succes: Room %name% successfully deleted! 
+chambre.disponibilites: Available(s) room(s)
+chambre.etagenumero: F - %etage% / R - %numero% 
 
 #Général
 enregistrer: Save

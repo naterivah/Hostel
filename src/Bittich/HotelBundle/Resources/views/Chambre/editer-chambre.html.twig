@@ -15,7 +15,8 @@
                     <td> {{ form_label(form.etage) }} </td>
                     <td> {{ form_label(form.litbebe) }} </td>
                     <td> {{ form_label(form.modele) }} </td>
-
+                    <td> {{ form_label(form.disponibilites) }} </td>
+                    
                 </tr>
                 <tr>
                     <td> {{ form_errors(form.etage) }}  
@@ -27,6 +28,9 @@
                             <td> {{ form_errors(form.modele) }} 
                              {{ form_widget(form.modele) }}
                                 </td>
+                             <td> {{ form_errors(form.disponibilites) }} 
+                             {{ form_widget(form.disponibilites) }}
+                                </td>    
                             </tr>
 
                         </table>

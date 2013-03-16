@@ -6,7 +6,7 @@
 
 {% block content %}
     {% for flashMessage in app.session.flashbag.get('message') %}
-    <div class="flash-notice">
+<div class="flash-notice">
         {{ flashMessage }}
     </div>
 {% endfor %}
@@ -18,26 +18,40 @@
             <th>{{ "chambre.etage"|trans }}</th>
             <th>{{ "chambre.litbebe"|trans }}</th>
             <th>{{ "modele.label"|trans }}</th>
+            <th>{{ "calendrier.disponibilites"|trans }}</th>
+
             <th colspan="2">Options</th>
         </tr>
             {% for cha in chambres %}
         <tr>
             <td>{{cha.id}}</td>
             <td>{{cha.etage}}</td>
-
             <td>{{cha.litbebe}}</td>
             <td>{{cha.modele.id}}</td>
-            <td>    <p><a href=" {{path('hotel_chambre_editer',{'id' : cha.id})}}">{{"modifier"|trans}}</a></p></td>
-            
-           <td>    <p><a href=" {{path('hotel_chambre_supprimer',{'id' : cha.id})}}">{{"supprimer"|trans}}</a></p></td>
+            <td>
+            {% if cha.disponibilites is empty %}
+                {{'calendrier.aucun'|trans}}
+                {% else %}
 
-        </tr>
+                    <select>
+                     {% for dispo in cha.disponibilites %}
+                            <option value="{{dispo.id}}">{{dispo.datej|date('d/m/Y')}}</option> 
+                {% endfor %}
+                        </select>
+                   
+          {% endif %}
+            </td>
+                    <td>    <p><a href=" {{path('hotel_chambre_editer',{'id' : cha.id})}}">{{"modifier"|trans}}</a></p></td>
+
+                    <td>    <p><a href=" {{path('hotel_chambre_supprimer',{'id' : cha.id})}}">{{"supprimer"|trans}}</a></p></td>
+
+                </tr>
     {% else %}
-        <tr>
-            <td colspan="5" style="background-color:#FF0000">{{"chambre.aucun" |trans}}</td>
+                <tr>
+                    <td colspan="6" style="background-color:#FF0000">{{"chambre.aucun" |trans}}</td>
 
-        </tr>
+                </tr>
         {% endfor %}
-    </table>
-    <p><a href=" {{path('hotel_chambre_ajouter')}}">{{"chambre.ajouter"|trans}}</a></p>
+            </table>
+            <p><a href=" {{path('hotel_chambre_ajouter')}}">{{"chambre.ajouter"|trans}}</a></p>
 {% endblock %}

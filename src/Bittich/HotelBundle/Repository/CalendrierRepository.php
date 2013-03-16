@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class CalendrierRepository extends EntityRepository
 {
+
+        //pour ne faire qu'une seule requete (jointure)
+    public function getCalendrierAvecTarif() {
+        $qb = $this->createQueryBuilder('a')
+                ->leftJoin('a.tarif', 't')
+                ->leftJoin('a.chambres', 'c')
+                ->addSelect('t')
+                ->addSelect('c')
+                ->orderBy('a.datej','ASC');
+        return $qb->getQuery()
+                  ->getResult();
+    }
 }

@@ -33,11 +33,12 @@ calendrier.nbredispo: Nombre de disponibilités
 calendrier.liste: Calendrier de dates
 calendrier.liste.retour: Retour au calendrier
 calendrier.aucun: Aucune date trouvée
-calendrier.modifier: Modifier la date %name% 
+calendrier.modifier: Modifier la date 
 calendrier.ajouter: Ajouter une date
-calendrier.ajouter.succes: Date %name% ajoutée avec succès!
-calendrier.modifier.succes: Date %name% modifiée avec succès!
-calendrier.supprimer.succes: Date %name% supprimée avec succès! 
+calendrier.ajouter.succes: Date ajoutée avec succès!
+calendrier.modifier.succes: Date  modifiée avec succès!
+calendrier.supprimer.succes: Date  supprimée avec succès! 
+calendrier.disponibilites: Disponibilités
 
 #Chambre
 chambre.etage: Etage
@@ -50,7 +51,8 @@ chambre.ajouter: Ajouter une chambre
 chambre.ajouter.succes: Chambre %name% ajoutée avec succès!
 chambre.modifier.succes: Chambre %name% modifiée avec succès!
 chambre.supprimer.succes: chambre %name% supprimée avec succès! 
-
+chambre.disponibilites: Chambre(s) disponible(s)
+chambre.etagenumero: E - %etage% / CH - %numero% 
 #Général
 enregistrer: Enregistrer
 modifier: Modifier

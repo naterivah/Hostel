@@ -12,14 +12,14 @@ class CalendrierType extends AbstractType {
         $builder
                 ->add('datej', 'date', array(
                     'label' => 'calendrier.datej',
-                    'format' => 'd/M/Y',
+                    'format' => 'd/M/y',
                         )
                 )
-                ->add('nbredispo', 'integer', array('label' => 'calendrier.nbredispo'))
+                //->add('nbredispo', 'integer', array('label' => 'calendrier.nbredispo'))
                 ->add('tarif', 'entity', array(
-                    'class' => '\Bittich\HotelBundle\Entity\Tarif',
+                    'class' => 'Bittich\HotelBundle\Entity\Tarif',
                     'property' => 'couleur',
-                    'multiple' => 'false',
+                    'multiple' => false,
                     'required' => false,
                     'label' => 'tarif.couleur',
                 ))

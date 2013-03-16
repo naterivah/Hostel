@@ -1,2 +1,3 @@
 erreur.nom.minlength: Ce champs doit avoir au moins {{ limit }} caractères
 erreur.champs.vide: Ce champs ne peut pas être vide
+date.unique: La date doit être unique!

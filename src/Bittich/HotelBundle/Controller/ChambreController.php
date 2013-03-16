@@ -5,6 +5,7 @@ namespace Bittich\HotelBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Bittich\HotelBundle\Entity\Chambre;
+use Bittich\HotelBundle\Entity\Calendrier;
 use Bittich\HotelBundle\Form\ChambreType;
 use \Bittich\HotelBundle\Repository\ChambreRepository;
 /**
@@ -33,10 +34,14 @@ class ChambreController extends Controller {
     }
     public function supprimerAction($id=null){
         $message='';
+        $chambre=new Chambre;
+   
         if(isset($id)){
             $em= $this->getDoctrine()->getManager();
             $chambre=$em->find('BittichHotelBundle:Chambre', $id);
+            
             if($chambre){
+
                 $em->remove($chambre);
                 $em->flush();
                 $message.= $this->get('translator')->trans('chambre.supprimer.succes',
