@@ -1,3 +1,5 @@
 erreur.nom.minlength: This field should have {{ limit }} characters minimum
 erreur.champs.vide: This field should not be empty
 date.unique: A date should be unique!
+prix.unique: A price should be unique!
+erreur.champs.negatif: This field should not be negative!

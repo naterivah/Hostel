@@ -48,6 +48,7 @@ class Modele {
      *
      * @ORM\Column(name="nbrelit2", type="integer")
      * @Assert\NotBlank(message = "erreur.champs.vide")
+     * @Assert\Min(limit = "0", message = "erreur.champs.negatif")    
      */
     private $nbrelit2;
 
@@ -56,6 +57,8 @@ class Modele {
      *
      * @ORM\Column(name="nbrelit1", type="integer")
      * @Assert\NotBlank(message = "erreur.champs.vide")
+     * @Assert\Min(limit = "0", message = "erreur.champs.negatif")    
+
      */
     private $nbrelit1;
 

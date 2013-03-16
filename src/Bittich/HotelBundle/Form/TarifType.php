@@ -11,7 +11,10 @@ class TarifType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('couleur','text',array('label'=>'tarif.couleur'))
+            ->add('couleur','text',array('label'=>'tarif.couleur',
+                    'required'=>true,
+                
+                ))
             ->add('prixlitbebe', 'integer', array('label'=>'tarif.bebe'))
         ;
     }

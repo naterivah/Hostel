@@ -36,6 +36,7 @@ class Tarif
      *
      * @ORM\Column(name="prixlitbebe", type="integer")
      * @Assert\NotBlank(message = "erreur.champs.vide")
+        @Assert\Min(limit = "0", message = "erreur.champs.negatif")    
      */
     private $prixlitbebe;
 

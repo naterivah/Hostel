@@ -19,7 +19,10 @@
 
                 </tr>
                 <tr>
-                    <td> {{ form_errors(form.modele) }}  
+                    {# A cause de la clé unique sur deux champs, je mets l'erreur sur le tr#}
+                   
+                    <td> 
+                                {{ form_errors(form.modele) }} 
                              {{ form_widget(form.modele) }} 
                         </td>
                         <td> {{ form_errors(form.tarif) }} 
