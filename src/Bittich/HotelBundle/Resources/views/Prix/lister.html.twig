@@ -1,0 +1,46 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ "prix.liste"|trans }}
+{% endblock %}
+
+
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('message') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+    <table border="1">
+        <caption>{{ "prix.liste"|trans|upper }}</caption>
+
+        <tr>
+         
+            <th>{{ "modele.label"|trans }}</th>
+            <th>{{ "tarif.label"|trans }}</th>
+            <th>{{ "prix.label"|trans }}</th>
+            <th colspan="2">Options</th>
+        </tr>
+            {% for pr in prices %}
+        <tr>
+            <td>{{pr.modele.id}}</td>
+            <td>{{pr.tarif.couleur}}</td>
+            <td>{{pr.prix}}</td>
+            <td>    <p><a href=" {{path('hotel_prix_editer',
+                {'idmodele' : pr.modele.id,'idtarif' : pr.tarif.id})}}">{{"modifier"|trans}}
+                        </a></p>
+              </td>
+            
+           <td>    <p><a href=" {{path('hotel_prix_supprimer',
+                {'idmodele' : pr.modele.id,'idtarif' : pr.tarif.id})}}">
+                {{"supprimer"|trans}}</a></p></td>
+
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="5" style="background-color:#FF0000">{{"prix.aucun" |trans}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <p><a href=" {{path('hotel_prix_ajouter')}}">{{"prix.ajouter"|trans}}</a></p>
+{% endblock %}

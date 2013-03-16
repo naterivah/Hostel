@@ -1,4 +1,5 @@
 #Tarif
+tarif.label: Tarif
 tarif.couleur: Couleur
 tarif.bebe: Tarif d'un lit bébé
 tarif.liste: Liste des tarifs
@@ -53,6 +54,18 @@ chambre.modifier.succes: Chambre %name% modifiée avec succès!
 chambre.supprimer.succes: chambre %name% supprimée avec succès! 
 chambre.disponibilites: Chambre(s) disponible(s)
 chambre.etagenumero: E - %etage% / CH - %numero% 
+
+#Prix
+prix.label: Prix
+prix.liste: Liste des prix
+prix.liste.retour: Retour à la liste des prix
+prix.aucun: Aucun prix trouvé
+prix.modifier: Modifier le prix 
+prix.ajouter: Ajouter un prix
+prix.ajouter.succes: Prix ajouté avec succès!
+prix.modifier.succes: Prix modifié avec succès!
+prix.supprimer.succes: prix supprimé avec succès! 
+
 #Général
 enregistrer: Enregistrer
 modifier: Modifier

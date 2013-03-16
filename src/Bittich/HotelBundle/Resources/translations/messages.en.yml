@@ -1,14 +1,15 @@
 #Tarif
+tarif.label: Fare
 tarif.couleur: Color
 tarif.bebe: Price of a baby bed
-tarif.liste: List of prices
-tarif.liste.retour: Back to the list of prices
-tarif.aucun: No price found.
-tarif.modifier: Edit the price of color  %name% 
-tarif.ajouter: Add a price
-tarif.ajouter.succes: Price %name% successfully added!
-tarif.modifier.succes: Price %name% successfully edited!
-tarif.supprimer.succes: Price %name% successfully deleted! 
+tarif.liste: List of fares
+tarif.liste.retour: Back to the list of fares
+tarif.aucun: No fare found.
+tarif.modifier: Edit the fare of color  %name% 
+tarif.ajouter: Add a fare
+tarif.ajouter.succes: Fare%name% successfully added!
+tarif.modifier.succes: Fare %name% successfully edited!
+tarif.supprimer.succes: Fare %name% successfully deleted! 
 
 #Calendrier
 calendrier.label: Calendar
@@ -52,6 +53,17 @@ chambre.modifier.succes: Room %name% successfully edited!
 chambre.supprimer.succes: Room %name% successfully deleted! 
 chambre.disponibilites: Available(s) room(s)
 chambre.etagenumero: F - %etage% / R - %numero% 
+
+#Prix
+prix.label: Price
+prix.liste: List of prices
+prix.liste.retour: Back to the list of prices
+prix.aucun:  No price found.
+prix.modifier: Edit the price
+prix.ajouter: Add a price
+prix.ajouter.succes: Price successfully added!
+prix.modifier.succes: Price successfully edited!
+prix.supprimer.succes: Price successfully deleted!
 
 #Général
 enregistrer: Save

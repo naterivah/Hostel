@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Prix
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Bittich\HotelBundle\Entity\PrixRepository")
+ * @ORM\Entity(repositoryClass="Bittich\HotelBundle\Repository\PrixRepository")
  */
 class Prix
 {
@@ -32,7 +32,9 @@ class Prix
     private $prix;
 
 
-   
+   public function __construct(){
+       $this->setPrix(0);
+   }
 
     /**
      * Set prix

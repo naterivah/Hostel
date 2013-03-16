@@ -132,3 +132,34 @@ hotel_calendrier_supprimer:
     requirements:
       _locale: fr|en
       id: \d+
+      
+#*******************************************************************************************************
+#Prix***************************************************************************************************
+#*******************************************************************************************************
+
+hotel_prix_lister:
+    pattern: /{_locale}/prix/liste
+    defaults: { _controller: BittichHotelBundle:Prix:lister, _locale: fr }
+    requirements:
+      _locale: fr|en
+
+hotel_prix_ajouter:
+    pattern: /{_locale}/prix/ajouter
+    defaults: { _controller: BittichHotelBundle:Prix:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+
+hotel_prix_editer:
+    pattern: /{_locale}/prix/{idmodele}-{idtarif}
+    defaults: { _controller: BittichHotelBundle:Prix:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+      
+hotel_prix_supprimer:
+    pattern: /{_locale}/prix/supprimer/{idmodele}-{idtarif}
+    defaults: { _controller: BittichHotelBundle:Prix:supprimer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+ 
