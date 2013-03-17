@@ -29,7 +29,7 @@ class Chambre {
      * @var integer
      *
      * @ORM\Column(name="etage", type="integer")
-     * @Assert\Min(limit = "0", message = "erreur.champs.negatif")    
+   
      * @Assert\NotBlank(message = "erreur.champs.vide")
 
      */

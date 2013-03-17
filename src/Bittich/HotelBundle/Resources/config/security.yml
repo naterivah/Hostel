@@ -1,0 +1,62 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+        #Admin : employés, User: client, Super_admin: administrateur
+    role_hierarchy:
+        ROLE_EMPLOYE:      ROLE_CLIENT
+        ROLE_SUPER_ADMIN: [ROLE_CLIENT, ROLE_EMPLOYE, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        fos_userbundle:
+             id: fos_user.user_provider.username
+             #id: fos_user.user_manager      
+    firewalls:
+      
+        main:
+            pattern: .*
+            form_login:
+                provider: fos_userbundle
+                login_path: fos_user_security_login
+                use_forward: false
+                check_path: fos_user_security_check
+                failure_path: null
+                default_target_path: hotel_accueil
+                csrf_provider: form.csrf_provider
+                remember_me : true
+                
+            #Se souvenir de moi (un mois)
+            remember_me:
+                key: %secret%
+                lifetime: 2678400
+                path: /
+                domain: ~
+                
+            logout:       
+              path: fos_user_security_logout
+              target: hotel_accueil
+              
+            anonymous:    true
+
+    access_control:
+      
+      #page accessible à tous les utilisateurs(ne pas toucher)
+        - { path: ^/connexion$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connexion_test, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_wdt/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_profile/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/js/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/css/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+       
+      #page accessible aux employés
+
+        - { path: .*/employes/.*, role: ROLE_EMPLOYE }
+
+
+      #page accessible aux clients connectés
+
+        - { path: ^/changer-mot-de-passe, role: ROLE_CLIENT}
+        
+      #page accessible à tous
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY}

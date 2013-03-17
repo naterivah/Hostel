@@ -20,6 +20,11 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Bittich\HotelBundle\BittichHotelBundle(),
+            new Bittich\UserBundle\BittichUserBundle(),
+
+            
+            /* Bundles Externes */
+            new FOS\UserBundle\FOSUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

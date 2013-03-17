@@ -1,0 +1,7 @@
+parameters:
+#    bittich_user.example.class: Bittich\UserBundle\Example
+
+services:
+#    bittich_user.example:
+#        class: %bittich_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -13,6 +13,7 @@ class CalendrierType extends AbstractType {
                 ->add('datej', 'date', array(
                     'label' => 'calendrier.datej',
                     'format' => 'd/M/y',
+                     'required' => true,
                         )
                 )
                 //->add('nbredispo', 'integer', array('label' => 'calendrier.nbredispo'))
@@ -20,7 +21,7 @@ class CalendrierType extends AbstractType {
                     'class' => 'Bittich\HotelBundle\Entity\Tarif',
                     'property' => 'couleur',
                     'multiple' => false,
-                    'required' => false,
+                     'required' => true,
                     'label' => 'tarif.couleur',
                 ))
 

@@ -24,6 +24,7 @@ calendrier.ajouter.succes: Date successfully added!
 calendrier.modifier.succes: Date  successfully edited!
 calendrier.supprimer.succes: Date successfully deleted! 
 calendrier.disponibilites: Availabilities
+
 #Modele
 modele.label: Model
 modele.bain: Bathroom

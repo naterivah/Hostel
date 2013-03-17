@@ -1,0 +1,24 @@
+#*******************************************************************************************************
+#FOS_USER_BUNDLE****************************************************************************************
+#*******************************************************************************************************
+
+fos_user_security:
+    resource: "routing/security.xml"
+    prefix: /
+
+fos_user_profile:
+    resource: "routing/profil.xml"
+    prefix: /compte
+
+fos_user_register:
+    resource: "routing/inscription.xml"
+    prefix: /inscription
+
+fos_user_resetting:
+    resource: "routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "routing/modifier_mot_de_passe.xml"
+    prefix: /compte
+    

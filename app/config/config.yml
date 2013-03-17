@@ -56,10 +56,16 @@ doctrine:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
 
-# Swiftmailer Configuration
+# Swiftmailer Configuration, à tester une fois que le site sera en prod
 swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
-    spool:     { type: memory }
+    transport: smtp              
+    host:      smtp.bittich.be
+    username:  projet@bittich.be
+    password:  j3tS0ny2KiO%
+    #spool:     { type: memory }
+
+# FOS User Bundle
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Bittich\UserBundle\Entity\User

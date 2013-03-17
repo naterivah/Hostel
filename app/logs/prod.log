@@ -10,3 +10,4 @@
 [2013-03-16 01:31:46] request.ERROR: Uncaught PHP Exception Symfony\Component\HttpKernel\Exception\NotFoundHttpException: "No route found for "GET /"" at C:\wamp\www\Hotel\app\cache\prod\classes.php line 3587 [] []
 [2013-03-16 01:32:28] request.ERROR: Uncaught PHP Exception Symfony\Component\HttpKernel\Exception\NotFoundHttpException: "No route found for "GET /bittich"" at C:\wamp\www\Hotel\app\cache\prod\classes.php line 3587 [] []
 [2013-03-16 01:32:40] request.ERROR: Uncaught PHP Exception Symfony\Component\HttpKernel\Exception\NotFoundHttpException: "No route found for "GET /bittich/hotel"" at C:\wamp\www\Hotel\app\cache\prod\classes.php line 3587 [] []
+[2013-03-17 13:11:00] request.ERROR: Uncaught PHP Exception Symfony\Component\HttpKernel\Exception\NotFoundHttpException: "No route found for "GET /app/hotel/fr/prix/ajouter"" at C:\wamp\www\Hotel\app\cache\prod\classes.php line 3587 [] []

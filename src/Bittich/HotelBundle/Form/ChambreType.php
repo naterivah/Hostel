@@ -16,7 +16,7 @@ class ChambreType extends AbstractType {
                     'class' => 'Bittich\HotelBundle\Entity\Modele',
                     'property' => 'id',
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                     'label' => "modele.label",
                 ))
                 ->add('disponibilites', 'entity', array(
