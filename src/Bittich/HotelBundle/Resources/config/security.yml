@@ -8,8 +8,8 @@ security:
 
     providers:
         fos_userbundle:
-             id: fos_user.user_provider.username
-             #id: fos_user.user_manager      
+             #id: fos_user.user_provider.username_email
+             id: fos_user.user_manager      
     firewalls:
       
         main:
@@ -23,6 +23,9 @@ security:
                 default_target_path: hotel_accueil
                 csrf_provider: form.csrf_provider
                 remember_me : true
+            #Switch_user permet au super_admin de se connecter en tant que n'importe quel 
+            #utilisateur, sans avoir à connaitre le mot de passe de celui-ci
+            switch_user: true
                 
             #Se souvenir de moi (un mois)
             remember_me:
@@ -57,6 +60,7 @@ security:
       #page accessible aux clients connectés
 
         - { path: ^/changer-mot-de-passe, role: ROLE_CLIENT}
-        
+        - { path: ^/compte, role: ROLE_CLIENT}
+       
       #page accessible à tous
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY}

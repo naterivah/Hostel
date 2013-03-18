@@ -161,4 +161,21 @@ hotel_prix_supprimer:
     defaults: { _controller: BittichHotelBundle:Prix:supprimer, _locale: fr }
     requirements:
       _locale: fr|en
-      id: \d+ 
+      id: \d+
+      
+#*******************************************************************************************************
+#Client*************************************************************************************************
+#*******************************************************************************************************
+
+hotel_client_lister:
+    pattern: /{_locale}/client/liste
+    defaults: { _controller: BittichHotelBundle:Client:lister, _locale: fr }
+    requirements:
+      _locale: fr|en
+
+hotel_client_inscription:
+    pattern: /{_locale}/client/inscription-client.html
+    defaults: { _controller: BittichHotelBundle:Client:Inscription, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+

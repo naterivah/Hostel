@@ -1,3 +1,18 @@
+#Client
+client.label: Customer
+client.nom: Name
+client.prenom:  First Name
+client.adresse: Address
+client.npostal: Zip Code
+client.localite: Locality
+client.aucun: No customer found
+client.modifier: Edit customer's account
+client.liste: List of customers
+client.liste.retour: Back to the list of customers
+client.ajouter.succes: Customer successfully added!
+client.modifier.succes: Customer successfully edited!
+client.supprimer.succes: Customer successfully deleted!
+client.inscription: Customer's Registration
 #Tarif
 tarif.label: Fare
 tarif.couleur: Color
@@ -7,7 +22,7 @@ tarif.liste.retour: Back to the list of fares
 tarif.aucun: No fare found.
 tarif.modifier: Edit the fare of color  %name% 
 tarif.ajouter: Add a fare
-tarif.ajouter.succes: Fare%name% successfully added!
+tarif.ajouter.succes: Fare %name% successfully added!
 tarif.modifier.succes: Fare %name% successfully edited!
 tarif.supprimer.succes: Fare %name% successfully deleted! 
 

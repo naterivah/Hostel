@@ -1,3 +1,18 @@
+#Client
+client.label: Client
+client.nom: Nom
+client.prenom: Prénom 
+client.adresse: Adresse
+client.npostal: Code Postal
+client.localite: Localité
+client.aucun: Aucun client trouvé
+client.modifier: Modifier le compte client
+client.liste: Liste des clients
+client.liste.retour: Retour à la liste des clients
+client.ajouter.succes: Client ajouté avec succès!
+client.modifier.succes: Client modifié avec succès!
+client.supprimer.succes: Client supprimé avec succès!
+client.inscription: Inscription du client
 #Tarif
 tarif.label: Tarif
 tarif.couleur: Couleur

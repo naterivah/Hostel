@@ -1,0 +1,51 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ typeAction }}
+{% endblock %}
+{% block content %}  
+<p>{{typeAction}}</p>
+            {% if form is defined %}
+<form action ="" method="post" {{form_enctype(form)}}>
+
+
+    <div class="erreur">
+                        {{form_errors(form)}}
+        </div>
+        <table border ="1">
+            <tr>
+                <td> {{ form_label(form.nom) }} </td>
+                <td> {{ form_label(form.prenom) }} </td>
+                <td> {{ form_label(form.adresse) }} </td>
+                <td> {{ form_label(form.npostal) }} </td>
+                <td> {{ form_label(form.localite) }} </td> 
+
+            </tr>
+            <tr>
+                <td> {{ form_errors(form.nom) }}  
+                             {{ form_widget(form.nom) }} 
+                    </td>
+                <td> {{ form_errors(form.prenom) }}  
+                             {{ form_widget(form.prenom) }} 
+                    </td>
+                <td> {{ form_errors(form.adresse) }}  
+                             {{ form_widget(form.adresse) }} 
+                    </td>                    
+                <td> {{ form_errors(form.npostal) }}  
+                             {{ form_widget(form.npostal) }} 
+                    </td>                    
+                 <td> {{ form_errors(form.localite) }}  
+                             {{ form_widget(form.localite) }} 
+                    </td>      
+                    
+              {# Formulaire imbriqué FOS_USER #}
+
+                </tr>
+    
+            </table>
+               {{ form_rest(form) }} 
+            <input type="submit" value="{{'enregistrer'|trans}}"/>
+
+        </form>
+            {% endif %}
+        <p><a href=" {{path('hotel_client_lister')}}">{{"client.liste.retour"|trans}}</a></p>
+ {% endblock %}
