@@ -27,7 +27,9 @@ class ClientType extends AbstractType
                     array('label'=>'client.localite',
                     'required'=>true,))
             #ici on fait appel au formulaire fos_userbundle pour créer l'utilisateur
-            ->add('user',new UserType())
+            ->add('user',new UserType(),
+                    array('label'=>'user',
+                        'required'=>true))
         ;
     }
 

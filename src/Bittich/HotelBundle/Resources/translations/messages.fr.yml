@@ -13,6 +13,7 @@ client.ajouter.succes: Client ajouté avec succès!
 client.modifier.succes: Client modifié avec succès!
 client.supprimer.succes: Client supprimé avec succès!
 client.inscription: Inscription du client
+
 #Tarif
 tarif.label: Tarif
 tarif.couleur: Couleur
@@ -85,3 +86,4 @@ prix.supprimer.succes: Prix supprimé avec succès!
 enregistrer: Enregistrer
 modifier: Modifier
 supprimer: Supprimer
+user: Compte Utilisateur

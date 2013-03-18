@@ -18,7 +18,7 @@
                 <td> {{ form_label(form.adresse) }} </td>
                 <td> {{ form_label(form.npostal) }} </td>
                 <td> {{ form_label(form.localite) }} </td> 
-
+                
             </tr>
             <tr>
                 <td> {{ form_errors(form.nom) }}  
@@ -40,7 +40,9 @@
               {# Formulaire imbriqué FOS_USER #}
 
                 </tr>
-    
+                 <tr> {{ form_label(form.user) }} </tr> 
+
+
             </table>
                {{ form_rest(form) }} 
             <input type="submit" value="{{'enregistrer'|trans}}"/>
