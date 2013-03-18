@@ -7,6 +7,7 @@ hotel_accueil:
     defaults: { _controller: BittichHotelBundle:Accueil:index, _locale: fr }
     requirements:
       _locale: fr|en
+
       
 #*******************************************************************************************************
 #Tarif**************************************************************************************************
@@ -193,8 +194,15 @@ hotel_admin_rechercher:
            _locale: fr|en   
 
 hotel_admin_promote:
-    pattern:  /{_locale}/admin/promote/{id}
+    pattern:  /{_locale}/admin/promouvoir/{id}
     defaults: { _controller: BittichHotelBundle:Admin:promote, _locale: fr }
+    requirements:
+        id: \d+   
+        _locale: fr|en   
+
+hotel_admin_demote:
+    pattern:  /{_locale}/admin/retrograder/{id}
+    defaults: { _controller: BittichHotelBundle:Admin:demote, _locale: fr }
     requirements:
         id: \d+   
         _locale: fr|en   

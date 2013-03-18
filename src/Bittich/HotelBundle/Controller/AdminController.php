@@ -52,7 +52,20 @@ class AdminController extends Controller {
         $message = $this->get('translator')->trans('user.promote');
         $this->get('session')->getFlashBag()->add('message', $message);
         //ici on fait une redirection
-        return $this->redirect($this->generateUrl('hotel_admin_accueil'));
+        return $this->redirect($this->generateUrl('hotel_admin_lister'));
+    }
+    
+        #Rétrogration d'un utilisateur en client
+
+    public function demoteAction(User $user) {
+        $userManager = $this->get('fos_user.user_manager');
+        $userManipulator = new UserManipulator($userManager);
+        $userManipulator->removeRole($user->getUsername(), 'ROLE_EMPLOYE');
+        $userManipulator->addRole($user->getUsername(), 'ROLE_CLIENT');
+        $message = $this->get('translator')->trans('user.promote');
+        $this->get('session')->getFlashBag()->add('message', $message);
+        //ici on fait une redirection
+        return $this->redirect($this->generateUrl('hotel_admin_lister'));
     }
 
     #Désactivation d'un compte utilisateur 
@@ -65,7 +78,7 @@ class AdminController extends Controller {
         $message = $this->get('translator') ->trans('user.deactivate');
         $this->get('session')->getFlashBag()->add('message', $message);
 
-        return $this->redirect($this->generateUrl('hotel_admin_accueil'));
+        return $this->redirect($this->generateUrl('hotel_admin_lister'));
     }
     
         #activation d'un compte
@@ -78,7 +91,7 @@ class AdminController extends Controller {
         $message = $this->get('translator') -> trans('user.activate');
         $this->get('session')->getFlashBag()->add('message', $message);
 
-        return $this->redirect($this->generateUrl('hotel_admin_accueil'));
+        return $this->redirect($this->generateUrl('hotel_admin_lister'));
     }
 
     #Fonction AJAX, recherche les utilisateurs en fonction du nom ou du prénom

@@ -1,4 +1,9 @@
- <table border="1">
+    {% for flashMessage in app.session.flashbag.get('message') %}
+<div>
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+<table border="1">
         <caption>{{ "User"|trans|upper }}</caption>
 
         <tr>
@@ -12,6 +17,7 @@
             <th>Email</th>
             <th>Type Utilisateur</th>
             <th>Statut</th>
+            <th>Action</th>
 
         </tr>
             {% for usr in users %}
@@ -25,24 +31,37 @@
             <td>{{usr.email}}</td>
             <td>
                 {% if usr.roles[0] == 'ROLE_CLIENT' %}
-                    Client | <a href="{{path('hotel_admin_promote',{'id':usr.id})}}">Promouvoir</a>
+                    Client  | <a href="{{path('hotel_admin_promote',{'id':usr.id})}}">Promouvoir</a>
                     {% elseif usr.roles[0] == 'ROLE_EMPLOYE' %}
-                    Employé
+                    Employé | <a href="{{path('hotel_admin_demote',{'id':usr.id})}}">Rétrograder</a>
                     {% else %}
                     Admin
                 {% endif %}
             </td>
             <td>
-               {% if usr.enabled %}
-                    Activé | <a href="{{path('hotel_admin_desactiver',{'id': usr.id})}}">Désactiver</a>
+                {% if usr.roles[0] != 'ROLE_SUPER_ADMIN'  %}
+                    {% if usr.enabled %}
+                            Activé | <a href="{{path('hotel_admin_desactiver',{'id': usr.id})}}">Désactiver</a>
+                    {% else %}
+                            Désactivé | <a href="{{path('hotel_admin_activer',{'id': usr.id})}}">Activer</a> 
+                    {% endif %}
                 {% else %}
-                   Désactivé | <a href="{{path('hotel_admin_activer',{'id': usr.id})}}">Activer</a> 
+                            <p>Administrateur</p>
                 {% endif %}
             </td>
+            <td>
+                {% if usr.roles[0] != 'ROLE_SUPER_ADMIN' and usr.enabled %}
+                    {% autoescape false %}
+                        <a href="{{url('hotel_accueil',{'_switch_user': usr.username})}}">Se connecter en tant que {{usr.nom}}</a>
+                    {% endautoescape %}
+                {% else %}
+                         <p>~</p>
+                {% endif %}
+                </td>
         </tr>
     {% else %}
         <tr>
-            <td colspan="9" style="background-color:#FF0000">{{"client.aucun" |trans}}</td>
+            <td colspan="10" style="background-color:#FF0000">{{"client.aucun" |trans}}</td>
 
         </tr>
         {% endfor %}

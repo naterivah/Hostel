@@ -52,6 +52,10 @@ security:
         - { path: ^/_profile/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/js/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/css/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        
+      #page accessible à l'administrateur
+
+        - { path: .*/admin, role: ROLE_SUPER_ADMIN }  
        
       #page accessible aux employés
 
