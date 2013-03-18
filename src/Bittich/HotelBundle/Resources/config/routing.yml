@@ -164,12 +164,51 @@ hotel_prix_supprimer:
       id: \d+
       
 #*******************************************************************************************************
-#Client*************************************************************************************************
+#SuperAdmin*********************************************************************************************
 #*******************************************************************************************************
 
-hotel_client_lister:
-    pattern: /{_locale}/client/liste/{role}
+hotel_admin_lister:
+    pattern: /{_locale}/admin/liste
     defaults: { _controller: BittichHotelBundle:Admin:lister, _locale: fr }
     requirements:
-      _locale: fr|en
+      _locale: fr|en   
+      
+hotel_admin_lister_role:
+    pattern: /{_locale}/admin/liste-role/{role}
+    defaults: { _controller: BittichHotelBundle:Admin:listerrole, _locale: fr }
+    requirements:
+      _locale: fr|en  
+          
+hotel_admin_accueil:
+    pattern:  /{_locale}/admin/accueil.html
+    defaults: { _controller: BittichHotelBundle:Admin:index, _locale: fr }
+    requirements:
+          _locale: fr|en  
 
+hotel_admin_rechercher:
+    pattern: /{_locale}/admin/rechercher
+    defaults: { _controller: BittichHotelBundle:Admin:recherchenom, _locale: fr}
+    requirements:
+           _method: POST
+           _locale: fr|en   
+
+hotel_admin_promote:
+    pattern:  /{_locale}/admin/promote/{id}
+    defaults: { _controller: BittichHotelBundle:Admin:promote, _locale: fr }
+    requirements:
+        id: \d+   
+        _locale: fr|en   
+
+hotel_admin_desactiver:
+    pattern:  /{_locale}/admin/desactiver/{id}
+    defaults: { _controller: BittichHotelBundle:Admin:desactivate, _locale: fr }
+    requirements:
+        id: \d+   
+        _locale: fr|en  
+
+hotel_admin_activer:
+    pattern:  /{_locale}/admin/reactiver/{id}
+    defaults: { _controller: BittichHotelBundle:Admin:reactivate, _locale: fr }
+    requirements:
+        id: \d+   
+        _locale: fr|en  

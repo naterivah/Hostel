@@ -1,0 +1,94 @@
+ <table border="1">
+        <caption>{{ "User"|trans|upper }}</caption>
+
+        <tr>
+         
+            <th>{{ "client.nom"|trans }}</th>
+            <th>{{ "client.prenom"|trans }}</th>
+            <th>{{ "client.adresse"|trans }}</th>
+            <th>{{ "client.npostal"|trans }}</th>
+            <th>{{ "client.localite"|trans }}</th>
+            <th>Login</th>
+            <th>Email</th>
+            <th>Type Utilisateur</th>
+            <th>Statut</th>
+
+        </tr>
+            {% for usr in users %}
+        <tr>
+            <td>{{usr.nom}}</td>
+            <td>{{usr.prenom}}</td>
+            <td>{{usr.adresse}}</td>
+            <td>{{usr.npostal}}</td>
+            <td>{{usr.localite}}</td>
+            <td>{{usr.username}}</td>
+            <td>{{usr.email}}</td>
+            <td>
+                {% if usr.roles[0] == 'ROLE_CLIENT' %}
+                    Client | <a href="{{path('hotel_admin_promote',{'id':usr.id})}}">Promouvoir</a>
+                    {% elseif usr.roles[0] == 'ROLE_EMPLOYE' %}
+                    Employé
+                    {% else %}
+                    Admin
+                {% endif %}
+            </td>
+            <td>
+               {% if usr.enabled %}
+                    Activé | <a href="{{path('hotel_admin_desactiver',{'id': usr.id})}}">Désactiver</a>
+                {% else %}
+                   Désactivé | <a href="{{path('hotel_admin_activer',{'id': usr.id})}}">Activer</a> 
+                {% endif %}
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="9" style="background-color:#FF0000">{{"client.aucun" |trans}}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

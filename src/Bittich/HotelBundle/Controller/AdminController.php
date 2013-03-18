@@ -3,60 +3,108 @@
 namespace Bittich\HotelBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Bittich\HotelBundle\Entity\Client;
-use Bittich\HotelBundle\Form\ClientType;
+use Bittich\UserBundle\Entity\User;
 use FOS\UserBundle\Util\UserManipulator;
-# GESTION DES CLIENTS, PROMOTION EN EMPLOYE
+use Bittich\HotelBundle\Form\RechercheForm;
+
+/**
+ * GESTION DES CLIENTS, PROMOTION DES EMPLOYES
+ */
 class AdminController extends Controller {
+    public function indexAction() {
+        return $this->render('BittichHotelBundle:Admin:index.html.twig');
+    }    
 
-    public function listerAction($role) {
+
+#Lister l'ensemble des utilisateurs
+
+    public function listerAction() {
+        $users = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('BittichUserBundle:User')
+                ->findAll();
+        $form = $this->get('form.factory')->create(new RechercheForm());
+
+        return $this->render('BittichHotelBundle:Admin:lister.html.twig', array('users' => $users,
+                    'form' =>  $form->createView()));
+    }
+
+    #Lister les utilisateurs en fonction de leur rôle
+
+    public function listerRoleAction($role) {
         $em = $this->getDoctrine()->getManager();
-        //on recupere toutes les chambres et leur modele(sinon on risque de requêter dans la boucle )
 
-        $clients =
+        $users =
                 $em->getRepository('BittichUserBundle:User')
                 ->findUserByRole($role);
 
-        return $this->render('BittichHotelBundle:Client:lister.html.twig', array('clients' => $clients));
+        return $this->render('BittichHotelBundle:Admin:liste_base.html.twig', array('users' => $users));
     }
 
-    public function inscriptionAction() {
-        $message = $this->get('translator')->trans('client.inscription');
+    #Promotion d'un utilisateur en employé
 
-        $em = $this->getDoctrine()->getManager();
-        $client = new Client();
-        $typeAction = $this->get('translator')->trans('client.inscription');
+    public function promoteAction(User $user) {
+        $userManager = $this->get('fos_user.user_manager');
+        $userManipulator = new UserManipulator($userManager);
+        $userManipulator->addRole($user->getUsername(), 'ROLE_EMPLOYE');
+        $userManipulator->removeRole($user->getUsername(), 'ROLE_CLIENT');
 
-        $form = $this->get('form.factory')->create(new ClientType(), $client);
-        $request = $this->getRequest();
-        if ($request->isMethod("POST")) {
-            $form->bind($request); // soummettre le formulaire
-            if ($form->isValid()) {
-                $em->persist($client);
-                $em->flush();
-                /*
-                 * j'ajoute un role à mon client
-                 */
-                $user = $client->getUser();
-                $userManager = $this->get('fos_user.user_manager');
-                $userManipulator = new UserManipulator($userManager);
-                $userManipulator->addRole($user->getUsername(), 'ROLE_CLIENT');
-                #Activation du compte client
-                $userManipulator->activate($user->getUsername());
-                $message = $this->get('translator')->trans('client.ajouter.succes');
+        $message = $this->get('translator')->trans('user.promote');
+        $this->get('session')->getFlashBag()->add('message', $message);
+        //ici on fait une redirection
+        return $this->redirect($this->generateUrl('hotel_admin_accueil'));
+    }
 
-                //message flash
-                $this->get('session')->getFlashBag()->add('message', $message);
-                return $this->redirect($this->generateUrl('hotel_client_lister'));
+    #Désactivation d'un compte utilisateur 
+
+    public function desactivateAction(User $user) {
+
+        $userManager = $this->get('fos_user.user_manager');
+        $userManipulator = new UserManipulator($userManager);
+        $userManipulator->deactivate($user->getUserName());
+        $message = $this->get('translator') ->trans('user.deactivate');
+        $this->get('session')->getFlashBag()->add('message', $message);
+
+        return $this->redirect($this->generateUrl('hotel_admin_accueil'));
+    }
+    
+        #activation d'un compte
+    
+        public function reactivateAction(User $user) {
+        
+        $userManager = $this->get('fos_user.user_manager');
+        $userManipulator = new UserManipulator($userManager);
+        $userManipulator->activate($user->getUserName());
+        $message = $this->get('translator') -> trans('user.activate');
+        $this->get('session')->getFlashBag()->add('message', $message);
+
+        return $this->redirect($this->generateUrl('hotel_admin_accueil'));
+    }
+
+    #Fonction AJAX, recherche les utilisateurs en fonction du nom ou du prénom
+
+    public function rechercheNomAction() {
+        $req = $this->getRequest();
+
+        if ($req->isXmlHttpRequest()) {
+            $motcle = '';
+            $motcle .= $req->request->get('motcle');
+            if ($motcle != '') {
+                $users = $this->getDoctrine()
+                        ->getManager()
+                        ->getRepository('BittichUserBundle:User')
+                        ->findUserByNomPrenom($motcle);
+            } else {
+                $users = $this
+                        ->getDoctrine()            
+                        ->getManager()
+                        ->getRepository('BittichUserBundle:User')->findAll();
             }
+            return $this->render("BittichHotelBundle:Admin:liste_base.html.twig"
+                            , array('users' => $users));
+        } else {
+            return $this->listerAction();
         }
-        //SI c'est pas POST
-        return $this->render('BittichHotelBundle:Client:inscription-client.html.twig', array(
-                    'form' => $form->createView(),
-                    'typeAction' => $typeAction,
-                    'message' => $message
-                        )
-        );
     }
 
 }

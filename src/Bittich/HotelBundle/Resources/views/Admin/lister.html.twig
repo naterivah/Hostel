@@ -1,0 +1,51 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ "User"|trans }}
+
+{% endblock %}
+                      
+{% block content %}
+
+<form id="form_recherche" action= "{{path('hotel_admin_rechercher')}}" method="post">
+    {{form_widget(form)}}
+        <input type="submit" value = "{{"rechercher"|trans}}"/>
+    </form>
+    <div class="loading">Un moment...</div>
+     
+    <div id="resultats_recherche">
+        {%include 'BittichHotelBundle:Admin:liste_base.html.twig' with {'users': users} %}
+        </div>
+
+        <p><a href=" {{path('hotel_admin_accueil')}}">{{"index retour"|trans}}</a></p>
+
+        <!-- Le script Ajax! -->
+        <script>
+         $(".loading").hide();
+        $("#form_recherche").submit(function(){ 
+         $(".loading").show();
+        var motcle=$("#rechercheform_motcle").val();
+        if(motcle == ''){
+          $(".loading").hide();
+          
+      }else{
+          $(".loading").show();
+          $("#resultats_recherche").hide();
+          var DATA = 'motcle=' + motcle;
+          jQuery.ajax({
+              type: 'POST',
+              url: "{{ path('hotel_admin_rechercher')}}",
+              data: DATA,
+              cache: false,
+              success: function(data){
+                 $('#resultats_recherche').html(data);
+                 $(".loading").hide();
+                 $("#resultats_recherche").show();
+              }
+          });
+      }
+      return false;
+  });
+            </script>
+
+            
+{% endblock %}
