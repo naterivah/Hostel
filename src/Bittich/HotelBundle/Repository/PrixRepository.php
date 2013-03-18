@@ -32,6 +32,7 @@ class PrixRepository extends EntityRepository {
                 ->addSelect('t')
                 ->setParameter('idmodele' , $idmodele)
                 ->setParameter('idtarif' , $idtarif);
+        
         return $qb->getQuery()->getOneOrNullResult();
                        
     }

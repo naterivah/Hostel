@@ -3,7 +3,8 @@ security:
         FOS\UserBundle\Model\UserInterface: sha512
         #Admin : employés, User: client, Super_admin: administrateur
     role_hierarchy:
-        ROLE_EMPLOYE:      ROLE_CLIENT
+      
+        ROLE_EMPLOYE:    ROLE_CLIENT
         ROLE_SUPER_ADMIN: [ROLE_CLIENT, ROLE_EMPLOYE, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
@@ -60,7 +61,7 @@ security:
       #page accessible aux clients connectés
 
         - { path: ^/changer-mot-de-passe, role: ROLE_CLIENT}
-        - { path: ^/compte, role: ROLE_CLIENT}
+        - { path: ^/compte/.*, role: ROLE_CLIENT}
        
       #page accessible à tous
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY}

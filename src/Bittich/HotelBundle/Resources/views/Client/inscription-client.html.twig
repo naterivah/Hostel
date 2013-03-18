@@ -49,5 +49,5 @@
 
         </form>
             {% endif %}
-        <p><a href=" {{path('hotel_client_lister')}}">{{"client.liste.retour"|trans}}</a></p>
+        <p><a href=" {{path('hotel_client_lister',{'role':'ROLE_CLIENT'})}}">{{"client.liste.retour"|trans}}</a></p>
  {% endblock %}

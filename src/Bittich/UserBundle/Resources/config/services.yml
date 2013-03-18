@@ -2,6 +2,22 @@ parameters:
 #    bittich_user.example.class: Bittich\UserBundle\Example
 
 services:
-#    bittich_user.example:
-#        class: %bittich_user.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+
+     bittich_user.registration.form.type:
+        class: Bittich\UserBundle\Form\Type\UserType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: bittich_userbundle_usertype }
+
+     bittich_user.profile.form.type:
+        class: Bittich\UserBundle\Form\Type\EditUserType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: bittich_userbundle_editusertype }  
+            
+     bittich_user.form.handler.registration:
+        class: Bittich\UserBundle\Form\Handler\RegistrationFormHandler
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator"]
+        scope: request
+        public: false
+    

@@ -33,8 +33,8 @@
             <td>{{cli.adresse}}</td>
             <td>{{cli.npostal}}</td>
             <td>{{cli.localite}}</td>
-            <td>{{cli.user.username}}</td>
-            <td>{{cli.user.email}}</td>
+            <td>{{cli.username}}</td>
+            <td>{{cli.email}}</td>
 
         </tr>
     {% else %}
@@ -44,5 +44,4 @@
         </tr>
         {% endfor %}
     </table>
-    <p><a href=" {{path('hotel_client_inscription')}}">{{"client.inscription"|trans}}</a></p>
 {% endblock %}

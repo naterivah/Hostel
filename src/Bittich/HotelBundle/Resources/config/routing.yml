@@ -168,14 +168,8 @@ hotel_prix_supprimer:
 #*******************************************************************************************************
 
 hotel_client_lister:
-    pattern: /{_locale}/client/liste
-    defaults: { _controller: BittichHotelBundle:Client:lister, _locale: fr }
+    pattern: /{_locale}/client/liste/{role}
+    defaults: { _controller: BittichHotelBundle:Admin:lister, _locale: fr }
     requirements:
       _locale: fr|en
 
-hotel_client_inscription:
-    pattern: /{_locale}/client/inscription-client.html
-    defaults: { _controller: BittichHotelBundle:Client:Inscription, _locale: fr }
-    requirements:
-      _locale: fr|en
-      id: \d+

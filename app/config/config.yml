@@ -69,3 +69,13 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Bittich\UserBundle\Entity\User
+    #on utilise notre formulaire d'inscription personnalisé
+    registration:
+        form:
+            type: bittich_userbundle_usertype
+            handler: bittich_user.form.handler.registration
+    profile:
+      form:  
+            type : bittich_userbundle_editusertype
+            
+             
