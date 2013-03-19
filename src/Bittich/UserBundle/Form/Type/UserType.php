@@ -10,19 +10,19 @@ class UserType extends BaseType {
             parent::buildForm($builder, $options);
  $builder
             ->add('nom','text',
-                    array('label'=>'client.nom',
+                    array('label'=>'user.nom',
                     'required'=>true,))
             ->add('prenom','text',
-                    array('label'=>'client.prenom',
+                    array('label'=>'user.prenom',
                     'required'=>true,))
             ->add('adresse','text',
-                    array('label'=>'client.adresse',
+                    array('label'=>'user.adresse',
                     'required'=>true,))
             ->add('npostal','text',
-                    array('label'=>'client.npostal',
+                    array('label'=>'user.npostal',
                     'required'=>true,))
             ->add('localite','text',
-                    array('label'=>'client.localite',
+                    array('label'=>'user.localite',
                     'required'=>true,))
             ;
         

@@ -11,14 +11,15 @@ use Bittich\HotelBundle\Form\RechercheForm;
  * GESTION DES CLIENTS, PROMOTION DES EMPLOYES
  */
 class AdminController extends Controller {
+
     public function indexAction() {
         return $this->render('BittichHotelBundle:Admin:index.html.twig');
-    }    
-
+    }
 
 #Lister l'ensemble des utilisateurs
 
     public function listerAction() {
+        $titre= 'user.liste';
         $users = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('BittichUserBundle:User')
@@ -26,19 +27,40 @@ class AdminController extends Controller {
         $form = $this->get('form.factory')->create(new RechercheForm());
 
         return $this->render('BittichHotelBundle:Admin:lister.html.twig', array('users' => $users,
-                    'form' =>  $form->createView()));
+                    'form' => $form->createView(),
+                    'titre' => $titre,
+            
+            ));
     }
 
     #Lister les utilisateurs en fonction de leur rôle
 
     public function listerRoleAction($role) {
         $em = $this->getDoctrine()->getManager();
-
+        $titre='';
+        switch($role){
+            case 'employe': $role='ROLE_EMPLOYE';
+                $titre.='employe.liste';
+                break;
+            case 'client': $role= 'ROLE_CLIENT';
+                $titre='client.liste';
+                
+                break;
+        }
         $users =
                 $em->getRepository('BittichUserBundle:User')
                 ->findUserByRole($role);
+        $form = $this->get('form.factory')->create(new RechercheForm());
 
-        return $this->render('BittichHotelBundle:Admin:liste_base.html.twig', array('users' => $users));
+        return $this->render('BittichHotelBundle:Admin:lister.html.twig', array('users' => $users,
+                    'form' => $form->createView(),
+                    'titre' => $titre,
+                    
+                ))
+        
+
+
+        ;
     }
 
     #Promotion d'un utilisateur en employé
@@ -49,20 +71,20 @@ class AdminController extends Controller {
         $userManipulator->addRole($user->getUsername(), 'ROLE_EMPLOYE');
         $userManipulator->removeRole($user->getUsername(), 'ROLE_CLIENT');
 
-        $message = $this->get('translator')->trans('user.promote');
+        $message = $this->get('translator')->trans('user.promote.succes',array('%name%'=>$user->getUsername()));
         $this->get('session')->getFlashBag()->add('message', $message);
         //ici on fait une redirection
         return $this->redirect($this->generateUrl('hotel_admin_lister'));
     }
-    
-        #Rétrogration d'un utilisateur en client
+
+    #Rétrogration d'un utilisateur en client
 
     public function demoteAction(User $user) {
         $userManager = $this->get('fos_user.user_manager');
         $userManipulator = new UserManipulator($userManager);
         $userManipulator->removeRole($user->getUsername(), 'ROLE_EMPLOYE');
         $userManipulator->addRole($user->getUsername(), 'ROLE_CLIENT');
-        $message = $this->get('translator')->trans('user.promote');
+        $message = $this->get('translator')->trans('user.demote.succes',array('%name%'=>$user->getUsername()));
         $this->get('session')->getFlashBag()->add('message', $message);
         //ici on fait une redirection
         return $this->redirect($this->generateUrl('hotel_admin_lister'));
@@ -75,20 +97,20 @@ class AdminController extends Controller {
         $userManager = $this->get('fos_user.user_manager');
         $userManipulator = new UserManipulator($userManager);
         $userManipulator->deactivate($user->getUserName());
-        $message = $this->get('translator') ->trans('user.deactivate');
+        $message = $this->get('translator')->trans('user.inactif',array('%name%'=>$user->getUsername()));
         $this->get('session')->getFlashBag()->add('message', $message);
 
         return $this->redirect($this->generateUrl('hotel_admin_lister'));
     }
-    
-        #activation d'un compte
-    
-        public function reactivateAction(User $user) {
-        
+
+    #activation d'un compte
+
+    public function reactivateAction(User $user) {
+
         $userManager = $this->get('fos_user.user_manager');
         $userManipulator = new UserManipulator($userManager);
         $userManipulator->activate($user->getUserName());
-        $message = $this->get('translator') -> trans('user.activate');
+        $message = $this->get('translator')->trans('user.actif',array('%name%'=>$user->getUsername()));
         $this->get('session')->getFlashBag()->add('message', $message);
 
         return $this->redirect($this->generateUrl('hotel_admin_lister'));
@@ -109,12 +131,15 @@ class AdminController extends Controller {
                         ->findUserByNomPrenom($motcle);
             } else {
                 $users = $this
-                        ->getDoctrine()            
-                        ->getManager()
-                        ->getRepository('BittichUserBundle:User')->findAll();
+                                ->getDoctrine()
+                                ->getManager()
+                                ->getRepository('BittichUserBundle:User')->findAll();
             }
             return $this->render("BittichHotelBundle:Admin:liste_base.html.twig"
-                            , array('users' => $users));
+                            , array('users' => $users,
+                                'titre' =>'user.liste',
+                                
+                                ));
         } else {
             return $this->listerAction();
         }

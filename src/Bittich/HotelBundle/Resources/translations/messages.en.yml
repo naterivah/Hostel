@@ -1,18 +1,41 @@
+#######################################################################################################
+#                                             DROITS D'ACCES
+#######################################################################################################
+
+#User
+user.label: User
+user.nom: Name
+user.prenom: FirstName
+user.adresse: Address
+user.npostal: ZIP Code
+user.localite: Place
+user.aucun: No user found.
+user.liste: List of users
+user.type: User's type
+user.statut: Status
+user.promote: Promote
+user.demote: Demote
+user.activer: Activate
+user.desactiver: Deactivate
+user.promote.succes: User %name% has been promoted as employee
+user.demote.succes: User %name% demoted as customer
+user.actif: User's account %name% has been enabled
+user.inactif: User's account %name% has been disabled 
+
 #Client
 client.label: Customer
-client.nom: Name
-client.prenom:  First Name
-client.adresse: Address
-client.npostal: Zip Code
-client.localite: Locality
-client.aucun: No customer found
-client.modifier: Edit customer's account
-client.liste: List of customers
-client.liste.retour: Back to the list of customers
-client.ajouter.succes: Customer successfully added!
-client.modifier.succes: Customer successfully edited!
-client.supprimer.succes: Customer successfully deleted!
-client.inscription: Customer's Registration
+client.liste: Customer's List
+
+#Employé
+employe.label: Employee
+employe.liste: List of employees
+
+#Gérant/admin
+admin.label: Administrator
+admin.switch: Login as 
+switch.exit: Login back as admin 
+
+#######################################################################################################
 
 #Tarif
 tarif.label: Fare
@@ -87,3 +110,5 @@ enregistrer: Save
 modifier: Edit
 supprimer: Delete
 user: User Account
+actif: Enabled
+inactif: Disabled

@@ -1,5 +1,5 @@
 {% extends '::layout.html.twig' %}
-{% block title %}  Index Admin
+{% block title %}  {{'admin.label'|trans}}
 {% endblock %}
 {% block content %}
     {% for flashMessage in app.session.flashbag.get('message') %}
@@ -7,8 +7,8 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
-    <a href=" {{path('hotel_admin_lister')}}">Liste des utilisateurs</a><br />
-    <a href=" {{path('hotel_admin_lister_role',{'role' :'ROLE_CLIENT'})}}">Liste des clients</a><br />
-    <a href=" {{path('hotel_admin_lister_role',{'role' :'ROLE_EMPLOYE'})}}">Liste des employés</a><br />
+    <a href=" {{path('hotel_admin_lister')}}">{{'user.liste'|trans}}</a><br />
+    <a href=" {{path('hotel_admin_lister_role',{'role' :'client'})}}">{{'client.liste'|trans}}</a><br />
+    <a href=" {{path('hotel_admin_lister_role',{'role' :'employe'})}}">{{'employe.liste'|trans}}</a><br />
 
    {% endblock  %}

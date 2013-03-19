@@ -13,8 +13,9 @@ use Doctrine\ORM\EntityRepository;
 class UserRepository extends EntityRepository {
 
     public function findUserByRole($role) {
+        
         $qb = $this->createQueryBuilder('u')
-                ->andWhere('u.roles LIKE :role')
+                 ->where('u.roles LIKE :role')
                 ->setParameter('role', '%' . $role . '%')
                 ->orderBy('u.nom', 'ASC');
         return $qb->getQuery()
@@ -23,7 +24,7 @@ class UserRepository extends EntityRepository {
 
     public function findUserByNomPrenom($motcle) {
         $qb = $this->createQueryBuilder('u')
-                ->andWhere('u.nom LIKE :motcle OR u.prenom LIKE :motcle')
+                ->where('u.nom LIKE :motcle OR u.prenom LIKE :motcle')
                 ->setParameter('motcle', '%' . $motcle . '%')
                 ->orderBy('u.nom', 'ASC');
         return $qb->getQuery()

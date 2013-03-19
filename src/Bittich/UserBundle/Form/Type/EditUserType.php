@@ -11,15 +11,15 @@ class EditUserType extends BaseType {
     public function buildUserForm(FormBuilderInterface $builder, array $options) {
         parent::buildUserForm($builder, $options);
         $builder
-                ->add('nom', 'text', array('label' => 'client.nom',
+                ->add('nom', 'text', array('label' => 'user.nom',
                     'required' => true,))
-                ->add('prenom', 'text', array('label' => 'client.prenom',
+                ->add('prenom', 'text', array('label' => 'user.prenom',
                     'required' => true,))
-                ->add('adresse', 'text', array('label' => 'client.adresse',
+                ->add('adresse', 'text', array('label' => 'user.adresse',
                     'required' => true,))
-                ->add('npostal', 'text', array('label' => 'client.npostal',
+                ->add('npostal', 'text', array('label' => 'user.npostal',
                     'required' => true,))
-                ->add('localite', 'text', array('label' => 'client.localite',
+                ->add('localite', 'text', array('label' => 'user.localite',
                     'required' => true,))
         ;
     }

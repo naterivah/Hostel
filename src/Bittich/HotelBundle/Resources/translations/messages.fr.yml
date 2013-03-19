@@ -1,18 +1,41 @@
+#######################################################################################################
+#                                             DROITS D'ACCES
+#######################################################################################################
+
+#User
+user.label: Utilisateur
+user.nom: Nom
+user.prenom: Prénom 
+user.adresse: Adresse
+user.npostal: Code Postal
+user.localite: Localité
+user.aucun: Aucun utilisateur trouvé
+user.liste: Liste des utilisateurs
+user.type: Type Utilisateur
+user.statut: Statut
+user.promote: Promouvoir
+user.demote: Rétrograder
+user.activer: Activer
+user.desactiver: Désactiver
+user.promote.succes: L'utilisateur %name% a été promu employé
+user.demote.succes: L'utilisateur %name% a été rétrogradé client
+user.actif: Le compte utilisateur %name% a été activé
+user.inactif: Le compte utilisateur %name% a été désactivé 
+
 #Client
 client.label: Client
-client.nom: Nom
-client.prenom: Prénom 
-client.adresse: Adresse
-client.npostal: Code Postal
-client.localite: Localité
-client.aucun: Aucun client trouvé
-client.modifier: Modifier le compte client
 client.liste: Liste des clients
-client.liste.retour: Retour à la liste des clients
-client.ajouter.succes: Client ajouté avec succès!
-client.modifier.succes: Client modifié avec succès!
-client.supprimer.succes: Client supprimé avec succès!
-client.inscription: Inscription du client
+
+#Employé
+employe.label: Employé
+employe.liste: Liste des employés
+
+#Gérant/admin
+admin.label: Administrateur
+admin.switch: Se connecter en tant que
+switch.exit: Se reconnecter en tant qu'admin
+
+#######################################################################################################
 
 #Tarif
 tarif.label: Tarif
@@ -87,3 +110,5 @@ enregistrer: Enregistrer
 modifier: Modifier
 supprimer: Supprimer
 user: Compte Utilisateur
+actif: Activé
+inactif: Désactivé

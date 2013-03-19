@@ -4,19 +4,19 @@
     </div>
 {% endfor %}
 <table border="1">
-        <caption>{{ "User"|trans|upper }}</caption>
+        <caption>{{titre|trans|upper }}</caption>
 
         <tr>
          
-            <th>{{ "client.nom"|trans }}</th>
-            <th>{{ "client.prenom"|trans }}</th>
-            <th>{{ "client.adresse"|trans }}</th>
-            <th>{{ "client.npostal"|trans }}</th>
-            <th>{{ "client.localite"|trans }}</th>
-            <th>Login</th>
-            <th>Email</th>
-            <th>Type Utilisateur</th>
-            <th>Statut</th>
+            <th>{{ "user.nom"|trans }}</th>
+            <th>{{ "user.prenom"|trans }}</th>
+            <th>{{ "user.adresse"|trans }}</th>
+            <th>{{ "user.npostal"|trans }}</th>
+            <th>{{ "user.localite"|trans }}</th>
+            <th>{{'username'|trans}}</th>
+            <th>{{'email'|trans}}</th>
+            <th>{{'user.type'|trans}}</th>
+            <th>{{'user.statut'|trans}}</th>
             <th>Action</th>
 
         </tr>
@@ -31,28 +31,31 @@
             <td>{{usr.email}}</td>
             <td>
                 {% if usr.roles[0] == 'ROLE_CLIENT' %}
-                    Client  | <a href="{{path('hotel_admin_promote',{'id':usr.id})}}">Promouvoir</a>
+                    {{'client.label'|trans}}  | <a href="{{path('hotel_admin_promote',{'id':usr.id})}}">{{'user.promote'|trans}}</a>
                     {% elseif usr.roles[0] == 'ROLE_EMPLOYE' %}
-                    Employé | <a href="{{path('hotel_admin_demote',{'id':usr.id})}}">Rétrograder</a>
+                    {{'employe.label'|trans}}| <a href="{{path('hotel_admin_demote',{'id':usr.id})}}">{{'user.demote'|trans}}</a>
                     {% else %}
                     Admin
                 {% endif %}
             </td>
+            
             <td>
                 {% if usr.roles[0] != 'ROLE_SUPER_ADMIN'  %}
                     {% if usr.enabled %}
-                            Activé | <a href="{{path('hotel_admin_desactiver',{'id': usr.id})}}">Désactiver</a>
+                            {{'actif'|trans}} | <a href="{{path('hotel_admin_desactiver',{'id': usr.id})}}">{{'user.desactiver'|trans}}</a>
                     {% else %}
-                            Désactivé | <a href="{{path('hotel_admin_activer',{'id': usr.id})}}">Activer</a> 
+                            {{'inactif'|trans}} | <a href="{{path('hotel_admin_activer',{'id': usr.id})}}">
+                            {{'user.activer'|trans}}</a> 
                     {% endif %}
                 {% else %}
-                            <p>Administrateur</p>
+                            <p>{{'admin.label'|trans}}</p>
                 {% endif %}
             </td>
+            
             <td>
                 {% if usr.roles[0] != 'ROLE_SUPER_ADMIN' and usr.enabled %}
                     {% autoescape false %}
-                        <a href="{{url('hotel_accueil',{'_switch_user': usr.username})}}">Se connecter en tant que {{usr.nom}}</a>
+                        <a href="{{url('hotel_accueil',{'_switch_user': usr.username})}}"> {{'admin.switch'|trans}} {{usr.nom}}</a>
                     {% endautoescape %}
                 {% else %}
                          <p>~</p>
@@ -61,7 +64,7 @@
         </tr>
     {% else %}
         <tr>
-            <td colspan="10" style="background-color:#FF0000">{{"client.aucun" |trans}}</td>
+            <td colspan="10" style="background-color:#FF0000">{{"user.aucun" |trans}}</td>
 
         </tr>
         {% endfor %}
