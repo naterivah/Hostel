@@ -3,3 +3,5 @@ erreur.champs.vide: Ce champs ne peut pas être vide
 date.unique: La date doit être unique!
 prix.unique: Un prix doit être unique!
 erreur.champs.negatif: Ce champs ne peut pas être négatif!
+erreur.date: La date de départ est inférieur à la date d'arrivée!
+date.limite: Vous pouvez réserver au maximum six mois à l'avance!

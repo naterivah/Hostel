@@ -1,14 +1,21 @@
 {% extends '::layout.html.twig' %}
 {% block title %}  {{'admin.label'|trans}}
 {% endblock %}
-{% block content %}
-    {% for flashMessage in app.session.flashbag.get('message') %}
+{% block menu %}
+{% if is_granted('ROLE_SUPER_ADMIN') %}
+<a href=" {{path('hotel_admin_lister')}}">{{'user.liste'|trans}}</a><br />
+<a href=" {{path('hotel_admin_lister_role',{'role' :'client'})}}">{{'client.liste'|trans}}</a><br />
+<a href=" {{path('hotel_admin_lister_role',{'role' :'employe'})}}">{{'employe.liste'|trans}}</a><br />
+
+{% endif %}
+
+
+   {% endblock  %}
+    {% block content %}
+
+        {% for flashMessage in app.session.flashbag.get('message') %}
 <div>
         {{ flashMessage }}
     </div>
 {% endfor %}
-    <a href=" {{path('hotel_admin_lister')}}">{{'user.liste'|trans}}</a><br />
-    <a href=" {{path('hotel_admin_lister_role',{'role' :'client'})}}">{{'client.liste'|trans}}</a><br />
-    <a href=" {{path('hotel_admin_lister_role',{'role' :'employe'})}}">{{'employe.liste'|trans}}</a><br />
-
-   {% endblock  %}
+       {% endblock  %}

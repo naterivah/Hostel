@@ -20,21 +20,21 @@ hotel_tarif_lister:
       _locale: fr|en
 
 hotel_tarif_ajouter:
-    pattern: /{_locale}/tarif/ajouter
+    pattern: /{_locale}/admin/tarif/ajouter
     defaults: { _controller: BittichHotelBundle:Tarif:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
 
 hotel_tarif_editer:
-    pattern: /{_locale}/tarif/editer/{id}
+    pattern: /{_locale}/admin/tarif/editer/{id}
     defaults: { _controller: BittichHotelBundle:Tarif:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
       
 hotel_tarif_supprimer:
-    pattern: /{_locale}/tarif/supprimer/{id}
+    pattern: /{_locale}/admin/tarif/supprimer/{id}
     defaults: { _controller: BittichHotelBundle:Tarif:supprimer, _locale: fr }
     requirements:
       _locale: fr|en
@@ -51,21 +51,21 @@ hotel_modele_lister:
       _locale: fr|en
 
 hotel_modele_ajouter:
-    pattern: /{_locale}/modele/ajouter
+    pattern: /{_locale}/employe/modele/ajouter
     defaults: { _controller: BittichHotelBundle:Modele:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
 
 hotel_modele_editer:
-    pattern: /{_locale}/modele/editer/{id}
+    pattern: /{_locale}/employe/modele/editer/{id}
     defaults: { _controller: BittichHotelBundle:Modele:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
       
 hotel_modele_supprimer:
-    pattern: /{_locale}/modele/supprimer/{id}
+    pattern: /{_locale}/employe/modele/supprimer/{id}
     defaults: { _controller: BittichHotelBundle:Modele:supprimer, _locale: fr }
     requirements:
       _locale: fr|en
@@ -82,21 +82,21 @@ hotel_chambre_lister:
       _locale: fr|en
 
 hotel_chambre_ajouter:
-    pattern: /{_locale}/chambre/ajouter
+    pattern: /{_locale}/employe/chambre/ajouter
     defaults: { _controller: BittichHotelBundle:Chambre:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
 
 hotel_chambre_editer:
-    pattern: /{_locale}/chambre/editer/{id}
+    pattern: /{_locale}/employe/chambre/editer/{id}
     defaults: { _controller: BittichHotelBundle:Chambre:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
       
 hotel_chambre_supprimer:
-    pattern: /{_locale}/chambre/supprimer/{id}
+    pattern: /{_locale}/employe/chambre/supprimer/{id}
     defaults: { _controller: BittichHotelBundle:Chambre:supprimer, _locale: fr }
     requirements:
       _locale: fr|en
@@ -113,21 +113,21 @@ hotel_calendrier_lister:
       _locale: fr|en
 
 hotel_calendrier_ajouter:
-    pattern: /{_locale}/calendrier/ajouter
+    pattern: /{_locale}/employe/calendrier/ajouter
     defaults: { _controller: BittichHotelBundle:Calendrier:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
 
 hotel_calendrier_editer:
-    pattern: /{_locale}/calendrier/editer/{id}
+    pattern: /{_locale}/employecalendrier/editer/{id}
     defaults: { _controller: BittichHotelBundle:Calendrier:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
       
 hotel_calendrier_supprimer:
-    pattern: /{_locale}/calendrier/supprimer/{id}
+    pattern: /{_locale}/employe/calendrier/supprimer/{id}
     defaults: { _controller: BittichHotelBundle:Calendrier:supprimer, _locale: fr }
     requirements:
       _locale: fr|en
@@ -144,26 +144,72 @@ hotel_prix_lister:
       _locale: fr|en
 
 hotel_prix_ajouter:
-    pattern: /{_locale}/prix/ajouter
+    pattern: /{_locale}/admin/prix/ajouter
     defaults: { _controller: BittichHotelBundle:Prix:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
 
 hotel_prix_editer:
-    pattern: /{_locale}/prix/{idmodele}-{idtarif}
+    pattern: /{_locale}/admin/prix/{idmodele}-{idtarif}
     defaults: { _controller: BittichHotelBundle:Prix:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
       
 hotel_prix_supprimer:
-    pattern: /{_locale}/prix/supprimer/{idmodele}-{idtarif}
+    pattern: /{_locale}/admin/prix/supprimer/{idmodele}-{idtarif}
     defaults: { _controller: BittichHotelBundle:Prix:supprimer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
+  
+#*******************************************************************************************************
+#Réservation********************************************************************************************
+#*******************************************************************************************************
       
+hotel_reservation_lister:
+    pattern: /{_locale}/reservation/liste
+    defaults: { _controller: BittichHotelBundle:Reservation:lister, _locale: fr }
+    requirements:
+      _locale: fr|en
+
+hotel_reservation_ajouter:
+    pattern: /{_locale}/reservation/ajouter
+    defaults: { _controller: BittichHotelBundle:Reservation:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+
+hotel_reservation_editer:
+    pattern: /{_locale}/reservation/editer/{id}
+    defaults: { _controller: BittichHotelBundle:Reservation:editer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+      
+hotel_reservation_supprimer:
+    pattern: /{_locale}/reservation/supprimer/{id}
+    defaults: { _controller: BittichHotelBundle:Reservation:supprimer, _locale: fr }
+    requirements:
+      _locale: fr|en
+      id: \d+
+      
+hotel_reservation_nouveau:
+    pattern: /{_locale}/reservation/nouveau
+    defaults: { _controller: BittichHotelBundle:Reservation:nouveau, _locale: fr ,_format: json}
+    requirements:
+      _locale: fr|en
+      id: \d+ 
+hotel_reservation_nouvelle:
+    pattern: /{_locale}/reservation/nouvelle-reservation
+    defaults: { _controller: BittichHotelBundle:Reservation:nouvelleReservation, _locale: fr}
+    requirements:
+      _locale: fr|en
+      id: \d+      
+      
+      
+
 #*******************************************************************************************************
 #SuperAdmin*********************************************************************************************
 #*******************************************************************************************************

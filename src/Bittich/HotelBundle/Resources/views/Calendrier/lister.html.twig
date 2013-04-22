@@ -6,7 +6,7 @@
 
 {% block content %}
     {% for flashMessage in app.session.flashbag.get('message') %}
-    <div class="flash-notice">
+<div class="flash-notice">
         {{ flashMessage }}
     </div>
 {% endfor %}
@@ -14,13 +14,14 @@
         <caption>{{ "calendrier.liste"|trans|upper }}</caption>
 
         <tr>
-         
+
             <th>{{ "calendrier.datej"|trans }}</th>
             <th>{{ "tarif.couleur"|trans }}</th>
             <th>{{ "calendrier.nbredispo"|trans }}</th>
             <th>{{ "chambre.disponibilites"|trans }}</th>
-
+{% if is_granted('ROLE_EMPLOYE') %}
             <th colspan="2">Options</th>
+    {% endif %}        
         </tr>
             {% for cal in calendriers %}
         <tr>
@@ -37,19 +38,25 @@
                             <option value="{{dispo.id}}">{{'chambre.etagenumero'|trans({'%etage%':dispo.etage, '%numero%':dispo.id})}}</option> 
                 {% endfor %}
                         </select>
-                   
+
           {% endif %}</td>
-            <td>    <p><a href=" {{path('hotel_calendrier_editer',{'id' : cal.id})}}">{{"modifier"|trans}}</a></p></td>
-            
-           <td>    <p><a href=" {{path('hotel_calendrier_supprimer',{'id' : cal.id})}}">{{"supprimer"|trans}}</a></p></td>
+                {% if is_granted('ROLE_EMPLOYE') %}
 
-        </tr>
+                    <td>    <p><a href=" {{path('hotel_calendrier_editer',{'id' : cal.id})}}">{{"modifier"|trans}}</a></p></td>
+
+                    <td>    <p><a href=" {{path('hotel_calendrier_supprimer',{'id' : cal.id})}}">{{"supprimer"|trans}}</a></p></td>
+    {% endif %}        
+
+                </tr>
     {% else %}
-        <tr>
-            <td colspan="6" style="background-color:#FF0000">{{"calendrier.aucun" |trans}}</td>
+                <tr>
+                    <td colspan="6" style="background-color:#FF0000">{{"calendrier.aucun" |trans}}</td>
 
-        </tr>
+                </tr>
         {% endfor %}
-    </table>
-    <p><a href=" {{path('hotel_calendrier_ajouter')}}">{{"calendrier.ajouter"|trans}}</a></p>
+            </table>
+{% if is_granted('ROLE_EMPLOYE') %}
+
+            <p><a href=" {{path('hotel_calendrier_ajouter')}}">{{"calendrier.ajouter"|trans}}</a></p>
+    {% endif  %}
 {% endblock %}

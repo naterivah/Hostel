@@ -26,7 +26,7 @@ class ChambreController extends Controller {
        
         $chambres=
                $em->getRepository('BittichHotelBundle:Chambre')
-                ->getChambreAvecModele() ;
+                ->getChambre() ;
        
         return $this->render('BittichHotelBundle:Chambre:lister.html.twig',
                 array('chambres' => $chambres));

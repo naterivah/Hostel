@@ -59,7 +59,7 @@ security:
        
       #page accessible aux employés
 
-        - { path: .*/employes/.*, role: ROLE_EMPLOYE }
+        - { path: .*/employe/.*, role: ROLE_EMPLOYE }
 
 
       #page accessible aux clients connectés

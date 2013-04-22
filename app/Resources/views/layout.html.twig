@@ -1,24 +1,273 @@
-{# la fonction asset permet d'appeler une image, un script javascript ou une feuille css #}
-<html>
-    <head>
-        {#AJAX#}
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-            <title>
-            {%  block title  %}
-                
-            {% endblock %}
-
-                </title>
-                <meta charset="utf-8">
-
-            </head>
-
-            <body>
-
-                   {% block content %}
-                    {% endblock %}
+<!DOCTYPE html>
+    {% block header_base %}
+<head>
+    <meta charset="utf-8">
+    <title>Projet internet/intranet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
 
-            </body>
+        {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+    <style type="text/css">
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
 
-        </html>
+            input {
+                max-width: 90%;
+            } 
+            button{
+
+                max-width: 100%;
+                max-height: 100%;
+            }
+
+
+
+            .sidebar-nav {
+                padding: 9px 0;
+            }
+
+            @media (max-width: 980px) {
+
+                .navbar-text.pull-right {
+                    float: none;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}" type="text/css" />
+
+        {% endblock %}
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="../assets/js/html5shiv.js"></script>
+        <![endif]-->
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script>
+           $(document).ready(function() {  
+           
+        $("#nouv_res").submit(function(){
+            event.preventDefault();
+            var depart= $("#depart").val();
+            var arrivee= $("#arrivee").val();
+            var litbebe= $("#litbebe").val();
+            var data= {"depart":depart,"arrivee":arrivee,"litbebe":litbebe};
+                            
+                     $.ajax({
+                        url: "{{path('hotel_reservation_nouveau') }}",
+                        dataType: 'json',
+                        type: "POST",
+                        data:data,
+                        complete: function(xhr, result){
+                            if(result!= "success") { alert("erreur");return;}
+                            resp= $.parseJSON(xhr.responseText);
+
+                            alert(resp.date);
+                            alert(resp.diff);
+                            txt='';
+                       
+                            $.each(resp.idcha,function(k,v){
+                                txt+=v+"&";
+                    });
+                    alert('id :'+resp.idres);
+                    txt=txt.slice(0,-1);
+                   resp=resp.idres;
+
+                   
+                    var route="{{url('hotel_reservation_nouvelle', {"id":"PLACEHOLDER"})}}";
+                    window.location.href= route.replace("PLACEHOLDER",resp);
+                   // $(location).attr('href',);
+                        }
+                    }
+                  
+            );  
+  return false;
+        });
+        });
+            </script>
+
+            <!-- Fav and touch icons -->
+            <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('img/apple-touch-icon-144-precomposed.png')}}">
+            <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('img/apple-touch-icon-114-precomposed.png')}}">
+            <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
+            <link rel="apple-touch-icon-precomposed" href="{{asset('img/apple-touch-icon-57-precomposed.png')}}">
+            <link rel="shortcut icon" href="{{asset('img/assets/ico/favicon.png')}}">
+        </head>
+    {% endblock %}
+        <body>
+
+      {% block navbar  %}
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="brand"  href="{{path('hotel_accueil')}}">Projet Internet/Intranet</a>
+                        <div class="nav-collapse collapse">
+                        {#FOFM Connexion #}
+                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <ul class="nav nav-pills pull-right">
+                                    <li class="active"> <a href="{{path("fos_user_profile_show")}}">{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
+                                    <li><a href="{{path("fos_user_security_logout")}}">{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
+                                </ul>
+                         {% else %}
+                            {% render(path("fos_user_security_login")) %}
+                         {% endif %}
+                                <ul class="nav">
+                                    <li><a href="{{path('hotel_accueil', {'_locale': 'en'})}}">English</a></li>
+                                    <li><a href="{{path('hotel_accueil', {'_locale': 'fr'})}}">Français</a></li>
+
+                                    <li>
+                                        <a href="{{path("fos_user_registration_register")}}">{{'layout.register'|trans([],'FOSUserBundle')}}</a>
+
+                                    </li>
+
+
+                                </ul>
+                            </div><!--/.nav-collapse -->
+                        </div>
+                    </div>
+                </div>
+     {% endblock %}
+
+
+
+                <div class="container-fluid">
+                    <div class="row-fluid">
+
+
+                        <div class="span2">
+                                                                         {% if is_granted('ROLE_CLIENT') %}
+
+                                <div id="bar" class="well sidebar-nav">
+                                    <ul class="nav nav-list pagination">
+                                        <li class="nav-header">Réservation</li>
+                                        <form id="nouv_res" action= "" method = "post">
+
+                                            <li><input id ="arrivee" type="date" autofocus="true" required="true" placeholder="Date d'arrivée"></li>
+                                            <li><input id="depart" type="date" required="true" placeholder="Date de départ"></li>
+                                            <li><input id="litbebe"  type="number" required="true" placeholder="Nombre de lits bébés"></li>
+                                            <button type="submit" id="sub" class="btn btn-success">Envoyer</button>
+                                        </form>
+
+
+                                    </ul>
+
+
+                                </div><!--/.well -->
+                                                    {%  endif %}
+
+                                <div class="well sidebar-nav">
+
+                                    <ul class="nav nav-list">
+
+                                        <li class="nav-header">{%block titremenu%}Menu{%endblock%}</li>
+
+
+                             {% block menu %}
+                            {% endblock %}
+                                    </ul>
+
+                                </div><!--/.well -->
+                            </div><!--/span-->
+                            <div class="span10">
+                                <div class="hero-unit">
+                                    <h1>
+                        {% block title %}
+                                            Bienvenue chez Morray's Hostel!
+                        {% endblock %}
+                                        </h1>
+
+
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <h2>Projet internet intranet</h2>
+                            {% block content %}
+                                            <blockquote>
+                                                <p class="lead alert alert-info">
+                                                    Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
+                                                    du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
+                                                    d'un framework MVC d'autre part. J'ai ainsi pu développer mes connaissances en matière d'ORM (via Doctrine), de templating (via Twig),etc.
+                                                    
+                                                </p>
+                                                <p class="alert alert-error">
+                                                User: admin , mot de passe: admin
+                                                </p>
+                                                <p>
+                                                <p class= "alert alert-message">
+                                                    Un hôtel souhaite disposer d’une application informatique pour la gestion des 
+                                                    réservations de ses chambres et de sa tarification.
+                                                    L’hôtel dispose de plusieurs modèles de chambres qui se différencient par la 
+                                                    présence ou non d’une baignoire, d’une douche, d’un WC, du nombre de lits simple 
+                                                    et du nombre de lits double. Ces modèles serviront de référence pour 
+                                                    l’établissement de la tarification. 
+                                                    L’hôtelier souhaite appliquer différents tarifs sur base de périodes saisonnières 
+                                                    qu’il fixera lui-même en fonction de sa politique commerciale. Pour des raisons 
+                                                    pratiques, ces périodes se différencieront par une couleur (saison blanche, 
+                                                    saison verte, saison bleue, saison rouge). L’hôtelier souhaite se réserver le droit 
+                                                    d’ajouter ou de supprimer des périodes de tarification différentes. 
+                                                    Chaque chambre de l’hôtel sera caractérisée par un numéro unique, l’étage auquel 
+                                                    elle se situe et le modèle auquel elle correspond. Certaines chambres auront la 
+                                                    possibilité d’accueillir un lit bébé supplémentaire, qui sera soit amené par le 
+                                                    client, soit proposé par l’hôtelier moyennant un supplément. Le supplément pour 
+                                                    le lit bébé dépendra lui aussi de la période de tarification. Le nombre de lits 
+                                                    bébé dont dispose l’hôtelier est cependant limité. 
+                                                    L’hôtelier doit pouvoir facilement obtenir la disponibilité de ses chambres et de 
+                                                    ses lits bébé jour par jour. 
+                                                    Un client pourra réserver une ou plusieurs chambres et éventuellement un ou 
+                                                    plusieurs lits bébé pour une période déterminée. Les réservations pourront être 
+                                                    enregistrées 6 mois à l’avance. Pour chaque réservation, il y aura lieu de retenir 
+                                                    la date à laquelle elle a été effectuée, le prix total convenu, la date limite pour le 
+                                                    paiement de l’acompte convenu ainsi que la date à laquelle il a été effectivement 
+                                                    versé. 
+                                                    L’hôtelier souhaite conserver les nom, prénom et adresses de ses bons clients 
+                                                    afin de leur attribuer des réductions ou de ne pas exiger le versement d’un 
+                                                    acompte lors d’une réservation future. 
+                                                </p>
+                                            </blockquote>
+                            {% endblock %}
+                                            <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
+                                        </div><!--/span-->
+
+                                    </div><!--/span-->
+                                </div><!--/row-->
+                            </div><!--/span-->
+                        </div><!--/row-->
+
+                        <hr>
+
+                        <footer>
+                            <p>&copy; Nordine Bittich - 2013</p>
+                        </footer>
+
+                    </div><!--/.fluid-container-->
+
+  {% block javascripts %}
+            {#
+            <script src="{{asset('js/bootstrap-transition.js')}}"></script>
+            <script src="{{asset('js/bootstrap-alert.js')}}"></script>
+            <script src="{{asset('js/bootstrap-modal.js')}}"></script>
+            <script src="{{asset('js/bootstrap-dropdown.js')}}"></script>
+            <script src="{{asset('js/bootstrap-scrollspy.js')}}"></script>
+            <script src="{{asset('js/bootstrap-tab.js')}}"></script>
+            <script src="{{asset('js/bootstrap-tooltip.js')}}"></script>
+            <script src="{{asset('js/bootstrap-popover.js')}}"></script>
+            <script src="{{asset('js/bootstrap-button.js')}}"></script>
+            <script src="{{asset('js/bootstrap-collapse.js')}}"></script>
+            <script src="{{asset('js/bootstrap-carousel.js')}}"></script>
+            <script src="{{asset('js/bootstrap-typeahead.js')}}"></script>
+#}
+   {% endblock %}
+
+
+                </body>
+            </html>

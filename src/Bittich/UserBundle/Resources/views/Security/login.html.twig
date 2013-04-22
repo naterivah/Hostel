@@ -1,0 +1,21 @@
+
+{% if error %}
+    {% render path('hotel_accueil')  %}
+{% endif %}
+
+<form class="navbar-form pull-right" action="{{ path("fos_user_security_check") }}" method="post">
+  
+
+    <input class="span2" type="text" id="username" name="_username" value="{{ last_username }}"  
+           placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}"/>
+
+    <input class="span2"  type="password" id="password" name="_password" 
+           placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}"/>
+        
+      <input type="checkbox"id="remember_me" name="_remember_me" value="on"/>
+     <button type="submit" class="btn" id="_submit" name="_submit">
+         
+{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}</button>
+        <input class="span2" type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+</form>
+

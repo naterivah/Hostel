@@ -5,7 +5,9 @@
 {% endblock %}
                       
 {% block content %}
-
+{% block javascripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{% endblock %}
 <form id="form_recherche" action= "{{path('hotel_admin_rechercher')}}" method="post">
     {{form_widget(form)}}
         <input type="submit" value = "{{"rechercher"|trans}}"/>

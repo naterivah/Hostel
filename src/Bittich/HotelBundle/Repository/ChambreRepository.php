@@ -1,5 +1,7 @@
 <?php
+
 namespace Bittich\HotelBundle\Repository;
+
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -9,16 +11,21 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class ChambreRepository extends EntityRepository {
+
+   
+
     //pour ne faire qu'une seule requete (jointure)
-    public function getChambreAvecModele() {
+    public function getChambre() {
         $qb = $this->createQueryBuilder('a')
                 ->leftJoin('a.modele', 'm')
-                ->leftJoin('a.disponibilites','d')
+                ->leftJoin('a.disponibilites', 'd')
                 ->addSelect('d')
                 ->addSelect('m');
 
         return $qb->getQuery()
-                  ->getResult();
+                        ->getResult();
     }
+    
+
 
 }

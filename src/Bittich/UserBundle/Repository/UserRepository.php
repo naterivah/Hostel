@@ -30,5 +30,12 @@ class UserRepository extends EntityRepository {
         return $qb->getQuery()
                         ->getResult();
     }
-
+    public function findUserByUserName($id) {
+        $qb = $this->createQueryBuilder('u')
+                ->where('u.username LIKE :id')
+                ->setParameter('id',"%".$id."%")
+                ;
+        return $qb->getQuery()
+                        ->getOneOrNullResult();
+    }
 }

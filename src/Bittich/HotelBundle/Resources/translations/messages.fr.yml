@@ -81,6 +81,7 @@ calendrier.supprimer.succes: Date  supprimée avec succès!
 calendrier.disponibilites: Disponibilités
 
 #Chambre
+chambre.label: Chambre
 chambre.etage: Etage
 chambre.litbebe: Lit bébé
 chambre.liste: Liste des chambres
@@ -104,6 +105,26 @@ prix.ajouter: Ajouter un prix
 prix.ajouter.succes: Prix ajouté avec succès!
 prix.modifier.succes: Prix modifié avec succès!
 prix.supprimer.succes: Prix supprimé avec succès! 
+
+#Réservation
+resa.label: Réservation
+resa.numero: N° de réservation
+resa.date_arrivee: Arrivée
+resa.date_depart: Départ
+resa.prix_total: Prix total
+resa.nbre_bebe: Nbre de bébés
+resa.accompte: Acompte demandé
+resa.date_limite: Date limite acompte
+resa.date_versement: Date de versement de l'acompte
+resa_date_resa: Date de réservation
+resa.liste: Liste des réservations
+resa.liste.retour: Retour à la liste des réservations
+resa.aucun: Aucune réservation trouvée
+resa.ajouter: Nouvelle réservation
+resa.modifier: Modifier une réservation
+resa.modifier.succes: Réservation modifiée avec succès!
+resa.supprimer.succes:  Réservation supprimée avec succès!
+resa.ajouter.succes: Réservation ajoutée avec succès!
 
 #Général
 enregistrer: Enregistrer

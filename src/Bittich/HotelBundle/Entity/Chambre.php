@@ -47,11 +47,12 @@ class Chambre {
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(message = "erreur.champs.vide")
      */
-    protected $modele;
-// Je persiste en cascade la date, puisque je mettrai à jour les disponibilités
+    protected $modele;      
+    
+    # Je persiste en cascade la date, puisque je mettrai à jour les disponibilités
     /**
-     * @ORM\ManyToMany(targetEntity="Calendrier", cascade = "persist", inversedBy="chambres")
-             * @ORM\JoinTable(name="disponibilites")
+     * @ORM\ManyToMany(targetEntity="Calendrier", cascade = "persist", inversedBy="chambres")         
+     * @ORM\JoinTable(name="disponibilites")
      */
     protected $disponibilites;
 
@@ -167,6 +168,10 @@ class Chambre {
      */
     public function getDisponibilites() {
         return $this->disponibilites;
+    }
+    
+    public function getNumeroEtage(){
+        return $this->id .":". $this->etage;
     }
     
 

@@ -19,8 +19,10 @@
             <th>{{ "chambre.litbebe"|trans }}</th>
             <th>{{ "modele.label"|trans }}</th>
             <th>{{ "calendrier.disponibilites"|trans }}</th>
+{% if is_granted('ROLE_EMPLOYE') %}
 
             <th colspan="2">Options</th>
+            {% endif %}
         </tr>
             {% for cha in chambres %}
         <tr>
@@ -41,9 +43,12 @@
                    
           {% endif %}
             </td>
+            {% if is_granted('ROLE_EMPLOYE') %}
+
                     <td>    <p><a href=" {{path('hotel_chambre_editer',{'id' : cha.id})}}">{{"modifier"|trans}}</a></p></td>
 
                     <td>    <p><a href=" {{path('hotel_chambre_supprimer',{'id' : cha.id})}}">{{"supprimer"|trans}}</a></p></td>
+            {% endif %}
 
                 </tr>
     {% else %}
@@ -53,5 +58,9 @@
                 </tr>
         {% endfor %}
             </table>
+            {% if is_granted('ROLE_EMPLOYE') %}
+
             <p><a href=" {{path('hotel_chambre_ajouter')}}">{{"chambre.ajouter"|trans}}</a></p>
+                        {% endif %}
+
 {% endblock %}

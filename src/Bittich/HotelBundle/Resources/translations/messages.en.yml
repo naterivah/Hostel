@@ -81,6 +81,7 @@ modele.modifier.succes: Model %name% successfully edited!
 modele.supprimer.succes: Model %name% successfully deleted! 
 
 #Chambre
+chambre.label: Room
 chambre.etage: Floor
 chambre.litbebe: Bed for baby
 chambre.liste: List of rooms
@@ -104,6 +105,26 @@ prix.ajouter: Add a price
 prix.ajouter.succes: Price successfully added!
 prix.modifier.succes: Price successfully edited!
 prix.supprimer.succes: Price successfully deleted!
+
+#Réservation
+resa.label: Reservation
+resa.numero: Reservation's number
+resa.date_arrivee: Arrival
+resa.date_depart: Departure
+resa.prix_total: Total price
+resa.nbre_bebe: Number of babies
+resa.accompte: Account
+resa.date_limite: Date limit account
+resa.date_versement: Date of advance received
+resa_date_resa: Date reservation
+resa.liste: List of reservations
+resa.liste.retour: Back to the list of reservations
+resa.aucun: No Reservation found
+resa.ajouter: New reservation
+resa.modifier: Edit a reservation
+resa.modifier.succes: Reservation successfully edited!
+resa.supprimer.succes: Reservation successfully deleted!
+resa.ajouter.succes: Reservation successfully added!
 
 #Général
 enregistrer: Save

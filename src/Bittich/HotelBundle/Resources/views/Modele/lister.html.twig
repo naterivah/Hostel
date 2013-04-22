@@ -20,7 +20,10 @@
             <th>{{ "modele.wc"|trans }}</th>
             <th>{{ "modele.nbrelit2"|trans }}</th>
             <th>{{ "modele.nbrelit1"|trans }}</th>
+            {% if is_granted('ROLE_EMPLOYE') %}
+
             <th colspan="2">Options</th>
+            {% endif %}
         </tr>
             {% for mod in modeles %}
         <tr>
@@ -30,9 +33,12 @@
             <td>{{mod.wc}}</td>
             <td>{{mod.nbrelit2}}</td>
             <td>{{mod.nbrelit1}}</td>
+                        {% if is_granted('ROLE_EMPLOYE') %}
+
             <td>    <p><a href=" {{path('hotel_modele_editer',{'id' : mod.id})}}">{{"modifier"|trans}}</a></p></td>
             
            <td>    <p><a href=" {{path('hotel_modele_supprimer',{'id' : mod.id})}}">{{"supprimer"|trans}}</a></p></td>
+            {% endif %}
 
         </tr>
     {% else %}
@@ -42,5 +48,9 @@
         </tr>
         {% endfor %}
     </table>
+                        {% if is_granted('ROLE_EMPLOYE') %}
+
     <p><a href=" {{path('hotel_modele_ajouter')}}">{{"modele.ajouter"|trans}}</a></p>
+                {% endif %}
+
 {% endblock %}
