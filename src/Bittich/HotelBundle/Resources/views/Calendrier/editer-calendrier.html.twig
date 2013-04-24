@@ -14,6 +14,8 @@
                 <tr>
                     <td> {{ form_label(form.datej) }} </td>
                     <td> {{ form_label(form.tarif) }} </td>
+                    <td> {{ form_label(form.nbrelitbebe) }} </td>
+
                    {# <td> {{ form_label(form.nbredispo) }} </td> #}
 
                 </tr>
@@ -24,6 +26,9 @@
                         <td> {{ form_errors(form.tarif) }} 
                              {{ form_widget(form.tarif) }}
                             </td>
+                            <td> {{ form_errors(form.nbrelitbebe) }} 
+                             {{ form_widget(form.nbrelitbebe) }}
+                                </td>
                            {# <td> {{ form_errors(form.nbredispo) }} 
                              {{ form_widget(form.nbredispo) }}
                                 </td>#}

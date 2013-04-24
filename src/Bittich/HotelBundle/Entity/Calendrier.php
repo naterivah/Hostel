@@ -38,7 +38,12 @@ class Calendrier {
      * @Assert\NotBlank(message = "erreur.champs.vide")
      */
     protected $tarif;
-
+    
+    /**
+     * @var integer
+     * @ORM\Column(name="nbrelitbebe", type="integer")
+     */
+    private $nbrelitbebe;
 
     /**
      * @ORM\ManyToMany(targetEntity="Chambre", cascade = "persist", mappedBy="disponibilites")
@@ -144,4 +149,27 @@ class Calendrier {
         return $this->chambres;
     }
 
+
+    /**
+     * Set nbrelitbebe
+     *
+     * @param integer $nbrelitbebe
+     * @return Calendrier
+     */
+    public function setNbrelitbebe($nbrelitbebe)
+    {
+        $this->nbrelitbebe = $nbrelitbebe;
+    
+        return $this;
+    }
+
+    /**
+     * Get nbrelitbebe
+     *
+     * @return integer 
+     */
+    public function getNbrelitbebe()
+    {
+        return $this->nbrelitbebe;
+    }
 }

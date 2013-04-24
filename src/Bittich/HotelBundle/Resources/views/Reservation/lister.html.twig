@@ -26,6 +26,7 @@
             <th>{{'resa_date_resa'|trans }}</th> 
             <th>{{'client.label'|trans }}</th> 
             <th>{{'chambre.label'|trans }}</th> 
+
                         {% if is_granted('ROLE_EMPLOYE') %}
 
             <th colspan="2">Options</th>
@@ -43,38 +44,39 @@
             <td>{{res.datelimiteacompte|date('d/m/Y')}}</td>
             <td>{{res.dateversementacompte|date('d/m/Y')}}</td>
             <td>{{res.datereservation|date('d/m/Y')}}</td>
-            <td>{{res.client.username }}</td> 
+            <td>{{res.client.username}}</td> 
             <td> <select>
                 {% for ch in res.chambres %}
                             <option>{{ch.numeroetage}}</option>
                  {% endfor %}
-                     </select></td>
+                        </select></td>
+              
                                              {% if is_granted('ROLE_EMPLOYE') %}
 
-                     <td>    
-                <p><a href=" {{path('hotel_reservation_editer',
+                    <td>    
+                        <p><a href=" {{path('hotel_reservation_editer',
                 {'id' : res.id})}}">{{"modifier"|trans}}
                                   </a></p>
-                          </td>
+                            </td>
 
-                          <td>    <p><a href=" {{path('hotel_reservation_supprimer',
+                            <td>    <p><a href=" {{path('hotel_reservation_supprimer',
                 {'id': res.id})}}">
                 {{"supprimer"|trans}}</a></p></td>
                                                       {% endif %}
 
 
-                                  </tr>
+                                    </tr>
     {% else %}
-                                  <tr>
-                                      <td colspan="11" style="background-color:#FF0000">{{"resa.aucun" |trans}}</td>
+                                    <tr>
+                                        <td colspan="11" style="background-color:#FF0000">{{"resa.aucun" |trans}}</td>
 
-                                  </tr>
+                                    </tr>
         {% endfor %}
-                              </table>                        
+                                </table>                        
 {% if is_granted('ROLE_EMPLOYE') %}
 
 
-                              <p><a href=" {{path('hotel_reservation_ajouter')}}">{{"resa.ajouter"|trans}}</a></p>
+                                <p><a href=" {{path('hotel_reservation_ajouter')}}">{{"resa.ajouter"|trans}}</a></p>
                                                   {% endif %}
 
 {% endblock %}

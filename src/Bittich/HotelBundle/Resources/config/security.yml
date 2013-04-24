@@ -17,7 +17,7 @@ security:
             pattern: .*
             form_login:
                 provider: fos_userbundle
-                login_path: fos_user_security_login
+                login_path: hotel_accueil
                 use_forward: false
                 check_path: fos_user_security_check
                 failure_path: null

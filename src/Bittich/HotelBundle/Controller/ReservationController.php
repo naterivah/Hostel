@@ -24,38 +24,40 @@ class ReservationController extends Controller {
 
     public function nouveauAction() {
         $req = $this->getRequest();
-        if ($req->isXmlHttpRequest()) {
-            try {
-                $arrivee = new \DateTime($req->get('arrivee'));
-                $depart = new \DateTime($req->get('depart'));
-                $difference = $arrivee->diff($depart);
-                $diff = $difference->days;
-                $litbebe = $req->get('litbebe');
-                $em = $this->getDoctrine()->getManager();
-                $chambres = $em->getRepository("BittichHotelBundle:Chambre")->getChambre();
-                $idCha = array();
-                $chbres = array();
+        $message = '';
+        // if ($req->isXmlHttpRequest()) {
+        try {
+            $arrivee = new \DateTime($req->get('arrivee'));
+            $depart = new \DateTime($req->get('depart'));
+            $difference = $arrivee->diff($depart);
+            $diff = $difference->days;
+            $litbebe = $req->get('litbebe');
+            $em = $this->getDoctrine()->getManager();
+            $chambres = $em->getRepository("BittichHotelBundle:Chambre")->getChambre();
 
-                if ($difference->invert == 0) {
-                    foreach ($chambres as $chambre) {
+            $chbres = array();
 
-                        $temp = clone $arrivee;
-                        $disp = array();
-                        $dispo = $chambre->getDisponibilites();
-                        for ($i = 0; $i < $diff; $i++) {
-                            $temp->add(new \DateInterval('P1D'));
-                            foreach ($dispo as $val) {
-                                if ($val->getDatej() == $temp) {
-                                    $disp[] = $val;
-                                    break;
-                                }
+            if ($difference->invert == 0) {
+                foreach ($chambres as $chambre) {
+
+                    $temp = clone $arrivee;
+                    $disp = array();
+                    $dispo = $chambre->getDisponibilites();
+                    for ($i = 0; $i < $diff; $i++) {
+                        $temp->add(new \DateInterval('P1D'));
+                        foreach ($dispo as $val) {
+                            if ($val->getDatej() == $temp && $val->getNbrelitbebe() >= $litbebe) {
+                                $disp[] = $val;
+                                break;
                             }
                         }
-                        if (count($disp) == $diff) {
-                            $idCha[] = $chambre->getId();
-                            $chbres[] = $chambre;
-                        }
                     }
+                    if (count($disp) == $diff) {
+
+                        $chbres[] = $chambre;
+                    }
+                }
+                if (count($chbres) > 0) {
                     //persist
                     $uscl = $this->container->get('security.context')->getToken()->getUser();
                     $res = new Reservation();
@@ -69,19 +71,28 @@ class ReservationController extends Controller {
                     $res->setNbreBebe($litbebe);
                     $em->persist($res);
                     $em->flush();
-                    $id = $res->getId();
+                    // $id = $res->getId();
+                    return $this->render('BittichHotelBundle:Reservation:nouvelle-reservation.html.twig', array(
+                                'res' => $res,
+                                    )
+                    );
                 } else {
-                    $diff = -($diff);
+                    $message.= $this->get('translator')->trans('chambre.aucun');
                 }
-                $tab = array('date' => ("La réservation se fera entre " . $arrivee->format("d/m/Y") . " et " . $depart->format("d/m/Y") . " nbre bb : " . $litbebe),
-                    'idcha' => $idCha, 'diff' => $diff, "chbres" => $chbres, 'idres' => $id);
-            } catch (\Exception $e) {
-                $tab = array('date' => $e->getMessage());
+            } else {
+                $diff = -($diff);
+                $message.= $this->get('translator')->trans('resa.datenegative');
+                //ici indiquer une erreur date inférieure
             }
-            return new JsonResponse($tab);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
-        return new JsonResponse(array('bug' => "bug"));
-// return $this->redirect($this->generateUrl('hotel_reservation_lister'));
+
+        // }
+        $this->get('session')->getFlashBag()->add('message', $message);
+
+           return $this->redirect($this->generateUrl('hotel_accueil'));
+
     }
 
     public function supprimerAction(Reservation $res) {
@@ -141,9 +152,8 @@ class ReservationController extends Controller {
                             }
                         }
                     }
-
                 }
-              
+
 
                 // FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
                 $em->persist($res);

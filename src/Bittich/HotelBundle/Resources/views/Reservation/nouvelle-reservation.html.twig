@@ -1,0 +1,151 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{% endblock %}
+{% block content %}  
+  <script>
+           $(document).ready(function() {  
+           
+        $("#new_resa").submit(function(){
+            event.preventDefault();
+                        alert("click");
+
+           /* var depart= $("#depart").val();
+            var arrivee= $("#arrivee").val();
+            var litbebe= $("#litbebe").val();
+            var data= {"depart":depart,"arrivee":arrivee,"litbebe":litbebe};*/
+            $.each($("#chambres :selected"),function(k,v)
+            {
+                alert(k+':'+$(v).val());
+            });
+
+             });
+                           return false;
+
+             });
+
+                    {#     
+                     $.ajax({
+                        url: "{{path('hotel_reservation_nouveau') }}",
+                        dataType: 'json',
+                        type: "POST",
+                        data:data,
+                        complete: function(xhr, result){
+                            if(result!= "success") { alert("erreur");return;}
+                            resp= $.parseJSON(xhr.responseText);
+
+                            alert(resp.date);
+                            alert(resp.diff);
+                            txt='';
+                       
+                            $.each(resp.idcha,function(k,v){
+                                txt+=v+"&";
+                    });
+                    alert('id :'+resp.idres);
+                    txt=txt.slice(0,-1);
+                   resp=resp.idres;
+
+                   
+                    var route="{{url('hotel_reservation_nouvelle', {"id":"PLACEHOLDER"})}}";
+                    window.location.href= route.replace("PLACEHOLDER",resp);#}
+                   // $(location).attr('href',);
+                       // }
+                    //}
+                  
+            //);  
+ // return false;
+   //     });
+     //   });
+            </script>
+<form id="new_resa" class="form-horizontal" action="" method ="post">
+    <div class="control-group">
+
+        <label class="control-label" for="idres">{{'resa.numero'|trans }}</label>
+        <div class="controls">
+            <input type="text" id="idres" disabled="true" value="{{res.id}}">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="datearr">{{'resa.date_arrivee'|trans }}</label>
+        <div class="controls">
+            <input type="text" id="datearr" disabled="true" value="{{res.datearrivee|date('d/m/Y')}}">
+            
+        </div>
+        
+      
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="datedep">{{'resa.date_depart'|trans }}</label>
+        <div class="controls">
+            <input type="text" id="datedep" disabled="true" value="{{res.datedepart|date('d/m/Y')}}">
+        </div>
+    </div>    
+    <div class="control-group">
+        <label class="control-label" for="prixtot">{{'resa.prix_total'|trans }}</label>
+        <div class="controls">
+            <input type="number" id="prixtot" disabled="true" value="{{res.prixtotal}}">
+        </div>
+    </div> 
+    <div class="control-group">
+        <label class="control-label" for="nbrebebe">{{'resa.nbre_bebe'|trans }}</label>
+        <div class="controls">
+            <input type="number" id="nbrebebe" disabled="true" value="{{res.nbrebebe}}">
+        </div>
+    </div> 
+    <div class="control-group">
+        <label class="control-label" for="accompte">{{'resa.accompte'|trans }}</label>
+        <div class="controls">
+            <input type="number" id="accompte" disabled="true" value="{{res.acomptedemande}}">
+        </div>
+    </div> 
+
+    <div class="control-group">
+        <label class="control-label" for="datelimite">{{'resa.date_limite'|trans }}</label>
+        <div class="controls">
+            <input type="text" id="datelimite" disabled="true" value="{{res.datelimiteacompte|date('d/m/Y')}}">
+        </div>
+    </div> 
+    <div class="control-group">
+        <label class="control-label" for="dateversement">{{'resa.date_versement'|trans }}</label>
+        <div class="controls">
+            <input type="text" id="dateversement" disabled="true" value="{{res.dateversementacompte|date('d/m/Y')}}">
+        </div>
+    </div> 
+    <div class="control-group">
+        <label class="control-label" for="dateres">{{'resa_date_resa'|trans }}</label>
+        <div class="controls">
+            <input type="text" id="dateres" disabled="true" value="{{res.datereservation|date('d/m/Y')}}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="username">{{'client.label'|trans }}</label>
+        <div class="controls">
+            <input type="text" id="username" disabled="true" value="{{res.client.username}}">
+        </div>
+    </div> 
+    <div class="control-group">
+        <label class="control-label" for="username">{{'chambre.label'|trans }}</label>
+        <div class="controls">
+
+            <select id="chambres" multiple="multiple">
+                {% for ch in res.chambres %}
+                    <option value="{{ch.id}}">{{ch.numeroetage}}</option>
+                 {% endfor %}
+                </select>
+            </div>
+        </div> 
+
+        <div class="control-group">
+            <div class="controls">
+
+                <button type="submit" id="btn-sub" class="btn btn-success">{{'enregistrer'|trans}}</button>
+            </div>
+        </div>
+    </form>
+
+
+
+
+    <!-- ici j'devrais pointer sur la route retour, qui logiquement supprime la réservation déjà créée -->
+    <p><a href=" {{path('hotel_reservation_lister')}}">{{"resa.liste.retour"|trans}}</a></p>
+ {% endblock %}

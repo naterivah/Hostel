@@ -48,7 +48,7 @@
           <script src="../assets/js/html5shiv.js"></script>
         <![endif]-->
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script>
+        {#<script>
            $(document).ready(function() {  
            
         $("#nouv_res").submit(function(){
@@ -89,118 +89,125 @@
   return false;
         });
         });
-            </script>
+            </script>#}
 
-            <!-- Fav and touch icons -->
-            <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('img/apple-touch-icon-144-precomposed.png')}}">
-            <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('img/apple-touch-icon-114-precomposed.png')}}">
-            <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
-            <link rel="apple-touch-icon-precomposed" href="{{asset('img/apple-touch-icon-57-precomposed.png')}}">
-            <link rel="shortcut icon" href="{{asset('img/assets/ico/favicon.png')}}">
-        </head>
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('img/apple-touch-icon-144-precomposed.png')}}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('img/apple-touch-icon-114-precomposed.png')}}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
+        <link rel="apple-touch-icon-precomposed" href="{{asset('img/apple-touch-icon-57-precomposed.png')}}">
+        <link rel="shortcut icon" href="{{asset('img/assets/ico/favicon.png')}}">
+    </head>
     {% endblock %}
-        <body>
+    <body>
 
       {% block navbar  %}
-            <div class="navbar navbar-fixed-top">
-                <div class="navbar-inner">
-                    <div class="container-fluid">
-                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="brand"  href="{{path('hotel_accueil')}}">Projet Internet/Intranet</a>
-                        <div class="nav-collapse collapse">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="brand"  href="{{path('hotel_accueil')}}">Projet Internet/Intranet</a>
+                    <div class="nav-collapse collapse">
                         {#FOFM Connexion #}
                          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                <ul class="nav nav-pills pull-right">
-                                    <li class="active"> <a href="{{path("fos_user_profile_show")}}">{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
-                                    <li><a href="{{path("fos_user_security_logout")}}">{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
-                                </ul>
+                            <ul class="nav nav-pills pull-right">
+                                <li class="active"> <a href="{{path("fos_user_profile_show")}}">{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
+                                <li><a href="{{path("fos_user_security_logout")}}">{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
+                            </ul>
                          {% else %}
                             {% render(path("fos_user_security_login")) %}
                          {% endif %}
-                                <ul class="nav">
-                                    <li><a href="{{path('hotel_accueil', {'_locale': 'en'})}}">English</a></li>
-                                    <li><a href="{{path('hotel_accueil', {'_locale': 'fr'})}}">Français</a></li>
+                            <ul class="nav">
+                                <li><a href="{{path('hotel_accueil', {'_locale':'en'})}}">English</a></li>
+                                <li><a href="{{path('hotel_accueil', {'_locale':'fr'})}}">Français</a></li>
+                                <li>
+                                    <a href="{{path("fos_user_registration_register")}}">{{'layout.register'|trans([],'FOSUserBundle')}}</a>
 
-                                    <li>
-                                        <a href="{{path("fos_user_registration_register")}}">{{'layout.register'|trans([],'FOSUserBundle')}}</a>
-
-                                    </li>
+                                </li>
 
 
-                                </ul>
-                            </div><!--/.nav-collapse -->
-                        </div>
+                            </ul>
+                        </div><!--/.nav-collapse -->
                     </div>
                 </div>
+            </div>
      {% endblock %}
 
 
 
-                <div class="container-fluid">
-                    <div class="row-fluid">
+            <div class="container-fluid">
+                <div class="row-fluid">
 
 
-                        <div class="span2">
+                    <div class="span2">
                                                                          {% if is_granted('ROLE_CLIENT') %}
 
-                                <div id="bar" class="well sidebar-nav">
-                                    <ul class="nav nav-list pagination">
-                                        <li class="nav-header">Réservation</li>
-                                        <form id="nouv_res" action= "" method = "post">
+                            <div id="bar" class="well sidebar-nav">
+                                <ul class="nav nav-list pagination">
+                                    <li class="nav-header">Réservation</li>
+                                    <form id="nouv_res" action= "{{path('hotel_reservation_nouveau') }}" method = "post">
 
-                                            <li><input id ="arrivee" type="date" autofocus="true" required="true" placeholder="Date d'arrivée"></li>
-                                            <li><input id="depart" type="date" required="true" placeholder="Date de départ"></li>
-                                            <li><input id="litbebe"  type="number" required="true" placeholder="Nombre de lits bébés"></li>
-                                            <button type="submit" id="sub" class="btn btn-success">Envoyer</button>
-                                        </form>
-
-
-                                    </ul>
+                                        <li><input name="arrivee" id ="arrivee" type="date" autofocus="true" required="true" placeholder="Date d'arrivée"></li>
+                                        <li><input name ="depart" id="depart" type="date" required="true" placeholder="Date de départ"></li>
+                                        <li><input name="litbebe" id="litbebe"  type="number" min= "0" required="true" placeholder="Nombre de lits bébés"></li>
+                                        <button type="submit" id="sub" class="btn btn-success">Envoyer</button>
+                                    </form>
 
 
-                                </div><!--/.well -->
+                                </ul>
+
+
+                            </div><!--/.well -->
                                                     {%  endif %}
 
-                                <div class="well sidebar-nav">
+                            <div class="well sidebar-nav">
 
-                                    <ul class="nav nav-list">
+                                <ul class="nav nav-list">
 
-                                        <li class="nav-header">{%block titremenu%}Menu{%endblock%}</li>
+                                    <li class="nav-header">{%block titremenu%}Menu{%endblock%}</li>
 
 
                              {% block menu %}
                             {% endblock %}
-                                    </ul>
+                                </ul>
 
-                                </div><!--/.well -->
-                            </div><!--/span-->
-                            <div class="span10">
-                                <div class="hero-unit">
-                                    <h1>
+                            </div><!--/.well -->
+                        </div><!--/span-->
+                        <div class="span10">
+                            <div class="hero-unit">
+                                <h1>
                         {% block title %}
-                                            Bienvenue chez Morray's Hostel!
+                                        Bienvenue chez Morray's Hostel!
                         {% endblock %}
-                                        </h1>
+                                    </h1>
 
 
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span12">
-                                            <h2>Projet internet intranet</h2>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <h2>Projet internet intranet</h2>
                             {% block content %}
+                                                {% for flashMessage in app.session.flashbag.get('message') %}
+                                        <div class="flash-notice">
+                                                  {{ flashMessage }}
+                                            </div>
+                                                {% endfor %}
+                                        
+                                        
                                             <blockquote>
                                                 <p class="lead alert alert-info">
                                                     Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
                                                     du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
                                                     d'un framework MVC d'autre part. J'ai ainsi pu développer mes connaissances en matière d'ORM (via Doctrine), de templating (via Twig),etc.
-                                                    
+
                                                 </p>
+                                                <p class="alert alert-success">Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a></p>
                                                 <p class="alert alert-error">
-                                                User: admin , mot de passe: admin
+                                                    User: admin , mot de passe: admin
                                                 </p>
                                                 <p>
                                                 <p class= "alert alert-message">

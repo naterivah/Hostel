@@ -19,6 +19,8 @@
             <th>{{ "tarif.couleur"|trans }}</th>
             <th>{{ "calendrier.nbredispo"|trans }}</th>
             <th>{{ "chambre.disponibilites"|trans }}</th>
+            <th>{{ "calendrier.nbrelitbebe"|trans }}</th>
+
 {% if is_granted('ROLE_EMPLOYE') %}
             <th colspan="2">Options</th>
     {% endif %}        
@@ -40,6 +42,8 @@
                         </select>
 
           {% endif %}</td>
+                            <td>{{cal.nbrelitbebe}}</td>
+
                 {% if is_granted('ROLE_EMPLOYE') %}
 
                     <td>    <p><a href=" {{path('hotel_calendrier_editer',{'id' : cal.id})}}">{{"modifier"|trans}}</a></p></td>
@@ -50,7 +54,7 @@
                 </tr>
     {% else %}
                 <tr>
-                    <td colspan="6" style="background-color:#FF0000">{{"calendrier.aucun" |trans}}</td>
+                    <td colspan="7" style="background-color:#FF0000">{{"calendrier.aucun" |trans}}</td>
 
                 </tr>
         {% endfor %}

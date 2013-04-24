@@ -3,12 +3,11 @@
 #*******************************************************************************************************
 
 hotel_accueil:
-    pattern:  /{_locale}
+    pattern: /{_locale}
     defaults: { _controller: BittichHotelBundle:Accueil:index, _locale: fr }
     requirements:
       _locale: fr|en
-
-      
+  
 #*******************************************************************************************************
 #Tarif**************************************************************************************************
 #*******************************************************************************************************
@@ -197,7 +196,7 @@ hotel_reservation_supprimer:
       
 hotel_reservation_nouveau:
     pattern: /{_locale}/reservation/nouveau
-    defaults: { _controller: BittichHotelBundle:Reservation:nouveau, _locale: fr ,_format: json}
+    defaults: { _controller: BittichHotelBundle:Reservation:nouveau, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+ 
