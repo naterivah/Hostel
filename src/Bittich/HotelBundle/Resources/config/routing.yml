@@ -201,7 +201,7 @@ hotel_reservation_nouveau:
       _locale: fr|en
       id: \d+ 
 hotel_reservation_nouvelle:
-    pattern: /{_locale}/reservation/nouvelle-reservation
+    pattern: /{_locale}/reservation/nouvelle-reservation/{id}
     defaults: { _controller: BittichHotelBundle:Reservation:nouvelleReservation, _locale: fr}
     requirements:
       _locale: fr|en

@@ -4,21 +4,21 @@
 
 fos_user_security:
     resource: "routing/security.xml"
-    prefix: /
+    prefix: /{_locale}
 
 fos_user_profile:
     resource: "routing/profil.xml"
-    prefix: /compte
+    prefix: /{_locale}/compte
 
 fos_user_register:
     resource: "routing/inscription.xml"
-    prefix: /inscription
+    prefix: /{_locale}/inscription
 
 fos_user_resetting:
     resource: "routing/resetting.xml"
-    prefix: /resetting
+    prefix: /{_locale}/resetting
 
 fos_user_change_password:
     resource: "routing/modifier_mot_de_passe.xml"
-    prefix: /compte
+    prefix: /{_locale}/compte
     

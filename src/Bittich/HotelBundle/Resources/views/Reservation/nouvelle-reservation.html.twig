@@ -2,66 +2,13 @@
 {% block title %}
 {% endblock %}
 {% block content %}  
-  <script>
-           $(document).ready(function() {  
-           
-        $("#new_resa").submit(function(){
-            event.preventDefault();
-                        alert("click");
 
-           /* var depart= $("#depart").val();
-            var arrivee= $("#arrivee").val();
-            var litbebe= $("#litbebe").val();
-            var data= {"depart":depart,"arrivee":arrivee,"litbebe":litbebe};*/
-            $.each($("#chambres :selected"),function(k,v)
-            {
-                alert(k+':'+$(v).val());
-            });
-
-             });
-                           return false;
-
-             });
-
-                    {#     
-                     $.ajax({
-                        url: "{{path('hotel_reservation_nouveau') }}",
-                        dataType: 'json',
-                        type: "POST",
-                        data:data,
-                        complete: function(xhr, result){
-                            if(result!= "success") { alert("erreur");return;}
-                            resp= $.parseJSON(xhr.responseText);
-
-                            alert(resp.date);
-                            alert(resp.diff);
-                            txt='';
-                       
-                            $.each(resp.idcha,function(k,v){
-                                txt+=v+"&";
-                    });
-                    alert('id :'+resp.idres);
-                    txt=txt.slice(0,-1);
-                   resp=resp.idres;
-
-                   
-                    var route="{{url('hotel_reservation_nouvelle', {"id":"PLACEHOLDER"})}}";
-                    window.location.href= route.replace("PLACEHOLDER",resp);#}
-                   // $(location).attr('href',);
-                       // }
-                    //}
-                  
-            //);  
- // return false;
-   //     });
-     //   });
-            </script>
-<form id="new_resa" class="form-horizontal" action="" method ="post">
+<form id="new_resa" class="form-horizontal" action="{{path('hotel_reservation_nouvelle',{id:res.id})}}" method ="post">
     <div class="control-group">
 
         <label class="control-label" for="idres">{{'resa.numero'|trans }}</label>
         <div class="controls">
-            <input type="text" id="idres" disabled="true" value="{{res.id}}">
+            <input name="idres" type="text" id="idres" disabled="true" value="{{res.id}}">
         </div>
     </div>
 
@@ -127,7 +74,7 @@
         <label class="control-label" for="username">{{'chambre.label'|trans }}</label>
         <div class="controls">
 
-            <select id="chambres" multiple="multiple">
+            <select name ="chambres" id="chambres" multiple="multiple">
                 {% for ch in res.chambres %}
                     <option value="{{ch.id}}">{{ch.numeroetage}}</option>
                  {% endfor %}

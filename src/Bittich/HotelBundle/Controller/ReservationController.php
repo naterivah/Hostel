@@ -24,15 +24,16 @@ class ReservationController extends Controller {
 
     public function nouveauAction() {
         $req = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
         $message = '';
-        // if ($req->isXmlHttpRequest()) {
+
         try {
             $arrivee = new \DateTime($req->get('arrivee'));
             $depart = new \DateTime($req->get('depart'));
             $difference = $arrivee->diff($depart);
             $diff = $difference->days;
             $litbebe = $req->get('litbebe');
-            $em = $this->getDoctrine()->getManager();
             $chambres = $em->getRepository("BittichHotelBundle:Chambre")->getChambre();
 
             $chbres = array();
@@ -88,11 +89,9 @@ class ReservationController extends Controller {
             echo $e->getMessage();
         }
 
-        // }
         $this->get('session')->getFlashBag()->add('message', $message);
 
-           return $this->redirect($this->generateUrl('hotel_accueil'));
-
+        return $this->redirect($this->generateUrl('hotel_accueil'));
     }
 
     public function supprimerAction(Reservation $res) {
@@ -131,31 +130,7 @@ class ReservationController extends Controller {
         if ($request->isMethod("POST")) {
             $form->bind($request); // soummettre le formulaire
             if ($form->isValid()) {
-                //BEGIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
-                $chambres = $res->getChambres();
-                $arrivee = $res->getDateArrivee();
-                $depart = $res->getDateDepart();
 
-                $diff = $arrivee->diff($depart)->days;
-                foreach ($chambres as $chambre) {
-
-                    $temp = clone $arrivee;
-                    $disp = array();
-                    $dispo = $chambre->getDisponibilites();
-                    for ($i = 0; $i < $diff; $i++) {
-                        $temp->add(new \DateInterval('P1D'));
-                        foreach ($dispo as $val) {
-                            if ($val->getDatej() == $temp) {
-                                $chambre->removeDisponibilite($val);
-                                $em->persist($chambre);
-                                break;
-                            }
-                        }
-                    }
-                }
-
-
-                // FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
                 $em->persist($res);
                 $em->flush();
 
@@ -182,16 +157,74 @@ class ReservationController extends Controller {
 // ***********************************************************************************************************************************************
 //***********************************************************************************************************************************************
 
-    public function nouvelleReservationAction() {
+    public function nouvelleReservationAction(Reservation $res) {
         $req = $this->getRequest();
-        $ch = $req->get('id');
-        $response = $this->forward('BittichHotelBundle:Reservation:editer', array(
-            'id' => $ch,
-                ));
+        $em = $this->getDoctrine()->getManager();
 
 
+        if ($req->getMethod() == "POST") {
+            $prix = 0;
 
-        return $response;
+            // Récupération de la réservation, oui le code est pas terrible mais ça fait le boulot ;-)
+
+            $arrivee = $res->getDateArrivee();
+            $depart = $res->getDateDepart();
+            $diff = $arrivee->diff($depart)->days;
+
+            // récupération des id chambres
+            $idchambres[] = $req->request->get("chambres");
+            $chambres = array();
+            // on récupère nos chambres choisies par l'utilisateur
+            foreach ($idchambres as $i) {
+                $chambres[] = $em->getRepository("BittichHotelBundle:Chambre")->find($i);
+            }
+            // on remove les dispos des chambres et on incrémente le prix
+            //BEGIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+            // on efface toutes les chambres, codage à la Microsoft Windows 98 Standard edition 2
+            // c'est de loin la pire classe contrôleur que j'ai jamais écrite, j'en suis navré
+            $res->clearChambres();
+            foreach ($chambres as $chambre) {
+
+                $temp = clone $arrivee;
+                $idmodele = $chambre->getModele()->getId(); //récupère le modèle
+                $dispo = $chambre->getDisponibilites();
+                for ($i = 0; $i < $diff; $i++) {
+                    $temp->add(new \DateInterval('P1D'));
+                    foreach ($dispo as $val) {
+                        if ($val->getDatej() == $temp) {
+                            // on modifie le nbre de litbébé
+                            $nbrelitbebe = $val->getNbrelitbebe() - 1;
+                            $val->setNbrelitbebe($nbrelitbebe);
+                            $em->persist($val); // pas sur que ce soit obligatoire, methode ScrumVista
+                            //prix lit bébé
+                            $tar = $val->getTarif(); //récupère le tarif
+                            $prix+=$tar->getPrixlitbebe() * $res->getNbreBebe(); //Set prix bébé
+                            $pr = $em->getRepository("BittichHotelBundle:Prix")->findPrix($idmodele, $tar->getId()); //récupère le prix
+                            $prix+=$pr->getPrix();//set prix 
+                            $chambre->removeDisponibilite($val);
+                            $em->persist($chambre);
+                            break;
+                        }
+                    }
+                }
+                $res->addChambre($chambre);
+            }
+            // FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+
+            $res->setPrixtotal($prix);
+            // enfin, on persist et flush
+            $em->persist($res);
+            $em->flush();
+            //on renvoie la balle, jeu set et match
+            $message = 'La commande numéro ' . $res->getId() . " est prête à la boucherie. Prix total : " . $res->getPrixTotal() . "€";
+            $this->get('session')->getFlashBag()->add('message', $message);
+
+            return $this->redirect($this->generateUrl('hotel_accueil'));
+        }
+        $message = "erreur inconnue, quelque part à la ligne 215 du controller reservation(flemme de faire un if)";
+
+        $this->get('session')->getFlashBag()->add('message', $message);
+        return $this->redirect($this->generateUrl('hotel_accueil'));
     }
 
 }

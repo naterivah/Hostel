@@ -1,7 +1,7 @@
 <?php
 
 namespace Bittich\HotelBundle\Entity;
-
+use \Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -341,6 +341,7 @@ class Reservation {
      */
     public function removeChambre(\Bittich\HotelBundle\Entity\Chambre $chambres) {
         $this->chambres->removeElement($chambres);
+        
     }
 
     /**
@@ -350,6 +351,10 @@ class Reservation {
      */
     public function getChambres() {
         return $this->chambres;
+    }
+        public function clearChambres() {
+        $this->chambres->clear();
+        
     }
 
 }
