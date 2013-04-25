@@ -74,7 +74,7 @@
         <label class="control-label" for="username">{{'chambre.label'|trans }}</label>
         <div class="controls">
 
-            <select name ="chambres" id="chambres" multiple="multiple">
+            <select name ="chambres[]" id="chambres" multiple="multiple">
                 {% for ch in res.chambres %}
                     <option value="{{ch.id}}">{{ch.numeroetage}}</option>
                  {% endfor %}

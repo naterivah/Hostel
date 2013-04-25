@@ -39,8 +39,11 @@ class ReservationController extends Controller {
             $chbres = array();
 
             if ($difference->invert == 0) {
+                $nblit = 0;
                 foreach ($chambres as $chambre) {
-
+                    if ($chambre->getLitbebe() == true) {
+                        $nblit++;
+                    }
                     $temp = clone $arrivee;
                     $disp = array();
                     $dispo = $chambre->getDisponibilites();
@@ -57,6 +60,9 @@ class ReservationController extends Controller {
 
                         $chbres[] = $chambre;
                     }
+                }
+                if ($litbebe > $nblit) {
+                    $chbres = array();
                 }
                 if (count($chbres) > 0) {
                     //persist
@@ -164,45 +170,56 @@ class ReservationController extends Controller {
 
         if ($req->getMethod() == "POST") {
             $prix = 0;
-
+            $message = '';
             // Récupération de la réservation, oui le code est pas terrible mais ça fait le boulot ;-)
 
             $arrivee = $res->getDateArrivee();
+
             $depart = $res->getDateDepart();
             $diff = $arrivee->diff($depart)->days;
-
+            $message.="diff: " . $diff;
             // récupération des id chambres
-            $idchambres[] = $req->request->get("chambres");
+            $idchambres = $req->request->get("chambres");
             $chambres = array();
             // on récupère nos chambres choisies par l'utilisateur
             foreach ($idchambres as $i) {
                 $chambres[] = $em->getRepository("BittichHotelBundle:Chambre")->find($i);
+                $message.="chambre trouvée" . $i;
             }
             // on remove les dispos des chambres et on incrémente le prix
             //BEGIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
             // on efface toutes les chambres, codage à la Microsoft Windows 98 Standard edition 2
             // c'est de loin la pire classe contrôleur que j'ai jamais écrite, j'en suis navré
             $res->clearChambres();
-            foreach ($chambres as $chambre) {
+                            $litbb = 0; // jm'ets ca pr calculer le prix des lits correctement
 
+            foreach ($chambres as $chambre) {
                 $temp = clone $arrivee;
                 $idmodele = $chambre->getModele()->getId(); //récupère le modèle
+                $message.="modele>" . $idmodele;
                 $dispo = $chambre->getDisponibilites();
                 for ($i = 0; $i < $diff; $i++) {
                     $temp->add(new \DateInterval('P1D'));
+                    $message.="j'entre";
                     foreach ($dispo as $val) {
                         if ($val->getDatej() == $temp) {
                             // on modifie le nbre de litbébé
-                            $nbrelitbebe = $val->getNbrelitbebe() - 1;
+                            $nbrelitbebe = $val->getNbrelitbebe() - $res->getNbreBebe();
                             $val->setNbrelitbebe($nbrelitbebe);
                             $em->persist($val); // pas sur que ce soit obligatoire, methode ScrumVista
                             //prix lit bébé
                             $tar = $val->getTarif(); //récupère le tarif
-                            $prix+=$tar->getPrixlitbebe() * $res->getNbreBebe(); //Set prix bébé
+                            $message.="tarif=>" . $tar->getId();
+                            if ($litbb < $res->getNbreBebe() && $chambre->getLitbebe() == true) {
+                                $prix+=$tar->getPrixlitbebe() * $res->getNbreBebe(); //Set prix bébé
+                                 $litbb+=1;
+
+                            }
                             $pr = $em->getRepository("BittichHotelBundle:Prix")->findPrix($idmodele, $tar->getId()); //récupère le prix
-                            $prix+=$pr->getPrix();//set prix 
+                            $prix+=$pr->getPrix(); //set prix 
                             $chambre->removeDisponibilite($val);
                             $em->persist($chambre);
+                            $message.="prix=>" . $prix;
                             break;
                         }
                     }
@@ -216,7 +233,7 @@ class ReservationController extends Controller {
             $em->persist($res);
             $em->flush();
             //on renvoie la balle, jeu set et match
-            $message = 'La commande numéro ' . $res->getId() . " est prête à la boucherie. Prix total : " . $res->getPrixTotal() . "€";
+            $message .= 'La commande numéro ' . $res->getId() . " est prête à la boucherie. Prix total : " . $res->getPrixTotal() . "€";
             $this->get('session')->getFlashBag()->add('message', $message);
 
             return $this->redirect($this->generateUrl('hotel_accueil'));
