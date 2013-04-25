@@ -191,29 +191,28 @@ class ReservationController extends Controller {
             // on efface toutes les chambres, codage à la Microsoft Windows 98 Standard edition 2
             // c'est de loin la pire classe contrôleur que j'ai jamais écrite, j'en suis navré
             $res->clearChambres();
-                            $litbb = 0; // jm'ets ca pr calculer le prix des lits correctement
+            $litbb = 0; // jm'ets ca pr calculer le prix des lits correctement
 
             foreach ($chambres as $chambre) {
                 $temp = clone $arrivee;
                 $idmodele = $chambre->getModele()->getId(); //récupère le modèle
                 $message.="modele>" . $idmodele;
                 $dispo = $chambre->getDisponibilites();
+
                 for ($i = 0; $i < $diff; $i++) {
                     $temp->add(new \DateInterval('P1D'));
                     $message.="j'entre";
                     foreach ($dispo as $val) {
                         if ($val->getDatej() == $temp) {
                             // on modifie le nbre de litbébé
-                            $nbrelitbebe = $val->getNbrelitbebe() - $res->getNbreBebe();
-                            $val->setNbrelitbebe($nbrelitbebe);
-                            $em->persist($val); // pas sur que ce soit obligatoire, methode ScrumVista
+                            $message.="nombre de bébés =====>" . $res->getNbreBebe();
+                            //$em->persist($val); // pas sur que ce soit obligatoire, methode ScrumVista
                             //prix lit bébé
                             $tar = $val->getTarif(); //récupère le tarif
                             $message.="tarif=>" . $tar->getId();
                             if ($litbb < $res->getNbreBebe() && $chambre->getLitbebe() == true) {
                                 $prix+=$tar->getPrixlitbebe() * $res->getNbreBebe(); //Set prix bébé
-                                 $litbb+=1;
-
+                                $litbb+=1;
                             }
                             $pr = $em->getRepository("BittichHotelBundle:Prix")->findPrix($idmodele, $tar->getId()); //récupère le prix
                             $prix+=$pr->getPrix(); //set prix 
@@ -226,6 +225,7 @@ class ReservationController extends Controller {
                 }
                 $res->addChambre($chambre);
             }
+
             // FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
 
             $res->setPrixtotal($prix);
