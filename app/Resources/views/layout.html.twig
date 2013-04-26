@@ -18,6 +18,10 @@
                 padding-top: 60px;
                 padding-bottom: 40px;
             }
+            body .modal_coms{
+                width: 750px;
+                margin: -345px 0 0 -375px;
+            }
 
             input {
                 max-width: 90%;
@@ -51,120 +55,77 @@
           <script src="../assets/js/html5shiv.js"></script>
         <![endif]-->
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        {#<script>
-           $(document).ready(function() {  
-           
-        $("#nouv_res").submit(function(){
-            event.preventDefault();
-            var depart= $("#depart").val();
-            var arrivee= $("#arrivee").val();
-            var litbebe= $("#litbebe").val();
-            var data= {"depart":depart,"arrivee":arrivee,"litbebe":litbebe};
-                            
-                     $.ajax({
-                        url: "{{path('hotel_reservation_nouveau') }}",
-                        dataType: 'json',
-                        type: "POST",
-                        data:data,
-                        complete: function(xhr, result){
-                            if(result!= "success") { alert("erreur");return;}
-                            resp= $.parseJSON(xhr.responseText);
 
-                            alert(resp.date);
-                            alert(resp.diff);
-                            txt='';
-                       
-                            $.each(resp.idcha,function(k,v){
-                                txt+=v+"&";
-                    });
-                    alert('id :'+resp.idres);
-                    txt=txt.slice(0,-1);
-                   resp=resp.idres;
-
-                   
-                    var route="{{url('hotel_reservation_nouvelle', {"id":"PLACEHOLDER"})}}";
-                    window.location.href= route.replace("PLACEHOLDER",resp);
-                   // $(location).attr('href',);
-                        }
-                    }
-                  
-            );  
-  return false;
-        });
-        });
-            </script>#}
-
-        <!-- Fav and touch icons -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('img/apple-touch-icon-144-precomposed.png')}}">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('img/apple-touch-icon-114-precomposed.png')}}">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
-        <link rel="apple-touch-icon-precomposed" href="{{asset('img/apple-touch-icon-57-precomposed.png')}}">
-        <link rel="shortcut icon" href="{{asset('img/assets/ico/favicon.png')}}">
-    </head>
+            <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('img/apple-touch-icon-144-precomposed.png')}}">
+            <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('img/apple-touch-icon-114-precomposed.png')}}">
+            <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
+            <link rel="apple-touch-icon-precomposed" href="{{asset('img/apple-touch-icon-57-precomposed.png')}}">
+            <link rel="shortcut icon" href="{{asset('img/assets/ico/favicon.png')}}">
+        </head>
     {% endblock %}
-    <body>
+        <body>
 
       {% block navbar  %}
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="brand"  href="{{path('hotel_accueil')}}">Projet Internet/Intranet</a>
-                    <div class="nav-collapse collapse">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="brand"  href="{{path('hotel_accueil')}}">Projet Internet/Intranet</a>
+                        <div class="nav-collapse collapse">
                         {#FOFM Connexion #}
                          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <ul class="nav nav-pills pull-right">
-                                <li class="active"> <a href="{{path("fos_user_profile_show")}}">{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
-                                <li><a href="{{path("fos_user_security_logout")}}">{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
-                            </ul>
+                                <ul class="nav nav-pills pull-right">
+                                    <li class="active"> <a href="{{path("fos_user_profile_show")}}">{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
+                                    <li><a href="{{path("fos_user_security_logout")}}">{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
+                                </ul>
                          {% else %}
                             {% render(path("fos_user_security_login")) %}
                          {% endif %}
-                            <ul class="nav">
-                                <li><a href="{{path('hotel_accueil', {'_locale':'en'})}}">English</a></li>
-                                <li><a href="{{path('hotel_accueil', {'_locale':'fr'})}}">Français</a></li>
-                                <li>
-                                    <a href="{{path("fos_user_registration_register")}}">{{'layout.register'|trans([],'FOSUserBundle')}}</a>
+                                <ul class="nav">
+                                    <li><a href="{{path('hotel_accueil', {'_locale':'en'})}}">English</a></li>
+                                    <li><a href="{{path('hotel_accueil', {'_locale':'fr'})}}">Français</a></li>
+                                    <li>
+                                        <a href="{{path("fos_user_registration_register")}}">{{'layout.register'|trans([],'FOSUserBundle')}}</a>
 
-                                </li>
+                                    </li>
 
 
-                            </ul>
-                        </div><!--/.nav-collapse -->
+                                </ul>
+                            </div><!--/.nav-collapse -->
+                        </div>
                     </div>
                 </div>
-            </div>
      {% endblock %}
 
 
 
-            <div class="container-fluid">
-                <div class="row-fluid">
+                <div class="container-fluid">
+                    <div class="row-fluid">
 
 
-                    <div class="span2">
+                        <div class="span2">
                                                                          {% if is_granted('ROLE_CLIENT') %}
 
-                            <div id="bar" class="well sidebar-nav">
-                                <ul class="nav nav-list pagination">
-                                    <li class="nav-header">Réservation</li>
-                                    <form id="nouv_res" action= "{{path('hotel_reservation_nouveau') }}" method = "post">
+                                <div id="bar" class="well sidebar-nav">
+                                    <ul class="nav nav-list pagination">
+                                        <li class="nav-header">Réservation</li>
+                                        <form id="nouv_res" action= "{{path('hotel_reservation_nouveau') }}" method = "post">
 
-                                        <li><input name="arrivee" id ="arrivee" type="date" autofocus="true" required="true" placeholder="Date d'arrivée"></li>
-                                        <li><input name ="depart" id="depart" type="date" required="true" placeholder="Date de départ"></li>
-                                        <li><input name="litbebe" id="litbebe"  type="number" min= "0" required="true" placeholder="Nombre de lits bébés"></li>
-                                        <button type="submit" id="sub" class="btn btn-success">Envoyer</button>
-                                    </form>
-
-
-                                </ul>
+                                            <li><input name="arrivee" id ="arrivee" type="date" autofocus="true" required="true" placeholder="Date d'arrivée"></li>
+                                            <li><input name ="depart" id="depart" type="date" required="true" placeholder="Date de départ"></li>
+                                            <li><input name="litbebe" id="litbebe"  type="number" min= "0" required="true" placeholder="Nombre de lits bébés"></li>
+                                            <button type="submit" id="sub" class="btn btn-success">Envoyer</button>
+                                        </form>
 
 
-                            </div><!--/.well -->
+                                    </ul>
+
+
+                                </div><!--/.well -->
                                                     {%  endif %}
 
 
@@ -179,59 +140,72 @@
 
 
 
-                            <div class="well sidebar-nav">
+                                <div class="well sidebar-nav">
 
-                                <ul class="nav nav-list">
+                                    <ul class="nav nav-list">
 
-                                    <li class="nav-header">{%block titremenu%}Menu{%endblock%}</li>
+                                        <li class="nav-header">{%block titremenu%}Menu{%endblock%}</li>
 
 
                              {% block menu %}
                             {% endblock %}
-                                </ul>
+                                    </ul>
 
-                            </div><!--/.well -->
-                        </div><!--/span-->
-                        <div class="span10">
-                            <div class="hero-unit">
-                                <h1>
-                        {% block title %}
-                                        Bienvenue chez Morray's Hostel!
-                        {% endblock %}
-                                    </h1>
-
+                                </div><!--/.well -->
+                            </div><!--/span-->
+                            <div class="modal fade" id="modal_coms">
+                                <div class="modal-header">
+                                    <a class="close" data-dismiss="modal">&times;</a>
+                                    <h3>Commentaires</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p>  {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}                                                        </p>
 
                                 </div>
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <h2>Projet internet intranet</h2>
+
+                            </div>
+                            <div class="span10">
+                                <div class="hero-unit">
+                                    <h1>
+                        {% block title %}
+                                            Bienvenue chez Morray's Hostel!
+                        {% endblock %}
+
+                                        </h1>
+                                        <p>
+                                            <a class="btn btn-primary btn-large" href="#modal_coms" data-toggle="modal" data-target="#modal_coms">Voir les commentaires</a>
+                                        </p>
+
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <h2>Projet internet intranet</h2>
                             {% block content %}
                                                 {% for flashMessage in app.session.flashbag.get('message') %}
-                                        <div class="flash-notice">
+                                            <div class="flash-notice">
                                                   {{ flashMessage }}
-                                            </div>
+                                                </div>
                                                 {% endfor %}
 
 
-                                            <blockquote>
-                                                <p class="lead alert alert-info">
-                                                    Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
-                                                    du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
-                                                    d'un framework MVC d'autre part. J'ai ainsi pu développer mes connaissances en matière d'ORM (via Doctrine), de templating (via Twig),etc.
+                                                <blockquote>
+                                                    <p class="lead alert alert-info">
+                                                        Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
+                                                        du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
+                                                        d'un framework MVC d'autre part. J'ai ainsi pu développer mes connaissances en matière d'ORM (via Doctrine), de templating (via Twig),etc.
 
-                                                </p>
-                                                <p class="alert alert-success">Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a></p>
-                                                <p class="alert alert-error">
-                                                    User: admin , mot de passe: admin
-                                                </p>
-
-
-                                            </blockquote>
-                                            <div>
-                                                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
+                                                    </p>
+                                                    <p class="alert alert-success">Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a></p>
+                                                    <p class="alert alert-error">
+                                                        User: admin , mot de passe: admin
+                                                    </p>
 
 
-                                                </div>
+                                                </blockquote>
+
+
+
+
 
                             {% endblock %}
                                                 <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
@@ -251,20 +225,10 @@
                         </div><!--/.fluid-container-->
 
   {% block javascripts %}
-            {#
-            <script src="{{asset('js/bootstrap-transition.js')}}"></script>
-            <script src="{{asset('js/bootstrap-alert.js')}}"></script>
-            <script src="{{asset('js/bootstrap-modal.js')}}"></script>
-            <script src="{{asset('js/bootstrap-dropdown.js')}}"></script>
-            <script src="{{asset('js/bootstrap-scrollspy.js')}}"></script>
-            <script src="{{asset('js/bootstrap-tab.js')}}"></script>
-            <script src="{{asset('js/bootstrap-tooltip.js')}}"></script>
-            <script src="{{asset('js/bootstrap-popover.js')}}"></script>
-            <script src="{{asset('js/bootstrap-button.js')}}"></script>
-            <script src="{{asset('js/bootstrap-collapse.js')}}"></script>
-            <script src="{{asset('js/bootstrap-carousel.js')}}"></script>
-            <script src="{{asset('js/bootstrap-typeahead.js')}}"></script>
-#}
+           
+            <script src="{{asset('js/bootstrap.js')}}"></script>
+>
+
    {% endblock %}
 
 
