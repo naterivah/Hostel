@@ -198,12 +198,19 @@ class ReservationController extends Controller {
                 $idmodele = $chambre->getModele()->getId(); //récupère le modèle
                 $message.="modele>" . $idmodele;
                 $dispo = $chambre->getDisponibilites();
-
+                $disp=array();
                 for ($i = 0; $i < $diff; $i++) {
                     $temp->add(new \DateInterval('P1D'));
                     $message.="j'entre";
                     foreach ($dispo as $val) {
                         if ($val->getDatej() == $temp) {
+                            // on fait un truc naze pour sauver la dispo
+                            $present=false;
+                          if (in_array($val, $disp)) {
+                              $present=true;
+                          }if(!$present){
+                                $disp[]= $val;
+                            }
                             // on modifie le nbre de litbébé
                             $message.="nombre de bébés =====>" . $res->getNbreBebe();
                             //$em->persist($val); // pas sur que ce soit obligatoire, methode ScrumVista
@@ -216,6 +223,7 @@ class ReservationController extends Controller {
                             }
                             $pr = $em->getRepository("BittichHotelBundle:Prix")->findPrix($idmodele, $tar->getId()); //récupère le prix
                             $prix+=$pr->getPrix(); //set prix 
+                           // $tmp = clone $chambre; // Super pour des performances incroyables! z
                             $chambre->removeDisponibilite($val);
                             $em->persist($chambre);
                             $message.="prix=>" . $prix;
@@ -229,6 +237,13 @@ class ReservationController extends Controller {
             // FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
 
             $res->setPrixtotal($prix);
+            $nbb = $res->getNbreBebe();
+            foreach ($disp as $d) {
+                $dj = $d->getNbrelitbebe();
+                $totbb = $dj - $nbb;
+                $d->setNbrelitbebe($totbb);
+                $em->persist($d);
+            }
             // enfin, on persist et flush
             $em->persist($res);
             $em->flush();
