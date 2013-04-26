@@ -10,6 +10,9 @@
 
         {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+    {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
     <style type="text/css">
             body {
                 padding-top: 60px;
@@ -196,8 +199,8 @@
                                                   {{ flashMessage }}
                                             </div>
                                                 {% endfor %}
-                                        
-                                        
+
+
                                             <blockquote>
                                                 <p class="lead alert alert-info">
                                                     Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
@@ -211,35 +214,9 @@
                                                 </p>
                                                 <p>
                                                 <p class= "alert alert-message">
-                                                    Un hôtel souhaite disposer d’une application informatique pour la gestion des 
-                                                    réservations de ses chambres et de sa tarification.
-                                                    L’hôtel dispose de plusieurs modèles de chambres qui se différencient par la 
-                                                    présence ou non d’une baignoire, d’une douche, d’un WC, du nombre de lits simple 
-                                                    et du nombre de lits double. Ces modèles serviront de référence pour 
-                                                    l’établissement de la tarification. 
-                                                    L’hôtelier souhaite appliquer différents tarifs sur base de périodes saisonnières 
-                                                    qu’il fixera lui-même en fonction de sa politique commerciale. Pour des raisons 
-                                                    pratiques, ces périodes se différencieront par une couleur (saison blanche, 
-                                                    saison verte, saison bleue, saison rouge). L’hôtelier souhaite se réserver le droit 
-                                                    d’ajouter ou de supprimer des périodes de tarification différentes. 
-                                                    Chaque chambre de l’hôtel sera caractérisée par un numéro unique, l’étage auquel 
-                                                    elle se situe et le modèle auquel elle correspond. Certaines chambres auront la 
-                                                    possibilité d’accueillir un lit bébé supplémentaire, qui sera soit amené par le 
-                                                    client, soit proposé par l’hôtelier moyennant un supplément. Le supplément pour 
-                                                    le lit bébé dépendra lui aussi de la période de tarification. Le nombre de lits 
-                                                    bébé dont dispose l’hôtelier est cependant limité. 
-                                                    L’hôtelier doit pouvoir facilement obtenir la disponibilité de ses chambres et de 
-                                                    ses lits bébé jour par jour. 
-                                                    Un client pourra réserver une ou plusieurs chambres et éventuellement un ou 
-                                                    plusieurs lits bébé pour une période déterminée. Les réservations pourront être 
-                                                    enregistrées 6 mois à l’avance. Pour chaque réservation, il y aura lieu de retenir 
-                                                    la date à laquelle elle a été effectuée, le prix total convenu, la date limite pour le 
-                                                    paiement de l’acompte convenu ainsi que la date à laquelle il a été effectivement 
-                                                    versé. 
-                                                    L’hôtelier souhaite conserver les nom, prénom et adresses de ses bons clients 
-                                                    afin de leur attribuer des réductions ou de ne pas exiger le versement d’un 
-                                                    acompte lors d’une réservation future. 
+                                                    Commenter
                                                 </p>
+                                                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
                                             </blockquote>
                             {% endblock %}
                                             <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->

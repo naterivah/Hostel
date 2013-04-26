@@ -22,3 +22,13 @@ fos_user_change_password:
     resource: "routing/modifier_mot_de_passe.xml"
     prefix: /{_locale}/compte
     
+#*******************************************************************************************************
+#FOS_COMMENT_BUNDLE*************************************************************************************
+#*******************************************************************************************************
+
+
+fos_comment_api:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /api
+    defaults: { _format: html }

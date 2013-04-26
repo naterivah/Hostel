@@ -83,4 +83,13 @@ fos_user:
             
             
 
-             
+  #FOS Comment Bundle
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: Bittich\UserBundle\Entity\Comment
+            thread:  Bittich\UserBundle\Entity\Thread
+
+assetic:
+    bundles: [ "FOSCommentBundle" ]     

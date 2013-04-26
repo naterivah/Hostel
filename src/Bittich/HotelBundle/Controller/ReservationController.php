@@ -187,7 +187,7 @@ class ReservationController extends Controller {
                 $message.="chambre trouvée" . $i;
             }
             // on remove les dispos des chambres et on incrémente le prix
-            //BEGIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+       
             // on efface toutes les chambres, codage à la Microsoft Windows 98 Standard edition 2
             // c'est de loin la pire classe contrôleur que j'ai jamais écrite, j'en suis navré
             $res->clearChambres();
@@ -234,7 +234,7 @@ class ReservationController extends Controller {
                 $res->addChambre($chambre);
             }
 
-            // FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+            
 
             $res->setPrixtotal($prix);
             $nbb = $res->getNbreBebe();

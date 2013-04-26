@@ -22,9 +22,9 @@ class AppKernel extends Kernel {
             new Bittich\UserBundle\BittichUserBundle(),
             /* Bundles Externes */
             new FOS\UserBundle\FOSUserBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Craue\FormFlowBundle\CraueFormFlowBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new FOS\CommentBundle\FOSCommentBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

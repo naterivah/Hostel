@@ -327,12 +327,12 @@ protected $name;
 protected $startTime;
 protected $classes;
 protected $errorReportingLevel;
-const VERSION ='2.2.0';
-const VERSION_ID ='20100';
+const VERSION ='2.2.2-DEV';
+const VERSION_ID ='20202';
 const MAJOR_VERSION ='2';
 const MINOR_VERSION ='2';
-const RELEASE_VERSION ='0';
-const EXTRA_VERSION ='';
+const RELEASE_VERSION ='2';
+const EXTRA_VERSION ='DEV';
 public function __construct($environment, $debug)
 {
 $this->environment = $environment;
@@ -352,7 +352,9 @@ public function init()
 ini_set('display_errors', 0);
 if ($this->debug) {
 error_reporting(-1);
+if (class_exists('Symfony\Component\ClassLoader\DebugClassLoader')) {
 DebugClassLoader::enable();
+}
 ErrorHandler::register($this->errorReportingLevel);
 if ('cli'!== php_sapi_name()) {
 ExceptionHandler::register();
