@@ -167,6 +167,18 @@
                             </div><!--/.well -->
                                                     {%  endif %}
 
+
+
+
+
+
+
+
+
+
+
+
+
                             <div class="well sidebar-nav">
 
                                 <ul class="nav nav-list">
@@ -212,28 +224,31 @@
                                                 <p class="alert alert-error">
                                                     User: admin , mot de passe: admin
                                                 </p>
-                                                <p>
-                                                <p class= "alert alert-message">
-                                                    Commenter
-                                                </p>
-                                                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
+
+
                                             </blockquote>
+                                            <div>
+                                                    {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}
+
+
+                                                </div>
+
                             {% endblock %}
-                                            <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
+                                                <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
+                                            </div><!--/span-->
+
                                         </div><!--/span-->
+                                    </div><!--/row-->
+                                </div><!--/span-->
+                            </div><!--/row-->
 
-                                    </div><!--/span-->
-                                </div><!--/row-->
-                            </div><!--/span-->
-                        </div><!--/row-->
+                            <hr>
 
-                        <hr>
+                            <footer>
+                                <p>&copy; Nordine Bittich - 2013</p>
+                            </footer>
 
-                        <footer>
-                            <p>&copy; Nordine Bittich - 2013</p>
-                        </footer>
-
-                    </div><!--/.fluid-container-->
+                        </div><!--/.fluid-container-->
 
   {% block javascripts %}
             {#
@@ -253,5 +268,5 @@
    {% endblock %}
 
 
-                </body>
-            </html>
+                    </body>
+                </html>
