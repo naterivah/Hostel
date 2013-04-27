@@ -17,6 +17,8 @@ hotel_tarif_lister:
     defaults: { _controller: BittichHotelBundle:Tarif:lister, _locale: fr }
     requirements:
       _locale: fr|en
+      
+      
 
 hotel_tarif_ajouter:
     pattern: /{_locale}/admin/tarif/ajouter
@@ -173,6 +175,12 @@ hotel_reservation_lister:
     requirements:
       _locale: fr|en
 
+hotel_reservation_lister_client:
+    pattern: /{_locale}/reservation/liste-client
+    defaults: { _controller: BittichHotelBundle:Reservation:listereservation, _locale: fr }
+    requirements:
+      _locale: fr|en
+      
 hotel_reservation_ajouter:
     pattern: /{_locale}/reservation/ajouter
     defaults: { _controller: BittichHotelBundle:Reservation:editer, _locale: fr }

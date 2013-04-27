@@ -11,6 +11,8 @@ Morray's Hostel
 <li><a href=" {{path('hotel_prix_lister')}}">{{"prix.liste"|trans}}</a></li>
 {% if is_granted('ROLE_CLIENT') %}
 <li><a href=" {{path('hotel_reservation_lister')}}">{{"resa.liste"|trans}}</a></li>
+<li><a href=" {{path('hotel_reservation_lister_client')}}">{{"resa.liste.client"|trans}}</a></li>
+
 {% endif %}
 {% if is_granted('ROLE_SUPER_ADMIN') %}
 <li><a href=" {{path('hotel_admin_accueil')}}">{{"user.liste"|trans}}</a></li>
