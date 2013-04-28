@@ -5,13 +5,66 @@ namespace Bittich\HotelBundle\Controller;
 use Bittich\HotelBundle\Entity\Reservation;
 use Bittich\HotelBundle\Form\AdminReservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  *
  * @author nordine
  */
 class ReservationController extends Controller {
+
+    public function searchChbres() {
+        //fonction utilitaire
+        $req = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+        $arrivee = new \DateTime($req->request->get('arrivee'));
+        $depart = new \DateTime($req->request->get('depart'));
+        $difference = $arrivee->diff($depart);
+        $diff = $difference->days;
+        $litbebe = $req->request->get('litbebe');
+        $chambres = $em->getRepository("BittichHotelBundle:Chambre")->getChambre();
+        $chbres = array();
+        $nblit = 0;
+        foreach ($chambres as $chambre) {
+            if ($chambre->getLitbebe() == true) {
+                $nblit++;
+            }
+            // $temp = clone $arrivee;
+            $disp = array();
+            $dispo = $chambre->getDisponibilites();
+            for ($i = 0; $i < $diff; $i++) {
+                $temp = clone $arrivee;
+                $temp->add(new \DateInterval('P' . $i . 'D'));
+                foreach ($dispo as $val) {
+                    if ($val->getDatej() == $temp && $val->getNbrelitbebe() >= $litbebe) {
+                        $disp[] = $val;
+                        break;
+                    }
+                }
+            }
+            if (count($disp) == $diff) {
+
+                $chbres[] = $chambre->getId();
+            }
+        }
+        if ($litbebe > $nblit) {
+            $chbres = array();
+        }
+        return $chbres;
+    }
+
+    public function searchAction() {
+        $req = $this->getRequest();
+        if ($req->isXmlHttpRequest()) {
+            $chbres = $this->searchChbres();
+            if (count($chbres) > 0) {
+                return new JsonResponse(array('chbres' => $chbres, 'message' => "ok"));
+            } else {
+                return new JsonResponse(array('message' => 'nok'));
+            }
+        }
+        return new JsonResponse("erreur fatal");
+    }
 
     public function listerAction() {
         $em = $this->getDoctrine()->getManager();
@@ -45,12 +98,12 @@ class ReservationController extends Controller {
 
             //return new Response(var_dump($arr,$dp,$arrivee,$depart));
             try {
-                        $arr = $req->request->get('arrivee');
-            $dp = $req->request->get('depart');
-            $arrivee = new \DateTime($arr);
-            $depart = new \DateTime($dp);
-            $arrivee->format('Y-m-d');
-            $depart->format('Y-m-d');
+                $arr = $req->request->get('arrivee');
+                $dp = $req->request->get('depart');
+                $arrivee = new \DateTime($arr);
+                $depart = new \DateTime($dp);
+                $arrivee->format('Y-m-d');
+                $depart->format('Y-m-d');
                 $difference = $arrivee->diff($depart);
                 $diff = $difference->days;
                 $litbebe = $req->get('litbebe');

@@ -213,8 +213,13 @@ hotel_reservation_nouvelle:
     defaults: { _controller: BittichHotelBundle:Reservation:nouvelleReservation, _locale: fr}
     requirements:
       _locale: fr|en
-      id: \d+      
+      id: \d+    
       
+hotel_reservation_search:
+    pattern: /{_locale}/reservation/search
+    defaults: { _controller: BittichHotelBundle:Reservation:search, _locale: fr, _format: json}
+    requirements:
+      _locale: fr|en   
       
 
 #*******************************************************************************************************
