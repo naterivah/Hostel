@@ -10,6 +10,8 @@
 
         {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}" type="text/css" />
+
     {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
     <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
 {% endstylesheets %}
@@ -20,7 +22,8 @@
             }
 
             input {
-                max-width: 90%;
+                width: 90%;
+
             } 
             button{
 
@@ -32,8 +35,8 @@
 
             .sidebar-nav {
                 padding: 9px 0;
-            }
 
+            }
             @media (max-width: 980px) {
 
                 .navbar-text.pull-right {
@@ -52,7 +55,10 @@
           <script src="../assets/js/html5shiv.js"></script>
         <![endif]-->
         <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+
         <script src="{{asset('js/bootstrap.js')}}"></script>
+
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('img/apple-touch-icon-144-precomposed.png')}}">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('img/apple-touch-icon-114-precomposed.png')}}">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
@@ -71,25 +77,31 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand"  href="{{path('hotel_accueil')}}">Projet Internet/Intranet</a>
+                    <a class="brand"  href="{{path('hotel_accueil')}}"> Projet Internet/Intranet</a>
                     <div class="nav-collapse collapse">
                         {#FOFM Connexion #}
                          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <ul class="nav nav-pills pull-right">
-                                <li class="active"> <a href="{{path("fos_user_profile_show")}}">{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
-                                <li><a href="{{path("fos_user_security_logout")}}">{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
+                                <li class="active"> <a href="{{path("fos_user_profile_show")}}"><i class="icon-user icon-white"></i>{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a href="{{path("fos_user_security_logout")}}"><i class="icon-off icon-white"></i>{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
                             </ul>
                          {% else %}
                             {% render(path("fos_user_security_login")) %}
                          {% endif %}
                             <ul class="nav">
-                                <li><a href="{{path('hotel_accueil', {'_locale':'en'})}}">English</a></li>
-                                <li><a href="{{path('hotel_accueil', {'_locale':'fr'})}}">Français</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a href="{{path('hotel_accueil', {'_locale':'en'})}}"><i class="icon-globe icon-white"></i>English</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a href="{{path('hotel_accueil', {'_locale':'fr'})}}"><i class="icon-map-marker icon-white"></i>Français</a></li>
+                                      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
+                                <li class="divider-vertical"></li>
                                 <li>
-                                    <a href="{{path("fos_user_registration_register")}}">{{'layout.register'|trans([],'FOSUserBundle')}}</a>
+
+                                    <a href="{{path("fos_user_registration_register")}}"><i class="icon-hand-right icon-white"></i>{{'layout.register'|trans([],'FOSUserBundle')}}</a>
 
                                 </li>
-
+                                    {% endif %}
 
                             </ul>
                         </div><!--/.nav-collapse -->
@@ -107,22 +119,68 @@
                     <div class="span2">
                                                                          {% if is_granted('ROLE_CLIENT') %}
 
-                            <div id="bar" class="well sidebar-nav">
-                                <ul class="nav nav-list pagination">
-                                    <li class="nav-header">Réservation</li>
-                                    <form id="nouv_res" action= "{{path('hotel_reservation_nouveau') }}" method = "post">
 
-                                        <li><input name="arrivee" id ="arrivee" type="date" autofocus="true" required="true" placeholder="Date d'arrivée"></li>
-                                        <li><input name ="depart" id="depart" type="date" required="true" placeholder="Date de départ"></li>
-                                        <li><input name="litbebe" id="litbebe"  type="number" min= "0" required="true" placeholder="Nombre de lits bébés"></li>
-                                        <button type="submit" id="sub" class="btn btn-success">Envoyer</button>
-                                    </form>
+                  
+          <script>
+          
+                                
+                            $(function (){
+                             var nowTemp = new Date();
+                             var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+ 
+                            var checkin = $('#arrivee').datepicker({
+                              onRender: function(date) {
+                                return date.valueOf() < now.valueOf() ? 'disabled' : '';
+                              }
+                            }).on('changeDate', function(ev) {
+                             
+
+                              if (ev.date.valueOf() > checkout.date.valueOf()) {
+                                var newDate = new Date(ev.date)
+                                newDate.setDate(newDate.getDate() + 1);
+                                checkout.setValue(newDate);
+                              }
+                              checkin.hide();
+                              $('#depart')[0].focus();
+                              
+                            }).data('datepicker');
+                            var checkout = $('#depart').datepicker({
+                              onRender: function(date) {
+                                return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+                              }
+                            }).on('changeDate', function(ev) {
+                       
+
+                              checkout.hide();
+                              
+                            }).data('datepicker');
+                                                        });     
+                                </script>
 
 
-                                </ul>
+                                <div id="bar" class="well sidebar-nav">
+                                    <ul class="nav nav-list">
+                                        <li class="nav-header">Réservation</li>
+                                         <div id="alerte" class="alert alert-error" style="display:none"> <strong>La date de retour doit être postérieure à la date de départ !</strong> </div>
+                                        <form class="form-vertical" id="nouv_res" action= "{{path('hotel_reservation_nouveau') }}" method = "post">   
+                                          
+                                                <li> <input type="text" name="arrivee" id="arrivee" data-date-format="dd-mm-yyyy" required="true" placeholder="Date d'arrivée"></li>
+                                                <li><input type="text" name ="depart" id="depart"   data-date-format="dd-mm-yyyy" required="true" placeholder="Date de départ"></li>
+                                                     
+                                            <li><input name="litbebe" id="litbebe"  type="number" min= "0" required="true" placeholder="Nombre de lits bébés"></li>
+                                            <li><button type="submit" id="sub" class="btn btn-success">Envoyer<i class="icon-chevron-right icon-white"></i></button></li>
+                                         
+
+                                        </form>
+                                       
+
+                                   
 
 
-                            </div><!--/.well -->
+                                    </ul>
+
+
+                                </div><!--/.well -->
                                                     {%  endif %}
 
 
@@ -136,116 +194,181 @@
 
 
 
+                                <div class="well sidebar-nav">
 
-                            <div class="well sidebar-nav">
+                                    <ul class="nav nav-list">
 
-                                <ul class="nav nav-list">
-
-                                    <li class="nav-header">{%block titremenu%}Menu{%endblock%}</li>
+                                        <li class="nav-header">{%block titremenu%}Menu{%endblock%}</li>
 
 
                              {% block menu %}
                             {% endblock %}
-                                </ul>
+                                    </ul>
 
-                            </div><!--/.well -->
-                        </div><!--/span-->
-                        <div class="modal fade" id="modal_coms">
-                            <div class="modal-header">
-                                <a class="close" data-dismiss="modal">&times;</a>
-                                <h3>Commentaires</h3>
-                            </div>
-                            <div class="modal-body">
-                                <p>  {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}                                                        </p>
-
-                            </div>
-
-                        </div>
-                        <div class="span10">
-                            <div class="hero-unit">
-                                <h1>
-                        {% block title %}
-                                        Bienvenue chez Morray's Hostel!
-                        {% endblock %}
-
-                                    </h1>
-                                    <p>
-                                        <a class="btn btn-primary btn-large" href="#modal_coms" data-toggle="modal" data-target="#modal_coms">Voir les commentaires</a>
-                                    </p>
+                                </div><!--/.well -->
+                            </div><!--/span-->
+                            <div class="modal fade" id="modal_coms">
+                                <div class="modal-header">
+                                    <a class="close" data-dismiss="modal">&times;</a>
+                                    <h3>Commentaires</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p>  {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}                                                        </p>
 
                                 </div>
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <h2>Projet internet intranet</h2>
+
+                            </div>
+                            <div class="span10">
+                                <div class="hero-unit">
+
+
+                                    <h1>
+                        {% block title %}
+                                            Kom'in'Tern - Hotel 
+
+                        {% endblock %}
+
+                                        </h1>
+                                        <p><span class="badge badge-info">La bureaucratie au service de l'hôtellerie</span><p>
+
+                                        <p>
+                                            <a class="btn btn-warning btn-large" href="#modal_coms" data-toggle="modal" data-target="#modal_coms"><i class="icon-comment icon-white"></i>Commenter</a>
+                                        </p>
+
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div id="myCarousel" class="carousel slide ">
+                                                <div class="carousel-inner thumbnail">
+                                                    <div class="item active"> <img alt="" src="{{ asset('img/hotel1.jpg') }}"/>
+                                                        <div class="carousel-caption">
+                                                        </div>
+                                                    </div>
+                                                    <div class="item"> <img alt="" src="{{ asset('img/hotel2.jpg') }}"/>
+                                                        <div class="carousel-caption">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="item"> <img alt="" src="{{ asset('img/hotel3.jpg') }}"/>
+                                                        <div class="carousel-caption">
+                                                        </div>
+                                                    </div>
+                                                    <div class="item"> <img alt="" src="{{ asset('img/hotel4.jpg') }}"/>
+                                                        <div class="carousel-caption">
+                                                        </div>
+                                                    </div>
+                                                    <div class="item"> <img alt="" src="{{ asset('img/hotel5.jpg') }}"/>
+                                                        <div class="carousel-caption">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a class="carousel-control left" data-slide="prev" href="#myCarousel">‹</a> <a class="carousel-control right" data-slide="next" href="#myCarousel">›</a> </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                                
                             {% block content %}
-                                                {% for flashMessage in app.session.flashbag.get('message') %}
-                                        <div class="flash-notice">
+
+
+                                                <h2>Projet internet intranet</h2>
+                                                <div class="row-fluid">
+
+                                                    <div class="span4">
+
+                                                        <h3>A propos</h3>
+                                                        <ul class="thumbnails">
+                                                            <li class="span12">
+                                                                <a href="#" class="thumbnail">
+                                                                    <img src="{{ asset('img/mur.jpg') }}" alt="">
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+                                                        <p class="muted"> Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
+                                                            du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
+                                                            d'un framework php MVC d'autre part. J'ai ainsi pu développer mes connaissances en matière d'ORM (via Doctrine), de templating (via Twig),etc.</p>
+
+                                                                                                            {% for flashMessage in app.session.flashbag.get('message') %}
+                                            <div class="flash-notice">
                                                   {{ flashMessage }}
-                                            </div>
+                                                </div>
                                                 {% endfor %}
+                                    
 
 
-                                            <div class="row-fluid">
+                                                        </div>
+                                                        <div class="span4">
 
-                                                <div class="span4">
-                                                    <h3>A propos</h3>
-                                                    <p class="hero-unit"> Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
-                                                        du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
-                                                        d'un framework MVC d'autre part. J'ai ainsi pu développer mes connaissances en matière d'ORM (via Doctrine), de templating (via Twig),etc.</p>
-                                                </div>
-                                                <div class="span4">
-                                                    <h3>Code Source</h3>
-                                                    <p class="hero-unit">
+                                                            <h3>Code Source</h3>
+                                                            <ul class="thumbnails">
+                                                                <li class="span12" align="center">
+                                                                    <a href="#" class="thumbnail">
+                                                                        <img src="{{ asset('img/che.jpg') }}" alt="">
+                                                                    </a>
+                                                                </li>
 
-                                                        Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a>. N'hésitez-pas à laisser
-                                                        un commentaire, signaler un bug,... ET surtout tester le site! Les qualités du framework Symfony sont nombreuses, et il est impossible de toutes les dénombres. 
-                                                        L'utilisation de bundles externes est l'un des concepts fondamental de Symfony. Par exemple, ce projet utilise les bundles "FOSUser, FOSComment, Doctrine, Twig,..".
-                                                        Bonne visite!
+                                                            </ul>
+                                                            <p class="muted">
 
-                                                    </p>
+                                                                Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a>. N'hésitez-pas à laisser
+                                                                un commentaire, signaler un bug,... ET surtout tester le site! Les qualités du framework Symfony sont nombreuses, et il est impossible de toute les dénombrer. 
+                                                                L'utilisation de bundles externes est l'un des concepts fondamental de Symfony. Par exemple, ce projet utilise les bundles "FOSUser, FOSComment, Doctrine, Twig,..".
+                                                                Bonne visite!
 
-                                                </div>
-                                        <div class="span4">
-                                                    <h3>Connexion</h3>
-                                                    <p class="hero-unit">
+                                                            </p>
 
-                                                       Le site a été développé dans le but d'apprendre, il est donc incomplet et inutilisable en l'état dans un but réel d'implémentation d'un système de réservation d'hôtel.
-                                                       Par conséquent, les identifiants de SUPER_ADMIN vous sont fournis:
-                                                       user : admin
-                                                       mot de passe: admin
-                                                       Un utilisateur peut avoir l'un de ces trois rôles : client, employé, anonyme. Le super admin est le seul à pouvoir promouvoir un client en employé et un employé en
-                                                       client
-                                                       
-                                                       
-                                                       
-                                                    </p>
+                                                        </div>
+                                                        <div class="span4">
+                                                            <h3>Connexion</h3>
+                                                            <ul class="thumbnails">
+                                                                <li class="span12" align="center">
+                                                                    <a href="#" class="thumbnail">
+                                                                        <img src="{{ asset('img/sanders.jpg') }}" alt="">
+                                                                    </a>
+                                                                </li>
 
-                                                </div>
-                                       
+                                                            </ul>
+                                                            <p class="muted">
+
+                                                                Le site a été développé dans un but éducatif, il est donc incomplet et inutilisable en l'état dans un but réel d'implémentation d'un système de réservation d'hôtel.
+                                                                Par conséquent, les identifiants de SUPER_ADMIN vous sont fournis:
+                                                                user : admin
+                                                                mot de passe: admin
+                                                                Un utilisateur peut avoir l'un de ces trois rôles : client, employé, anonyme. Le super admin est le seul à pouvoir promouvoir un client en employé et un employé en
+                                                                client
 
 
-                                            </div>
+
+                                                            </p>
+
+                                                        </div>
+
+
+
+                                                    </div>
 
 
 
 
 
                             {% endblock %}
-                                            <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
-                                        </div><!--/span-->
+                                                    <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
+                                                </div><!--/span-->
 
+                                            </div><!--/span-->
+                                        </div><!--/row-->
                                     </div><!--/span-->
                                 </div><!--/row-->
-                            </div><!--/span-->
-                        </div><!--/row-->
 
-                        <hr>
+                                <hr>
 
-                        <footer>
-                            <p>&copy; Nordine Bittich - 2013</p>
-                        </footer>
+                                <footer>
+                                    <p>&copy; Nordine Bittich - 2013</p>
+                                </footer>
 
-                    </div><!--/.fluid-container-->
+                            </div><!--/.fluid-container-->
 
   {% block javascripts %}
 
@@ -255,5 +378,5 @@
    {% endblock %}
 
 
-                </body>
-            </html>
+                        </body>
+                    </html>

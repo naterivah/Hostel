@@ -5,7 +5,7 @@ namespace Bittich\HotelBundle\Controller;
 use Bittich\HotelBundle\Entity\Reservation;
 use Bittich\HotelBundle\Form\AdminReservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  *
@@ -40,9 +40,17 @@ class ReservationController extends Controller {
 
         $message = '';
         if ($req->getMethod() == "POST") {
+
+
+
+            //return new Response(var_dump($arr,$dp,$arrivee,$depart));
             try {
-                $arrivee = new \DateTime($req->get('arrivee'));
-                $depart = new \DateTime($req->get('depart'));
+                        $arr = $req->request->get('arrivee');
+            $dp = $req->request->get('depart');
+            $arrivee = new \DateTime($arr);
+            $depart = new \DateTime($dp);
+            $arrivee->format('Y-m-d');
+            $depart->format('Y-m-d');
                 $difference = $arrivee->diff($depart);
                 $diff = $difference->days;
                 $litbebe = $req->get('litbebe');
@@ -50,13 +58,13 @@ class ReservationController extends Controller {
 
                 $chbres = array();
 
-                if ($difference->invert == 0 && $diff!=0) {
+                if ($difference->invert == 0 && $diff != 0) {
                     $nblit = 0;
                     foreach ($chambres as $chambre) {
                         if ($chambre->getLitbebe() == true) {
                             $nblit++;
                         }
-                       // $temp = clone $arrivee;
+                        // $temp = clone $arrivee;
                         $disp = array();
                         $dispo = $chambre->getDisponibilites();
                         for ($i = 0; $i < $diff; $i++) {
@@ -209,15 +217,15 @@ class ReservationController extends Controller {
             $litbb = 0; // jm'ets ca pr calculer le prix des lits correctement
 
             foreach ($chambres as $chambre) {
-             //   $temp = clone $arrivee;
+                //   $temp = clone $arrivee;
                 $idmodele = $chambre->getModele()->getId(); //récupère le modèle
                 $message.="modele>" . $idmodele;
                 $dispo = $chambre->getDisponibilites();
                 $disp = array();
                 for ($i = 0; $i < $diff; $i++) {
-                                                $temp = clone $arrivee;
-                            $temp->add(new \DateInterval('P' . $i . 'D'));
-                   // $temp->add(new \DateInterval('P1D'));
+                    $temp = clone $arrivee;
+                    $temp->add(new \DateInterval('P' . $i . 'D'));
+                    // $temp->add(new \DateInterval('P1D'));
                     $message.="j'entre";
                     foreach ($dispo as $val) {
                         if ($val->getDatej() == $temp) {
