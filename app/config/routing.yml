@@ -6,4 +6,7 @@ bittich_hotel_locale:
     resource: "@BittichHotelBundle/Resources/config/routing.yml"
     prefix:   /
     
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    
     
