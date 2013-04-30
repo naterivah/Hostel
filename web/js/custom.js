@@ -52,29 +52,71 @@ $(document).ready(function() {
                                                     
                                      
     }; 
-                                             
-                                             
-                                             
-                                             
-    $("#nouv_res").submit(function(){
-        event.preventDefault();
+    var createJson= function(){
         var depart= $("#depart").val();
         depart= convertDate(depart);
         var arrivee= $("#arrivee").val();
         arrivee= convertDate(arrivee);
         var litbebe= $("#litbebe").val();
+        var chambres= $("#chambres").val();// on récupère les chambres même si le champs est hidden!
+
         var data= {
             "depart":depart,
             "arrivee":arrivee,
-            "litbebe":litbebe
+            "litbebe":litbebe,
+            "chambres": chambres
         };
+        return data;
+    };
+    // Fonction confirmation réservation
+    var confirmReservation= function(){
+        event.preventDefault();
+        var url= Routing.generate('hotel_reservation_confirm');
+        var data= createJson();
+        $("#show_select").hide();
+        $("#show_button").hide();
+        $("#loading").show();
+
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: "POST",
+            data:data,
+            complete: function(xhr,result){
+                $("#loading").hide(); // on cache le loading
+                $("#chambres").empty(); // on vide la liste de sélection          
+                document.forms.nouv_res.reset();// on reset le formulaire de réservation
+                $("#depart").prop('disabled', false);
+                $("#arrivee").prop('disabled', false);
+                $("#litbebe").prop('disabled', false);
+                $("#sub").show();
+                if(result!= "success") {
+                    alert("Erreur");
+                    return;
+                }
+                resp= $.parseJSON(xhr.responseText);
+                //modal_resa modal_message
+                $('#modal_message').html('').append(resp.message);
+                $('#modal_resa').modal("show");
+                
+            }
+            
+            
+            
+        });
+        return false;
+         
+    }                                        
+                                             
+    // Fonction recherche de chambre                                     
+                                             
+    $("#nouv_res").submit(function(){
+        event.preventDefault();
+        var data= createJson();
         var url= Routing.generate('hotel_reservation_search');
-   
         $("#sub").hide();
         $("#loading").show();
         $.ajax({
-           
-
             url: url,
             dataType: 'json',
             type: "POST",
@@ -102,7 +144,9 @@ $(document).ready(function() {
                     $("#litbebe").prop('disabled', true);
                     $("#show_select").show(1000);
                     $("#show_button").show(1000);
-
+                    $("#confirm").on("click",function(e){
+                        confirmReservation();
+                    }); // au click sur le bouton confirmer
                 }else{
                     $("#sub").show();
                     alert('aucune chambre trouvée');

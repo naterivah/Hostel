@@ -202,19 +202,25 @@ hotel_reservation_supprimer:
       _locale: fr|en
       id: \d+
       
-hotel_reservation_nouveau:
-    pattern: /{_locale}/reservation/nouveau
-    defaults: { _controller: BittichHotelBundle:Reservation:nouveau, _locale: fr }
+#hotel_reservation_nouveau:
+ #   pattern: /{_locale}/reservation/nouveau
+  #  defaults: { _controller: BittichHotelBundle:Reservation:nouveau, _locale: fr }
+   # requirements:
+    #  _locale: fr|en
+     # id: \d+ 
+#hotel_reservation_nouvelle:
+ #   pattern: /{_locale}/reservation/nouvelle-reservation/{id}
+  #  defaults: { _controller: BittichHotelBundle:Reservation:nouvelleReservation, _locale: fr}
+   # requirements:
+    #  _locale: fr|en
+     # id: \d+    
+hotel_reservation_confirm:
+    pattern: /{_locale}/reservation/confirm
+    defaults: { _controller: BittichHotelBundle:Reservation:confirm, _locale: fr, _format: json}
     requirements:
       _locale: fr|en
-      id: \d+ 
-hotel_reservation_nouvelle:
-    pattern: /{_locale}/reservation/nouvelle-reservation/{id}
-    defaults: { _controller: BittichHotelBundle:Reservation:nouvelleReservation, _locale: fr}
-    requirements:
-      _locale: fr|en
-      id: \d+    
-      
+    options:
+      expose: true   
 hotel_reservation_search:
     pattern: /{_locale}/reservation/search
     defaults: { _controller: BittichHotelBundle:Reservation:search, _locale: fr, _format: json}

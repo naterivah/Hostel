@@ -12,6 +12,33 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * @author nordine
  */
 class ReservationController extends Controller {
+    /* retourne un tableau de dates représentant un intervalle entre deux dates */
+
+    public function dateInterv($arrivee, $depart) {
+        $difference = $arrivee->diff($depart);
+        $diff = $difference->days;
+        $disp = array();
+        for ($i = 0; $i < $diff; $i++) {
+            $temp = clone $arrivee;
+            $temp->add(new \DateInterval('P' . $i . 'D'));
+            $disp[] = $temp;
+        }
+        return $disp;
+    }
+
+    /* Retourne un tableau de Calendrier */
+
+    public function getCalendar($chambre, $interval,$litbebe) {
+        $disp = array();
+        $dispo = $chambre->getDisponibilites();
+        //dispo est un Calendrier, du coup on doit vérifier que le nbre de lit bébé est correct
+        foreach ($dispo as $val) {
+            if (in_array($val->getDatej(), $interval) && $val->getNbrelitbebe() >= $litbebe) {
+                $disp[] = $val;
+            }
+        }
+        return $disp;
+    }
 
     public function searchChbres() {
         //fonction utilitaire
@@ -19,32 +46,20 @@ class ReservationController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $arrivee = new \DateTime($req->request->get('arrivee'));
         $depart = new \DateTime($req->request->get('depart'));
-        $difference = $arrivee->diff($depart);
-        $diff = $difference->days;
         $litbebe = $req->request->get('litbebe');
         $chambres = $em->getRepository("BittichHotelBundle:Chambre")->getChambre();
         $chbres = array();
         $nblit = 0;
+        $interval = $this->dateInterv($arrivee, $depart);
         foreach ($chambres as $chambre) {
             if ($chambre->getLitbebe() == true) {
                 $nblit++;
             }
-            // $temp = clone $arrivee;
-            $disp = array();
-            $dispo = $chambre->getDisponibilites();
-            for ($i = 0; $i < $diff; $i++) {
-                $temp = clone $arrivee;
-                $temp->add(new \DateInterval('P' . $i . 'D'));
-                foreach ($dispo as $val) {
-                    if ($val->getDatej() == $temp && $val->getNbrelitbebe() >= $litbebe) {
-                        $disp[] = $val;
-                        break;
-                    }
-                }
-            }
-            if (count($disp) == $diff) {
+            $disp = $this->getCalendar($chambre, $interval,$litbebe); // on récupère le calendrier
 
-                $chbres[] = $chambre->getId();
+            if (count($disp) == count($interval)) {
+
+                $chbres[] = $chambre;
             }
         }
         if ($litbebe > $nblit) {
@@ -56,7 +71,11 @@ class ReservationController extends Controller {
     public function searchAction() {
         $req = $this->getRequest();
         if ($req->isXmlHttpRequest()) {
-            $chbres = $this->searchChbres();
+            $ch = $this->searchChbres();
+            $chbres = array();
+            foreach ($ch as $c) {
+                $chbres[] = $c->getId();
+            }
             if (count($chbres) > 0) {
                 return new JsonResponse(array('chbres' => $chbres, 'message' => "ok"));
             } else {
@@ -64,6 +83,87 @@ class ReservationController extends Controller {
             }
         }
         return new JsonResponse("erreur fatal");
+    }
+
+    public function confirmAction() {
+        $req = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($req->isXmlHttpRequest()) {
+            $prix = 0;
+            $message = '';
+            try {
+                $arrivee = new \DateTime($req->request->get('arrivee'));
+                $depart = new \DateTime($req->request->get('depart'));
+                $litbebe = $req->request->get('litbebe');
+                $chbres = $this->searchChbres(); // on récupère la liste des chambres disponibles à ces dates
+                $resCh = $req->request->get('chambres'); // on récupère les id des chambres désirées
+                //on teste si les chambres sont toujours disponibles
+                $chambres = array();
+                $stilldispo = true;
+                $temp = array(); // pour les perfs...
+                foreach ($chbres as $chambre) {
+                    $temp[$chambre->getId()] = $chambre; // tableau associatif
+                }
+                foreach ($resCh as $rc) {
+                    if (array_key_exists($rc, $temp)) {
+                        $chambres[] = $temp[$rc];
+                    } else {
+                        $stilldispo = false; // la chambre n'est plus dispo...
+                        break;
+                    }
+                }
+                if ($stilldispo) {
+                    $interv = $this->dateInterv($arrivee, $depart); // range de dates
+                    /* création de la réservation */
+                    // 1_ Recherche du nom d'utilisateur
+                    $uscl = $this->container->get('security.context')->getToken()->getUser();
+                    $usr = $em->getRepository('BittichUserBundle:User')->findUserByUserName($uscl);
+                    // 2_ Création de l'objet Réservation
+                    $res = new Reservation();
+                    // 3_ Remplissage de l'objet
+                    $res->setClient($usr);
+                    $res->setDateArrivee($arrivee);
+                    $res->setDateDepart($depart);
+                    $res->setNbreBebe($litbebe);
+
+                    // 3_a On met à jour les disponibilités et on  ajoute au prix le total avec les lits bébés compris
+                    $dispo = $this->getCalendar($chambres[0], $interv,$litbebe);
+                    foreach ($dispo as $val) {
+                        $tar = $val->getTarif();
+                        $prix+=$tar->getPrixlitbebe() * $litbebe; //Set prix bébé
+                        $dj = $val->getNbrelitbebe();
+                        $totbb = $dj - $litbebe;
+                        $val->setNbrelitbebe($totbb);
+                        $em->persist($val);
+                    }
+
+                    // 3_b On met à jour les chambres et on les persist
+                    foreach ($chambres as $chambre) {
+                        $idmodele = $chambre->getModele()->getId(); // on récupère le modèle de la chambre
+                        // on calcule le total tarif par jour par chambre et on remove les dispos situées dans l'intervale
+                        $dispo = $this->getCalendar($chambre, $interv,$litbebe);
+                        foreach ($dispo as $d) {
+                            $tar = $d->getTarif();
+                            $pr = $em->getRepository("BittichHotelBundle:Prix")->findPrix($idmodele, $tar->getId()); //récupère le prix
+                            $prix+=$pr->getPrix(); //set prix 
+                            $chambre->removeDisponibilite($d);
+                        }
+                        // Persist la chambre avant de sortir de boucle
+                        $res->addChambre($chambre);
+                    }
+                    $res->setPrixtotal($prix);
+                    /* 4_ Persist et flush */
+                    $em->persist($res);
+                    $em->flush();
+                    $message.= 'Ajout réussi!' . " Prix total à payer: " . $res->getPrixtotal() . "€, N° de réservation : " . $res->getId();
+                }
+            } catch (\Exception $e) {
+                $message.= "Une erreur est survenue lors de la création de la réservation, en voici le message: " . $e->getMessage();
+            }
+            return new JsonResponse(array('message' => $message));
+        }
+        return new JsonResponse(array('message' => "Erreur Ligne 166 ReservationController"));
     }
 
     public function listerAction() {
@@ -86,7 +186,8 @@ class ReservationController extends Controller {
 
         return $this->render('BittichHotelBundle:Reservation:lister.html.twig', array('reservations' => $reservations));
     }
-
+/* DEPRECATED*
+    
     public function nouveauAction() {
         $req = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
@@ -174,7 +275,7 @@ class ReservationController extends Controller {
         $this->get('session')->getFlashBag()->add('message', $message);
 
         return $this->redirect($this->generateUrl('hotel_accueil'));
-    }
+    }*/
 
     public function supprimerAction(Reservation $res) {
         $message = '';
@@ -238,7 +339,7 @@ class ReservationController extends Controller {
 
 // ***********************************************************************************************************************************************
 //***********************************************************************************************************************************************
-
+/*Deprecated
     public function nouvelleReservationAction(Reservation $res) {
         $req = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
@@ -312,7 +413,7 @@ class ReservationController extends Controller {
                 $res->addChambre($chambre);
             }
 
-
+            
 
             $res->setPrixtotal($prix);
             $nbb = $res->getNbreBebe();
@@ -335,6 +436,6 @@ class ReservationController extends Controller {
 
         $this->get('session')->getFlashBag()->add('message', $message);
         return $this->redirect($this->generateUrl('hotel_accueil'));
-    }
+    }*/
 
 }
