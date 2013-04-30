@@ -69,21 +69,9 @@
     </head>
     {% endblock %}
     <body>
-                                                               {#Modal réservation #}
-            <div class="modal fade" id="modal_resa">
-                <div class="modal-header">
-                    <a class="close" data-dismiss="modal">&times;</a>
-                    <h3>Résérvation</h3>
-                </div>
-                <div class="modal-body">
-                    <p>Réservation effectuée avec succès.</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>             
-                </div>   
-            </div>
+            
       {% block navbar  %}
-            <div class="navbar navbar-fixed-top">
+            <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="navbar-inner">
                     <div class="container-fluid">
                         <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -206,21 +194,7 @@
                                 </div><!--/.well -->
                             </div><!--/span-->
 
-                                {#Modal pour les commentaires#}
-                            <div class="modal fade" id="modal_coms">
-                                <div class="modal-header">
 
-                                    <h3>Commentaires</h3>
-                                </div>
-                                <div class="modal-body">
-                                         {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}                                                     
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-
-                                    </div>   
-                                </div>
 
 
 
@@ -386,6 +360,34 @@
 
    {% endblock %}
 
+                                                   {#Modal réservation #}
+            <div class="modal hide fade" id="modal_resa">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">&times;</a>
+                    <h3>Résérvation</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Réservation effectuée avec succès.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>             
+                </div>   
+            </div>
+                            
+                                                            {#Modal pour les commentaires#}
+                            <div class="modal hide fade" id="modal_coms">
+                                <div class="modal-header">
 
+                                    <h3>Commentaires</h3>
+                                </div>
+                                <div class="modal-body">
+                                         {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}                                                     
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+
+                                    </div>   
+                                </div>
                         </body>
                     </html>

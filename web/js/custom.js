@@ -84,8 +84,9 @@ $(document).ready(function() {
                 $("#loading").hide();
 
                 if(result!= "success") {
-                    alert("Erreur");
                     $("#sub").show();
+
+                    alert("Erreur");
                     return;
                 }
                 resp= $.parseJSON(xhr.responseText);
@@ -103,6 +104,7 @@ $(document).ready(function() {
                     $("#show_button").show(1000);
 
                 }else{
+                    $("#sub").show();
                     alert('aucune chambre trouvée');
                                                                   
                 }
