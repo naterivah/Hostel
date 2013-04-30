@@ -133,7 +133,7 @@ $(document).ready(function() {
                 }
                 resp= $.parseJSON(xhr.responseText);
 
-                if(resp.message=='ok'){
+                if(resp.status=='ok'){
 
                     $.each(resp.chbres,function(k,v){
                         //alert('chambre : '+v);
@@ -149,7 +149,8 @@ $(document).ready(function() {
                     }); // au click sur le bouton confirmer
                 }else{
                     $("#sub").show();
-                    alert('aucune chambre trouvée');
+                    $('#modal_message').html('').append(resp.message);
+                    $('#modal_resa').modal("show");
                                                                   
                 }
                    

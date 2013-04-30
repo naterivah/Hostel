@@ -28,7 +28,7 @@ class ReservationController extends Controller {
 
     /* Retourne un tableau de Calendrier */
 
-    public function getCalendar($chambre, $interval,$litbebe) {
+    public function getCalendar($chambre, $interval, $litbebe) {
         $disp = array();
         $dispo = $chambre->getDisponibilites();
         //dispo est un Calendrier, du coup on doit vérifier que le nbre de lit bébé est correct
@@ -51,11 +51,14 @@ class ReservationController extends Controller {
         $chbres = array();
         $nblit = 0;
         $interval = $this->dateInterv($arrivee, $depart);
+        if(count($interval)==0){
+            return array();// si le gars réserve pour une journée, pour éviter les réservations à 0 euros.
+        }
         foreach ($chambres as $chambre) {
             if ($chambre->getLitbebe() == true) {
                 $nblit++;
             }
-            $disp = $this->getCalendar($chambre, $interval,$litbebe); // on récupère le calendrier
+            $disp = $this->getCalendar($chambre, $interval, $litbebe); // on récupère le calendrier
 
             if (count($disp) == count($interval)) {
 
@@ -77,9 +80,9 @@ class ReservationController extends Controller {
                 $chbres[] = $c->getId();
             }
             if (count($chbres) > 0) {
-                return new JsonResponse(array('chbres' => $chbres, 'message' => "ok"));
+                return new JsonResponse(array('chbres' => $chbres, 'status' => "ok"));
             } else {
-                return new JsonResponse(array('message' => 'nok'));
+                return new JsonResponse(array('status' => 'nok','message'=>"Aucune chambre n'a été trouvée ou intervalle de dates trop court(min 1 nuit)"));
             }
         }
         return new JsonResponse("erreur fatal");
@@ -93,11 +96,15 @@ class ReservationController extends Controller {
             $prix = 0;
             $message = '';
             try {
+                $resCh = $req->request->get('chambres'); // on récupère les id des chambres désirées
+                if($resCh==null || !isset($resCh) || count($resCh)==0){
+                    return new JsonResponse(array('message'=> "Vous n'avez séléctionné aucune chambre"));
+                }
+                
                 $arrivee = new \DateTime($req->request->get('arrivee'));
                 $depart = new \DateTime($req->request->get('depart'));
                 $litbebe = $req->request->get('litbebe');
                 $chbres = $this->searchChbres(); // on récupère la liste des chambres disponibles à ces dates
-                $resCh = $req->request->get('chambres'); // on récupère les id des chambres désirées
                 //on teste si les chambres sont toujours disponibles
                 $chambres = array();
                 $stilldispo = true;
@@ -128,7 +135,7 @@ class ReservationController extends Controller {
                     $res->setNbreBebe($litbebe);
 
                     // 3_a On met à jour les disponibilités et on  ajoute au prix le total avec les lits bébés compris
-                    $dispo = $this->getCalendar($chambres[0], $interv,$litbebe);
+                    $dispo = $this->getCalendar($chambres[0], $interv, $litbebe);
                     foreach ($dispo as $val) {
                         $tar = $val->getTarif();
                         $prix+=$tar->getPrixlitbebe() * $litbebe; //Set prix bébé
@@ -142,7 +149,7 @@ class ReservationController extends Controller {
                     foreach ($chambres as $chambre) {
                         $idmodele = $chambre->getModele()->getId(); // on récupère le modèle de la chambre
                         // on calcule le total tarif par jour par chambre et on remove les dispos situées dans l'intervale
-                        $dispo = $this->getCalendar($chambre, $interv,$litbebe);
+                        $dispo = $this->getCalendar($chambre, $interv, $litbebe);
                         foreach ($dispo as $d) {
                             $tar = $d->getTarif();
                             $pr = $em->getRepository("BittichHotelBundle:Prix")->findPrix($idmodele, $tar->getId()); //récupère le prix
@@ -186,96 +193,97 @@ class ReservationController extends Controller {
 
         return $this->render('BittichHotelBundle:Reservation:lister.html.twig', array('reservations' => $reservations));
     }
-/* DEPRECATED*
-    
-    public function nouveauAction() {
-        $req = $this->getRequest();
-        $em = $this->getDoctrine()->getManager();
 
-        $message = '';
-        if ($req->getMethod() == "POST") {
+    /* DEPRECATED*
+
+      public function nouveauAction() {
+      $req = $this->getRequest();
+      $em = $this->getDoctrine()->getManager();
+
+      $message = '';
+      if ($req->getMethod() == "POST") {
 
 
 
-            //return new Response(var_dump($arr,$dp,$arrivee,$depart));
-            try {
-                $arr = $req->request->get('arrivee');
-                $dp = $req->request->get('depart');
-                $arrivee = new \DateTime($arr);
-                $depart = new \DateTime($dp);
-                $arrivee->format('Y-m-d');
-                $depart->format('Y-m-d');
-                $difference = $arrivee->diff($depart);
-                $diff = $difference->days;
-                $litbebe = $req->get('litbebe');
-                $chambres = $em->getRepository("BittichHotelBundle:Chambre")->getChambre();
+      //return new Response(var_dump($arr,$dp,$arrivee,$depart));
+      try {
+      $arr = $req->request->get('arrivee');
+      $dp = $req->request->get('depart');
+      $arrivee = new \DateTime($arr);
+      $depart = new \DateTime($dp);
+      $arrivee->format('Y-m-d');
+      $depart->format('Y-m-d');
+      $difference = $arrivee->diff($depart);
+      $diff = $difference->days;
+      $litbebe = $req->get('litbebe');
+      $chambres = $em->getRepository("BittichHotelBundle:Chambre")->getChambre();
 
-                $chbres = array();
+      $chbres = array();
 
-                if ($difference->invert == 0 && $diff != 0) {
-                    $nblit = 0;
-                    foreach ($chambres as $chambre) {
-                        if ($chambre->getLitbebe() == true) {
-                            $nblit++;
-                        }
-                        // $temp = clone $arrivee;
-                        $disp = array();
-                        $dispo = $chambre->getDisponibilites();
-                        for ($i = 0; $i < $diff; $i++) {
-                            $temp = clone $arrivee;
-                            $temp->add(new \DateInterval('P' . $i . 'D'));
-                            foreach ($dispo as $val) {
-                                if ($val->getDatej() == $temp && $val->getNbrelitbebe() >= $litbebe) {
-                                    $disp[] = $val;
-                                    break;
-                                }
-                            }
-                        }
-                        if (count($disp) == $diff) {
+      if ($difference->invert == 0 && $diff != 0) {
+      $nblit = 0;
+      foreach ($chambres as $chambre) {
+      if ($chambre->getLitbebe() == true) {
+      $nblit++;
+      }
+      // $temp = clone $arrivee;
+      $disp = array();
+      $dispo = $chambre->getDisponibilites();
+      for ($i = 0; $i < $diff; $i++) {
+      $temp = clone $arrivee;
+      $temp->add(new \DateInterval('P' . $i . 'D'));
+      foreach ($dispo as $val) {
+      if ($val->getDatej() == $temp && $val->getNbrelitbebe() >= $litbebe) {
+      $disp[] = $val;
+      break;
+      }
+      }
+      }
+      if (count($disp) == $diff) {
 
-                            $chbres[] = $chambre;
-                        }
-                    }
-                    if ($litbebe > $nblit) {
-                        $chbres = array();
-                    }
-                    if (count($chbres) > 0) {
-                        //persist
-                        $uscl = $this->container->get('security.context')->getToken()->getUser();
-                        $res = new Reservation();
+      $chbres[] = $chambre;
+      }
+      }
+      if ($litbebe > $nblit) {
+      $chbres = array();
+      }
+      if (count($chbres) > 0) {
+      //persist
+      $uscl = $this->container->get('security.context')->getToken()->getUser();
+      $res = new Reservation();
 
-                        $usr = $em->getRepository('BittichUserBundle:User')->findUserByUserName($uscl);
-                        $res->setClient($usr);
-                        foreach ($chbres as $c) {
-                            $res->addChambre($c);
-                        }
-                        $res->setDateArrivee($arrivee);
-                        $res->setDateDepart($depart);
-                        $res->setNbreBebe($litbebe);
-                        $em->persist($res);
-                        $em->flush();
-                        // $id = $res->getId();
+      $usr = $em->getRepository('BittichUserBundle:User')->findUserByUserName($uscl);
+      $res->setClient($usr);
+      foreach ($chbres as $c) {
+      $res->addChambre($c);
+      }
+      $res->setDateArrivee($arrivee);
+      $res->setDateDepart($depart);
+      $res->setNbreBebe($litbebe);
+      $em->persist($res);
+      $em->flush();
+      // $id = $res->getId();
 
-                        return $this->render('BittichHotelBundle:Reservation:nouvelle-reservation.html.twig', array(
-                                    'res' => $res,
-                                        )
-                        );
-                    } else {
-                        $message.= $this->get('translator')->trans('chambre.aucun');
-                    }
-                } else {
-                    $diff = -($diff);
-                    $message.= $this->get('translator')->trans('resa.datenegative');
-                    //ici indiquer une erreur date inférieure
-                }
-            } catch (\Exception $e) {
-                echo $e->getMessage();
-            }
-        }
-        $this->get('session')->getFlashBag()->add('message', $message);
+      return $this->render('BittichHotelBundle:Reservation:nouvelle-reservation.html.twig', array(
+      'res' => $res,
+      )
+      );
+      } else {
+      $message.= $this->get('translator')->trans('chambre.aucun');
+      }
+      } else {
+      $diff = -($diff);
+      $message.= $this->get('translator')->trans('resa.datenegative');
+      //ici indiquer une erreur date inférieure
+      }
+      } catch (\Exception $e) {
+      echo $e->getMessage();
+      }
+      }
+      $this->get('session')->getFlashBag()->add('message', $message);
 
-        return $this->redirect($this->generateUrl('hotel_accueil'));
-    }*/
+      return $this->redirect($this->generateUrl('hotel_accueil'));
+      } */
 
     public function supprimerAction(Reservation $res) {
         $message = '';
@@ -339,103 +347,102 @@ class ReservationController extends Controller {
 
 // ***********************************************************************************************************************************************
 //***********************************************************************************************************************************************
-/*Deprecated
-    public function nouvelleReservationAction(Reservation $res) {
-        $req = $this->getRequest();
-        $em = $this->getDoctrine()->getManager();
+    /* Deprecated
+      public function nouvelleReservationAction(Reservation $res) {
+      $req = $this->getRequest();
+      $em = $this->getDoctrine()->getManager();
 
 
-        if ($req->getMethod() == "POST") {
+      if ($req->getMethod() == "POST") {
 
-            $prix = 0;
-            $message = '';
-            // Récupération de la réservation, oui le code est pas terrible mais ça fait le boulot ;-)
+      $prix = 0;
+      $message = '';
+      // Récupération de la réservation, oui le code est pas terrible mais ça fait le boulot ;-)
 
-            $arrivee = $res->getDateArrivee();
+      $arrivee = $res->getDateArrivee();
 
-            $depart = $res->getDateDepart();
-            $diff = $arrivee->diff($depart)->days;
-            $message.="diff: " . $diff;
-            // récupération des id chambres
-            $idchambres = $req->request->get("chambres");
-            $chambres = array();
-            // on récupère nos chambres choisies par l'utilisateur
-            foreach ($idchambres as $i) {
-                $chambres[] = $em->getRepository("BittichHotelBundle:Chambre")->find($i);
-                $message.="chambre trouvée" . $i;
-            }
-            // on remove les dispos des chambres et on incrémente le prix
-            // on efface toutes les chambres, codage à la Microsoft Windows 98 Standard edition 2
-            // c'est de loin la pire classe contrôleur que j'ai jamais écrite, j'en suis navré
-            $res->clearChambres();
-            $litbb = 0; // jm'ets ca pr calculer le prix des lits correctement
+      $depart = $res->getDateDepart();
+      $diff = $arrivee->diff($depart)->days;
+      $message.="diff: " . $diff;
+      // récupération des id chambres
+      $idchambres = $req->request->get("chambres");
+      $chambres = array();
+      // on récupère nos chambres choisies par l'utilisateur
+      foreach ($idchambres as $i) {
+      $chambres[] = $em->getRepository("BittichHotelBundle:Chambre")->find($i);
+      $message.="chambre trouvée" . $i;
+      }
+      // on remove les dispos des chambres et on incrémente le prix
+      // on efface toutes les chambres, codage à la Microsoft Windows 98 Standard edition 2
+      // c'est de loin la pire classe contrôleur que j'ai jamais écrite, j'en suis navré
+      $res->clearChambres();
+      $litbb = 0; // jm'ets ca pr calculer le prix des lits correctement
 
-            foreach ($chambres as $chambre) {
-                //   $temp = clone $arrivee;
-                $idmodele = $chambre->getModele()->getId(); //récupère le modèle
-                $message.="modele>" . $idmodele;
-                $dispo = $chambre->getDisponibilites();
-                $disp = array();
-                for ($i = 0; $i < $diff; $i++) {
-                    $temp = clone $arrivee;
-                    $temp->add(new \DateInterval('P' . $i . 'D'));
-                    // $temp->add(new \DateInterval('P1D'));
-                    $message.="j'entre";
-                    foreach ($dispo as $val) {
-                        if ($val->getDatej() == $temp) {
-                            // on fait un truc naze pour sauver la dispo
-                            $present = false;
-                            if (in_array($val, $disp)) {
-                                $present = true;
-                            }if (!$present) {
-                                $disp[] = $val;
-                            }
-                            // on modifie le nbre de litbébé
-                            $message.="nombre de bébés =====>" . $res->getNbreBebe();
-                            //$em->persist($val); // pas sur que ce soit obligatoire, methode ScrumVista
-                            //prix lit bébé
-                            $tar = $val->getTarif(); //récupère le tarif
-                            $message.="tarif=>" . $tar->getId();
-                            if ($litbb < $res->getNbreBebe() && $chambre->getLitbebe() == true) {
-                                $prix+=$tar->getPrixlitbebe() * $res->getNbreBebe(); //Set prix bébé
-                                $litbb+=1;
-                            }
-                            $pr = $em->getRepository("BittichHotelBundle:Prix")->findPrix($idmodele, $tar->getId()); //récupère le prix
-                            $prix+=$pr->getPrix(); //set prix 
-                            // $tmp = clone $chambre; // Super pour des performances incroyables! z
-                            $chambre->removeDisponibilite($val);
-                            $em->persist($chambre);
-                            $message.="prix=>" . $prix;
-                            break;
-                        }
-                    }
-                }
-                $res->addChambre($chambre);
-            }
+      foreach ($chambres as $chambre) {
+      //   $temp = clone $arrivee;
+      $idmodele = $chambre->getModele()->getId(); //récupère le modèle
+      $message.="modele>" . $idmodele;
+      $dispo = $chambre->getDisponibilites();
+      $disp = array();
+      for ($i = 0; $i < $diff; $i++) {
+      $temp = clone $arrivee;
+      $temp->add(new \DateInterval('P' . $i . 'D'));
+      // $temp->add(new \DateInterval('P1D'));
+      $message.="j'entre";
+      foreach ($dispo as $val) {
+      if ($val->getDatej() == $temp) {
+      // on fait un truc naze pour sauver la dispo
+      $present = false;
+      if (in_array($val, $disp)) {
+      $present = true;
+      }if (!$present) {
+      $disp[] = $val;
+      }
+      // on modifie le nbre de litbébé
+      $message.="nombre de bébés =====>" . $res->getNbreBebe();
+      //$em->persist($val); // pas sur que ce soit obligatoire, methode ScrumVista
+      //prix lit bébé
+      $tar = $val->getTarif(); //récupère le tarif
+      $message.="tarif=>" . $tar->getId();
+      if ($litbb < $res->getNbreBebe() && $chambre->getLitbebe() == true) {
+      $prix+=$tar->getPrixlitbebe() * $res->getNbreBebe(); //Set prix bébé
+      $litbb+=1;
+      }
+      $pr = $em->getRepository("BittichHotelBundle:Prix")->findPrix($idmodele, $tar->getId()); //récupère le prix
+      $prix+=$pr->getPrix(); //set prix
+      // $tmp = clone $chambre; // Super pour des performances incroyables! z
+      $chambre->removeDisponibilite($val);
+      $em->persist($chambre);
+      $message.="prix=>" . $prix;
+      break;
+      }
+      }
+      }
+      $res->addChambre($chambre);
+      }
 
-            
 
-            $res->setPrixtotal($prix);
-            $nbb = $res->getNbreBebe();
-            foreach ($disp as $d) {
-                $dj = $d->getNbrelitbebe();
-                $totbb = $dj - $nbb;
-                $d->setNbrelitbebe($totbb);
-                $em->persist($d);
-            }
-            // enfin, on persist et flush
-            $em->persist($res);
-            $em->flush();
-            //on renvoie la balle, jeu set et match
-            $message .= 'La commande numéro ' . $res->getId() . " est prête à la boucherie. Prix total : " . $res->getPrixTotal() . "€";
-            $this->get('session')->getFlashBag()->add('message', $message);
 
-            return $this->redirect($this->generateUrl('hotel_accueil'));
-        }
-        $message = "erreur inconnue, quelque part à la ligne 215 du controller reservation(flemme de faire un if)";
+      $res->setPrixtotal($prix);
+      $nbb = $res->getNbreBebe();
+      foreach ($disp as $d) {
+      $dj = $d->getNbrelitbebe();
+      $totbb = $dj - $nbb;
+      $d->setNbrelitbebe($totbb);
+      $em->persist($d);
+      }
+      // enfin, on persist et flush
+      $em->persist($res);
+      $em->flush();
+      //on renvoie la balle, jeu set et match
+      $message .= 'La commande numéro ' . $res->getId() . " est prête à la boucherie. Prix total : " . $res->getPrixTotal() . "€";
+      $this->get('session')->getFlashBag()->add('message', $message);
 
-        $this->get('session')->getFlashBag()->add('message', $message);
-        return $this->redirect($this->generateUrl('hotel_accueil'));
-    }*/
+      return $this->redirect($this->generateUrl('hotel_accueil'));
+      }
+      $message = "erreur inconnue, quelque part à la ligne 215 du controller reservation(flemme de faire un if)";
 
+      $this->get('session')->getFlashBag()->add('message', $message);
+      return $this->redirect($this->generateUrl('hotel_accueil'));
+      } */
 }
