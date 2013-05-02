@@ -1,0 +1,95 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ "calendrier.liste"|trans }}
+{% endblock %}
+
+
+{% block content %}
+<script>
+    $(document).ready(function() {  
+                               $("#load").hide();
+
+   dateRivah.init("debut","fin");
+       $("#date_create").submit(function(){
+       event.preventDefault();
+       var debut= $("#debut").val();
+       debut = dateRivah.formatDate(debut);
+       var fin= $("#fin").val();
+       fin= dateRivah.formatDate(fin);
+       var litbebe= $("#lits").val();
+       var tarif= $("#tarif").val();// on récupère les tarifs
+
+       var data= {
+           "debut":debut,
+           "fin":fin,
+           "lits":litbebe,
+           "tarif": tarif
+       };
+       var url= Routing.generate('hotel_calendrier_addrange');
+       $("#sub2").hide();
+       $("#load").show();
+       $.ajax({
+           data:data,
+           dataType:' json',
+           type: 'POST',
+           complete: function(xhr,result){
+               var message='';
+               if(result!="success")
+                   message+="Une erreur est survenue, vérifiez que les dates choisies ne sont pas déjà enregistrées.";
+                   else{
+                       document.forms.date_create.reset();// on reset le formulaire 
+                resp= $.parseJSON(xhr.responseText);
+                //modal_resa modal_message
+                message=resp.message;
+                   }
+               $('#modal_message').html('').append(message);
+                $('#modal_resa').modal("show");
+                
+                       $("#sub2").show();
+                       $("#load").hide();
+            
+       }
+    
+
+
+       });
+        
+       });
+       });
+    </script>
+{% if is_granted('ROLE_EMPLOYE') %}
+    <form id = "date_create" class="form well" id="formulaire">
+        <legend>{{ "calendrier.ajouter"|trans|upper }}</legend>
+        <label for="{{ "calendrier.datedebut"|trans }}"></label>
+        <input type="text" name="debut" id="debut" data-date-format="dd-mm-yyyy" required="true" placeholder="Date début">
+        <label for="{{ "calendrier.datefin"|trans }}"></label>
+        <input type="text" name ="fin" id="fin"   data-date-format="dd-mm-yyyy" required="true" placeholder="Date de fin">
+        <label for="{{ "calendrier.litbebe"|trans }}"></label>
+        <input name="lits" id="lits"  type="number" min= "0" required="true" value="0" placeholder="Nombre de lits bébés">
+        <label for="{{ "tarif.label"|trans }}"></label>
+        <select name ="tarif" id="tarif">
+                           {% for t in tarif %}
+                <option value="{{t.id}}">{{t.couleur}}</option> 
+                {% endfor %}
+            </select>
+            <button type="submit" id="sub2" class="btn btn-success">Enregistrer<i class="icon-chevron-right icon-white"></i></button>
+            <img id="load" src="{{asset('img/ajax-loader.gif')}}">
+
+
+
+
+            </fieldset>
+
+
+
+        </form>
+
+
+    {% endif  %}
+{% endblock %}
+
+
+
+
+
+

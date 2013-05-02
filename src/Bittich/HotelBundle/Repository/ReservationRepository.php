@@ -20,6 +20,15 @@ class ReservationRepository extends EntityRepository {
                 ->setParameter('iduser', $iduser);
 
         return $qb->getQuery()->getResult();
-                }
+    }
+
+    public function findAll() {
+        $qb = $this->createQueryBuilder('p')
+                ->leftJoin('p.client', 'u')
+                ->addSelect('u');
+
+        return $qb->getQuery()
+                        ->getResult();
+    }
 
 }

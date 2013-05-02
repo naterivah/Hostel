@@ -1,50 +1,56 @@
 /*Date*/
-$(function (){
-    var nowTemp = new Date();
-    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+(function ($){
+    window.dateRivah={
+        
+        init:function(dateA,dateB){ 
+            var nowTemp = new Date();
+            var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
  
-    var checkin = $('#arrivee').datepicker({
-        onRender: function(date) {
-            return date.valueOf() < now.valueOf() ? 'disabled' : '';
-        }
-    }).on('changeDate', function(ev) {
+            var checkin = $('#'+dateA).datepicker({
+                onRender: function(date) {
+                    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
                              
 
-        if (ev.date.valueOf() > checkout.date.valueOf()) {
-            var newDate = new Date(ev.date)
-            newDate.setDate(newDate.getDate() + 1);
-            checkout.setValue(newDate);
-        }
-        checkin.hide();
-        $('#depart')[0].focus();
+                if (ev.date.valueOf() > checkout.date.valueOf()) {
+                    var newDate = new Date(ev.date)
+                    newDate.setDate(newDate.getDate() + 1);
+                    checkout.setValue(newDate);
+                }
+                checkin.hide();
+                $('#'+dateB)[0].focus();
                               
-    }).data('datepicker');
-    var checkout = $('#depart').datepicker({
-        onRender: function(date) {
-            return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
-        }
-    }).on('changeDate', function(ev) {
+            }).data('datepicker');
+            var checkout = $('#'+dateB).datepicker({
+                onRender: function(date) {
+                    return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function(ev) {
                        
 
-        checkout.hide();
+                checkout.hide();
                               
-    }).data('datepicker');
-                           
+            }).data('datepicker');
+        },
+        formatDate: function(date){
+            var dateArr = date.split("-");
+            var dateFormat = dateArr[2] + "-" + dateArr[1] + "-" + dateArr[0];
+            return dateFormat;
+                                            
+        }
+    };                     
                                               
-});   
+})(jQuery);   
 
 /* Ajax */
 
 $(document).ready(function() {  
+    dateRivah.init("arrivee","depart");
     $("#show_button").hide();
     $("#show_select").hide();
     $("#loading").hide();
-    var convertDate= function(date){
-        var dateArr = date.split("-");
-        var dateFormat = dateArr[2] + "-" + dateArr[1] + "-" + dateArr[0];
-        return dateFormat;
-                                            
-    };
+  
                                              
     var addOption= function(option){
         var txt= '<option value="'+option+'">Chambre '+option+"</option>";
@@ -54,9 +60,9 @@ $(document).ready(function() {
     }; 
     var createJson= function(){
         var depart= $("#depart").val();
-        depart= convertDate(depart);
+        depart= dateRivah.formatDate(depart);
         var arrivee= $("#arrivee").val();
-        arrivee= convertDate(arrivee);
+        arrivee= dateRivah.formatDate(arrivee);
         var litbebe= $("#litbebe").val();
         var chambres= $("#chambres").val();// on récupère les chambres même si le champs est hidden!
 

@@ -69,6 +69,7 @@ modele.supprimer.succes: Modèle %name% supprimé avec succès!
 #Calendrier
 calendrier.label: Calendrier
 calendrier.datej: Date
+
 calendrier.nbredispo: Nombre de disponibilités
 calendrier.liste: Calendrier de dates
 calendrier.liste.retour: Retour au calendrier

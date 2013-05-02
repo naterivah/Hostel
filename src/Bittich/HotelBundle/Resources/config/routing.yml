@@ -133,7 +133,14 @@ hotel_calendrier_supprimer:
     requirements:
       _locale: fr|en
       id: \d+
-      
+ 
+hotel_calendrier_addrange:
+      pattern: /{_locale}/employe/calendrier/ajouter-dates
+      defaults: { _controller: BittichHotelBundle:Calendrier:addrange, _locale: fr }
+      requirements:
+        _locale: fr|en
+      options:
+          expose: true
 #*******************************************************************************************************
 #Prix***************************************************************************************************
 #*******************************************************************************************************
