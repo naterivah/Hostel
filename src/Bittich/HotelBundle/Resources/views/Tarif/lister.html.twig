@@ -10,8 +10,9 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
-    <table border="1">
-        <caption>{{ "tarif.liste"|trans|upper }}</caption>
+     <table class="table table-bordered table-condensed table-striped">
+        <caption>{{ "tarif.liste"|trans }}</caption>
+        <thead>
 
         <tr>
             <th>ID</th>
@@ -23,16 +24,19 @@
                                 {% endif %}
 
         </tr>
+          </thead>
+                  <tbody>
+
             {% for tar in tarifs %}
         <tr>
             <td>{{tar.id}}</td>
-            <td>{{tar.couleur}}</td>
-            <td>{{tar.prixlitbebe}}</td>
+            <td><span class="badge">{{tar.couleur}}</span></td>
+            <td><span class="badge">{{tar.prixlitbebe}}</span></td>
                                                          {% if is_granted('ROLE_EMPLOYE') %}
 
-            <td>    <p><a href=" {{path('hotel_tarif_editer',{'id' : tar.id})}}">{{"modifier"|trans}}</a></p></td>
+            <td>    <p><a class="btn btn-primary btn-small" href=" {{path('hotel_tarif_editer',{'id' : tar.id})}}">{{"modifier"|trans}}</a></p></td>
             
-           <td>    <p><a href=" {{path('hotel_tarif_supprimer',{'id' : tar.id})}}">{{"supprimer"|trans}}</a></p></td>
+           <td>    <p><a class="btn btn-warning btn-small" href=" {{path('hotel_tarif_supprimer',{'id' : tar.id})}}">{{"supprimer"|trans}}</a></p></td>
                     {% endif %}
 
         </tr>
@@ -42,10 +46,12 @@
 
         </tr>
         {% endfor %}
+                </tbody>
+
     </table>
                                              {% if is_granted('ROLE_EMPLOYE') %}
 
-    <p><a href=" {{path('hotel_tarif_ajouter')}}">{{"tarif.ajouter"|trans}}</a></p>
+    <p><a class="btn btn-success" href=" {{path('hotel_tarif_ajouter')}}">{{"tarif.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>
                         {% endif %}
 
 {% endblock %}

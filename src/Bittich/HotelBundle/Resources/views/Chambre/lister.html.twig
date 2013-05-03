@@ -10,57 +10,67 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
-    <table border="1">
-        <caption>{{ "chambre.liste"|trans|upper }}</caption>
+    <table class="table table-bordered table-condensed table-striped">
 
-        <tr>
-            <th>N°</th>
-            <th>{{ "chambre.etage"|trans }}</th>
-            <th>{{ "chambre.litbebe"|trans }}</th>
-            <th>{{ "modele.label"|trans }}</th>
-            <th>{{ "calendrier.disponibilites"|trans }}</th>
+        <caption>{{ "chambre.liste"|trans }}</caption>
+        <thead>
+
+            <tr>
+                <th>N°</th>
+                <th>{{ "chambre.etage"|trans }}</th>
+                <th>{{ "chambre.litbebe"|trans }}</th>
+                <th>{{ "modele.label"|trans }}</th>
+                <th>{{ "calendrier.disponibilites"|trans }}</th>
 {% if is_granted('ROLE_EMPLOYE') %}
 
-            <th colspan="2">Options</th>
+                <th colspan="2">Options</th>
             {% endif %}
-        </tr>
+            </tr>
+        </thead>
+        <tbody>
             {% for cha in chambres %}
-        <tr>
-            <td>{{cha.id}}</td>
-            <td>{{cha.etage}}</td>
-            <td>{{cha.litbebe}}</td>
-            <td>{{cha.modele.id}}</td>
-            <td>
+                <tr>
+                    <td>{{cha.id}}</td>
+                    <td><span class="badge">{{cha.etage}}</span></td>
+                          {% if cha.litbebe == 1 %}
+                    <td><i class="icon-ok"></i></td>
+                {% else %}
+                    <td><i class="icon-remove"></i></td>
+                 {% endif %}
+                    <td><span class="badge">{{cha.modele.id}}</span></td>
+                    <td>
             {% if cha.disponibilites is empty %}
                 {{'calendrier.aucun'|trans}}
                 {% else %}
 
-                    <select>
+                            <select>
                      {% for dispo in cha.disponibilites %}
-                            <option value="{{dispo.id}}">{{dispo.datej|date('d/m/Y')}}</option> 
+                                    <option value="{{dispo.id}}">{{dispo.datej|date('d/m/Y')}}</option> 
                 {% endfor %}
-                        </select>
-                   
+                                </select>
+
           {% endif %}
-            </td>
+                            </td>
             {% if is_granted('ROLE_EMPLOYE') %}
 
-                    <td>    <p><a href=" {{path('hotel_chambre_editer',{'id' : cha.id})}}">{{"modifier"|trans}}</a></p></td>
+                            <td>    <p><a class="btn btn-primary btn-small" href=" {{path('hotel_chambre_editer',{'id' : cha.id})}}">{{"modifier"|trans}}</a></p></td>
 
-                    <td>    <p><a href=" {{path('hotel_chambre_supprimer',{'id' : cha.id})}}">{{"supprimer"|trans}}</a></p></td>
+                            <td>    <p><a class="btn btn-warning btn-small" href=" {{path('hotel_chambre_supprimer',{'id' : cha.id})}}">{{"supprimer"|trans}}</a></p></td>
             {% endif %}
 
-                </tr>
+                        </tr>
     {% else %}
-                <tr>
-                    <td colspan="6" style="background-color:#FF0000">{{"chambre.aucun" |trans}}</td>
+                        <tr>
+                            <td colspan="6" style="background-color:#FF0000">{{"chambre.aucun" |trans}}</td>
 
-                </tr>
+                        </tr>
         {% endfor %}
-            </table>
+                    </tbody>
+
+                </table>
             {% if is_granted('ROLE_EMPLOYE') %}
 
-            <p><a href=" {{path('hotel_chambre_ajouter')}}">{{"chambre.ajouter"|trans}}</a></p>
+                <p><a class="btn btn-success" href=" {{path('hotel_chambre_ajouter')}}">{{"chambre.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>
                         {% endif %}
 
 {% endblock %}

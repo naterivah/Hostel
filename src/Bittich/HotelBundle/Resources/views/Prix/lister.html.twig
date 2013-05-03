@@ -10,8 +10,10 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
-    <table border="1">
+       <table class="table table-bordered table-condensed table-striped">
+
         <caption>{{ "prix.liste"|trans|upper }}</caption>
+        <thead>
 
         <tr>
          
@@ -24,19 +26,21 @@
                             {% endif %}
 
         </tr>
+                </thead>
+                <tbody>
             {% for pr in prices %}
         <tr>
-            <td>{{pr.modele.id}}</td>
-            <td>{{pr.tarif.couleur}}</td>
-            <td>{{pr.prix}}</td>
+            <td><span class="badge">{{pr.modele.id}}</span></td>
+            <td><span class="badge">{{pr.tarif.couleur}}</span></td>
+            <td><span class="badge">{{pr.prix}}</span></td>
                                     {% if is_granted('ROLE_EMPLOYE') %}
 
-            <td>    <p><a href=" {{path('hotel_prix_editer',
+            <td>    <p><a class="btn btn-primary btn-small" href=" {{path('hotel_prix_editer',
                 {'idmodele' : pr.modele.id,'idtarif' : pr.tarif.id})}}">{{"modifier"|trans}}
                         </a></p>
               </td>
             
-           <td>    <p><a href=" {{path('hotel_prix_supprimer',
+           <td>    <p><a class="btn btn-warning btn-small" href=" {{path('hotel_prix_supprimer',
                 {'idmodele' : pr.modele.id,'idtarif' : pr.tarif.id})}}">
                 {{"supprimer"|trans}}</a></p></td>
                 {% endif %}
@@ -48,10 +52,11 @@
 
         </tr>
         {% endfor %}
+        </tbody>
     </table>
                         {% if is_granted('ROLE_EMPLOYE') %}
 
-    <p><a href=" {{path('hotel_prix_ajouter')}}">{{"prix.ajouter"|trans}}</a></p>
+    <p><a class="btn btn-success" href=" {{path('hotel_prix_ajouter')}}">{{"prix.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>
                     {% endif %}
 
 {% endblock %}
