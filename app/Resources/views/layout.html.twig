@@ -29,7 +29,9 @@
             #chambres{
                 width: 95%;
             }
-
+            .table td{
+                text-align: center;   
+            }
 
             .sidebar-nav {
                 padding: 9px 0;
@@ -82,7 +84,10 @@
                         {#FOFM Connexion #}
                          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <ul class="nav nav-pills pull-right">
-                                <li class="active"> <a href="{{path("fos_user_profile_show")}}"><i class="icon-user icon-white"></i>{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
+                                <li class="active"> <a id="admin" rel="popover" data-original-title="Infos" data-content=
+                                                       "{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ app.user.email }}
+                                                      "
+                                                       href="#"><i class="icon-user icon-white"></i>{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
                                 <li class="divider-vertical"></li>
                                 <li><a href="{{path("fos_user_security_logout")}}"><i class="icon-off icon-white"></i>{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
                             </ul>
@@ -123,10 +128,9 @@
 
 
 
-
                             <div id="bar" class="well sidebar-nav">
                                 <ul class="nav nav-list">
-                                    <li class="nav-header">Réservation</li>
+                                    <li class="nav-header">Réserver un goulag</li>
 
                                     <form class="form-vertical" id="nouv_res" action= "#" method = "post">   
 
@@ -140,7 +144,11 @@
 
 
                                     </form>
-                                    <li><img id="loading" src="{{asset('img/ajax-loader.gif')}}"></li>
+                                    <li>
+                                        <div  id="loading" class="progress progress-striped active">
+                                            <div class="bar bar-primary" style="width: 100%;"></div>
+                                        </div></li>
+                                    {#!--<li><img id="loading" src="{{asset('img/ajax-loader.gif')}}"></li>#}
                                     <li><div class="control-group" id="show_select">
                                             <label class="control-label badge badge-info" for="chambres">{{'chambre.label'|trans }}</label>
                                             <div class="controls">
@@ -182,13 +190,11 @@
                              {% block menu %}
                                      {% include 'BittichHotelBundle:Default:index.html.twig' %} 
                             {% endblock %}
-                                    
+
                                 </ul>
 
                             </div><!--/.well -->
-                              <p>
-                                            <a class="btn btn-warning btn-large" href="#modal_coms" data-toggle="modal" data-target="#modal_coms"><i class="icon-comment icon-white"></i>Commenter</a>
-                                        </p>
+
                         </div><!--/span-->
 
 
@@ -206,144 +212,156 @@
                                         </br><span class="badge badge-info">La bureaucratie au service de l'hôtellerie</span>
                         {% endblock %}
 
-                                        </h1>
-                                      
-                                    </div>
+                                    </h1>
 
-                           
-                                        <div class="row-fluid">
-                                            <div class="span12">
-                                                <div id="myCarousel" class="carousel slide ">
-                                                    <div class="carousel-inner thumbnail">
-                                                        <div class="item active"> <img alt="" src="{{ asset('img/hotel1.jpg') }}"/>
-                                                            <div class="carousel-caption">
-                                                            </div>
-                                                        </div>
-                                                        <div class="item"> <img alt="" src="{{ asset('img/hotel2.jpg') }}"/>
-                                                            <div class="carousel-caption">
+                                </div>
 
-                                                            </div>
-                                                        </div>
-                                                        <div class="item"> <img alt="" src="{{ asset('img/hotel3.jpg') }}"/>
-                                                            <div class="carousel-caption">
-                                                            </div>
-                                                        </div>
-                                                        <div class="item"> <img alt="" src="{{ asset('img/hotel4.jpg') }}"/>
-                                                            <div class="carousel-caption">
-                                                            </div>
-                                                        </div>
-                                                        <div class="item"> <img alt="" src="{{ asset('img/hotel5.jpg') }}"/>
-                                                            <div class="carousel-caption">
-                                                            </div>
-                                                        </div>
+
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <div id="myCarousel" class="carousel slide ">
+                                            <div class="carousel-inner thumbnail">
+                                                <div class="item active"> <img alt="" src="{{ asset('img/hotel1.jpg') }}"/>
+                                                    <div class="carousel-caption">
                                                     </div>
-                                                    <a class="carousel-control left" data-slide="prev" href="#myCarousel">‹</a> <a class="carousel-control right" data-slide="next" href="#myCarousel">›</a> </div>
+                                                </div>
+                                                <div class="item"> <img alt="" src="{{ asset('img/hotel2.jpg') }}"/>
+                                                    <div class="carousel-caption">
 
+                                                    </div>
+                                                </div>
+                                                <div class="item"> <img alt="" src="{{ asset('img/hotel3.jpg') }}"/>
+                                                    <div class="carousel-caption">
+                                                    </div>
+                                                </div>
+                                                <div class="item"> <img alt="" src="{{ asset('img/hotel4.jpg') }}"/>
+                                                    <div class="carousel-caption">
+                                                    </div>
+                                                </div>
+                                                <div class="item"> <img alt="" src="{{ asset('img/hotel5.jpg') }}"/>
+                                                    <div class="carousel-caption">
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row-fluid">
-                                            <div class="span12">
+                                            <a class="carousel-control left" data-slide="prev" href="#myCarousel">‹</a> <a class="carousel-control right" data-slide="next" href="#myCarousel">›</a> </div>
+
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span12">
 
                             {% block content %}
 
 
-                                              
-                                                <div class="row-fluid">
 
-                                                    <div class="span4">
+                                        <div class="row-fluid">
 
-                                                        <h3>A propos</h3>
-                                                        <ul class="thumbnails">
-                                                            <li class="span12">
-                                                                <a href="#" class="thumbnail">
-                                                                    <img src="{{ asset('img/mur.jpg') }}" alt="">
-                                                                </a>
-                                                            </li>
+                                            <div class="span4">
 
-                                                        </ul>
-                                                        <p class="muted"> Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
-                                                            du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
-                                                            d'un framework php MVC d'autre part. J'ai ainsi pu développer mes connaissances en matière d'ORM (via Doctrine), de templating (via Twig),etc.</p>
+                                                <h3>A propos</h3>
+                                                <ul class="thumbnails">
+                                                    <li class="span12">
+                                                        <a href="#" class="thumbnail">
+                                                            <img src="{{ asset('img/mur.jpg') }}" alt="">
+                                                        </a>
+                                                    </li>
 
-                                                                                                            {% for flashMessage in app.session.flashbag.get('message') %}
-                                                        <div class="flash-notice">
+                                                </ul>
+                                                <div class="well well-small">
+
+                                                    <p class="muted"> Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
+                                                        du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
+                                                        d'un framework php MVC d'autre part. J'ai ainsi pu développer mes connaissances en matière d'ORM (via Doctrine), de templating (via Twig),etc.</p>
+
+                                                    {% for flashMessage in app.session.flashbag.get('message') %}
+                                                    <div class="flash-notice">
                                                   {{ flashMessage }}
-                                                            </div>
+                                                        </div>
                                                 {% endfor %}
 
+                                                    </div>
 
 
-                                                        </div>
-                                                        <div class="span4">
+                                                </div>
+                                                <div class="span4">
 
-                                                            <h3>Code Source</h3>
-                                                            <ul class="thumbnails">
-                                                                <li class="span12" align="center">
-                                                                    <a href="#" class="thumbnail">
-                                                                        <img src="{{ asset('img/che.jpg') }}" alt="">
-                                                                    </a>
-                                                                </li>
+                                                    <h3>Code Source</h3>
+                                                    <ul class="thumbnails">
+                                                        <li class="span12" align="center">
+                                                            <a href="#" class="thumbnail">
+                                                                <img src="{{ asset('img/che.jpg') }}" alt="">
+                                                            </a>
+                                                        </li>
 
-                                                            </ul>
-                                                            <p class="muted">
+                                                    </ul>
+                                                    <div class="well well-small">
+                                                        <p class="muted">
 
-                                                                Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a>. N'hésitez-pas à laisser
-                                                                un commentaire, signaler un bug,... ET surtout tester le site! Les qualités du framework Symfony sont nombreuses, et il est impossible de toute les dénombrer. 
-                                                                L'utilisation de bundles externes est l'un des concepts fondamental de Symfony. Par exemple, ce projet utilise les bundles "FOSUser, FOSComment, Doctrine, Twig,..".
-                                                                Bonne visite!
+                                                            Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a>. N'hésitez-pas à laisser
+                                                            un commentaire, signaler un bug,... ET surtout tester le site! Les qualités du framework Symfony sont nombreuses, et il est impossible de toute les dénombrer. 
+                                                            L'utilisation de bundles externes est l'un des concepts fondamental de Symfony. Par exemple, ce projet utilise les bundles "FOSUser, FOSComment, Doctrine, Twig,..".
+                                                            Bonne visite!
 
-                                                            </p>
+                                                        </p>
+                                                    </div>
 
-                                                        </div>
-                                                        <div class="span4">
-                                                            <h3>Connexion</h3>
-                                                            <ul class="thumbnails">
-                                                                <li class="span12" align="center">
-                                                                    <a href="#" class="thumbnail">
-                                                                        <img src="{{ asset('img/sanders.jpg') }}" alt="">
-                                                                    </a>
-                                                                </li>
+                                                </div>
+                                                <div class="span4">
+                                                    <h3>Connexion</h3>
+                                                    <ul class="thumbnails">
+                                                        <li class="span12" align="center">
+                                                            <a href="#" class="thumbnail">
+                                                                <img src="{{ asset('img/sanders.jpg') }}" alt="">
+                                                            </a>
+                                                        </li>
 
-                                                            </ul>
-                                                            <p class="muted">
+                                                    </ul>
+                                                    <div class="well well-small">
+                                                        <p class="muted">
 
-                                                                Le site a été développé dans un but éducatif, il est donc incomplet et inutilisable en l'état dans un but réel d'implémentation d'un système de réservation d'hôtel.
-                                                                Par conséquent, les identifiants de SUPER_ADMIN vous sont fournis:
-                                                                user : admin
-                                                                mot de passe: admin
-                                                                Un utilisateur peut avoir l'un de ces trois rôles : client, employé, anonyme. Le super admin est le seul à pouvoir promouvoir un client en employé et un employé en
-                                                                client
-
-
-
-                                                            </p>
-
-                                                        </div>
+                                                            Le site a été développé dans un but éducatif, il est donc incomplet et inutilisable en l'état dans un but réel d'implémentation d'un système de réservation d'hôtel.
+                                                            Par conséquent, les identifiants de SUPER_ADMIN vous sont fournis:
+                                                            user : admin
+                                                            mot de passe: admin
+                                                            Un utilisateur peut avoir l'un de ces trois rôles : client, employé, anonyme. Le super admin est le seul à pouvoir promouvoir un client en employé et un employé en
+                                                            client
 
 
+
+                                                        </p>
 
                                                     </div>
+
+                                                    <p>
+                                                        <a class="btn btn-danger pull-right" href="#modal_coms" data-toggle="modal" data-target="#modal_coms"><i class="icon-comment icon-white"></i>Commenter</a>
+                                                    </p>
+
+                                                </div>
+
+
+
+                                            </div>
 
 
 
 
 
                             {% endblock %}
-                                                    <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
-                                                </div><!--/span-->
+                                            <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
+                                        </div><!--/span-->
 
-                                            </div><!--/span-->
-                                        </div><!--/row-->
                                     </div><!--/span-->
                                 </div><!--/row-->
+                            </div><!--/span-->
+                        </div><!--/row-->
 
-                                <hr>
+                        <hr>
 
-                                <footer>
-                                    <p>&copy; Nordine Bittich - 2013</p>
-                                </footer>
+                        <footer>
+                            <p>&copy; Nordine Bittich - 2013</p>
+                        </footer>
 
-                            </div><!--/.fluid-container-->
+                    </div><!--/.fluid-container-->
 
   {% block javascripts %}
 
@@ -353,33 +371,33 @@
    {% endblock %}
 
                                                    {#Modal réservation #}
-                            <div class="modal hide fade" id="modal_resa">
-                                <div class="modal-header">
-                                    <a class="close" data-dismiss="modal">&times;</a>
-                                    <h3>Résérvation</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <p id ="modal_message"></p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>             
-                                </div>   
-                            </div>
+                    <div class="modal hide fade" id="modal_resa">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">&times;</a>
+                            <h3>Résérvation</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p id ="modal_message"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>             
+                        </div>   
+                    </div>
 
                                                             {#Modal pour les commentaires#}
-                            <div class="modal hide fade" id="modal_coms">
-                                <div class="modal-header">
+                    <div class="modal hide fade" id="modal_coms">
+                        <div class="modal-header">
 
-                                    <h3>Commentaires</h3>
-                                </div>
-                                <div class="modal-body">
+                            <h3>Commentaires</h3>
+                        </div>
+                        <div class="modal-body">
                                          {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}                                                     
 
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 
-                                    </div>   
-                                </div>
-                            </body>
-                        </html>
+                            </div>   
+                        </div>
+                    </body>
+                </html>

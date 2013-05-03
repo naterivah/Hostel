@@ -50,7 +50,9 @@ $(document).ready(function() {
     $("#show_button").hide();
     $("#show_select").hide();
     $("#loading").hide();
-  
+    $(function (){
+        $('#admin').popover({placement:'bottom', html: true, trigger:'hover'});
+    });
                                              
     var addOption= function(option){
         var txt= '<option value="'+option+'">Chambre '+option+"</option>";

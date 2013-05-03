@@ -78,15 +78,18 @@
                 {% endfor %}
             </select>
             <br/>
-            <button type="submit" id="sub2" class="btn btn-success">Enregistrer<i class="icon-chevron-right icon-white"></i></button>
+            <button type="submit" id="sub2" class="btn btn-primary">Enregistrer<i class="icon-chevron-right icon-white"></i></button>
 
-
+          <div  id="load" class="progress progress-striped active" style="width:50%">
+                <div class="bar bar-primary" style="width: 100%;"></div>
+            </div>
 
 
 
         </fieldset>
-
-        <img id="load" src="{{asset('img/ajax-loader.gif')}}">
+     
+  
+        {#<img id="load" src="{{asset('img/ajax-loader.gif')}}">#}
 
     </form>
 

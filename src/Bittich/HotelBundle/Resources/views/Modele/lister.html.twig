@@ -6,25 +6,20 @@
 
 
 {% block content %}
-<script>
-    $(function (){
-    $('.carousel').carousel();
-});
-    </script>
-{# carousel #}
+
 
 
 
 
 
     {% for flashMessage in app.session.flashbag.get('message') %}
-    <div class="flash-notice">
+<div class="flash-notice">
         {{ flashMessage }}
-        </div>
+    </div>
 {% endfor %}
-        <table border="1">
-            <caption>{{ "modele.liste"|trans|upper }}</caption>
-
+    <table class="table table-bordered table-condensed table-striped">
+        <caption>{{ "modele.liste"|trans }}</caption>
+        <thead>
             <tr>
                 <th>ID</th>
                 <th>{{ "modele.bain"|trans }}</th>
@@ -36,33 +31,49 @@
 
                 <th colspan="2">Options</th>
             {% endif %}
+
             </tr>
+        </thead>
+        <tbody>
             {% for mod in modeles %}
-            <tr>
+                <tr>
                 <td>{{mod.id}}</td>
-                <td>{{mod.bain}}</td>
-                <td>{{mod.douche}}</td>
-                <td>{{mod.wc}}</td>
-                <td>{{mod.nbrelit2}}</td>
-                <td>{{mod.nbrelit1}}</td>
+                {% if mod.bain == 1 %}
+                    <td><i class="icon-ok"></i></td>
+                {% else %}
+                    <td><i class="icon-remove"></i></td>
+                 {% endif %}
+                {% if mod.douche == 1 %}
+                    <td><i class="icon-ok"></i></td>
+                {% else %}
+                    <td><i class="icon-remove"></i></td>
+                 {% endif %}
+        {% if mod.wc == 1 %}
+                    <td><i class="icon-ok"></i></td>
+                {% else %}
+                    <td><i class="icon-remove"></i></td>
+                 {% endif %}
+                    <td><span class="badge">{{mod.nbrelit2}}</span></td>
+                    <td><span class="badge">{{mod.nbrelit1}}</span></td>
                         {% if is_granted('ROLE_EMPLOYE') %}
 
-                <td>    <p><a href=" {{path('hotel_modele_editer',{'id' : mod.id})}}">{{"modifier"|trans}}</a></p></td>
+                    <td>    <p><a class="btn btn-primary btn-small" href=" {{path('hotel_modele_editer',{'id' : mod.id})}}">{{"modifier"|trans}}</a></p></td>
 
-                <td>    <p><a href=" {{path('hotel_modele_supprimer',{'id' : mod.id})}}">{{"supprimer"|trans}}</a></p></td>
+                    <td>    <p><a class="btn btn-warning btn-small" href=" {{path('hotel_modele_supprimer',{'id' : mod.id})}}">{{"supprimer"|trans}}</a></p></td>
             {% endif %}
 
-            </tr>
+                </tr>
     {% else %}
-            <tr>
-                <td colspan="8" style="background-color:#FF0000">{{"modele.aucun" |trans}}</td>
+                <tr>
+                    <td colspan="8" style="background-color:#FF0000">{{"modele.aucun" |trans}}</td>
 
-            </tr>
+                </tr>
         {% endfor %}
+            </tbody>
         </table>
                         {% if is_granted('ROLE_EMPLOYE') %}
 
-        <p><a href=" {{path('hotel_modele_ajouter')}}">{{"modele.ajouter"|trans}}</a></p>
+        <p><a class="btn btn-danger" href=" {{path('hotel_modele_ajouter')}}">{{"modele.ajouter"|trans}}<i class="icon-forward icon-white"></i></a></p>
                 {% endif %}
 
 {% endblock %}

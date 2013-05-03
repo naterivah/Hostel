@@ -6,13 +6,14 @@
                       
 {% block content %}
 {% block javascripts %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {% endblock %}
 <form id="form_recherche" action= "{{path('hotel_admin_rechercher')}}" method="post">
     {{form_widget(form)}}
         <input type="submit" value = "{{"rechercher"|trans}}"/>
     </form>
-    <div class="loading">Un moment...</div>
+          <div  class="loading progress progress-striped active" style="width:50%">
+                <div class="bar bar-primary" style="width: 100%;"></div>
+            </div>
      
     <div id="resultats_recherche">
         {%include 'BittichHotelBundle:Admin:liste_base.html.twig' with {'users': users} %}
