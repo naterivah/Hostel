@@ -2,6 +2,7 @@
 
 namespace Bittich\UserBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,16 +13,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository {
 
-    public function findUserByRole($role) {
-        
+    public function findUserByRole($role, $nombreParPage, $page) {
+
         $qb = $this->createQueryBuilder('u')
-                 ->where('u.roles LIKE :role')
+                ->where('u.roles LIKE :role')
                 ->setParameter('role', '%' . $role . '%')
                 ->orderBy('u.nom', 'ASC');
-        return $qb->getQuery()
-                        ->getResult();
+        $qb->setFirstResult(($page - 1) * $nombreParPage)
+                ->setMaxResults($nombreParPage);
+        return new Paginator($qb);
     }
-
+public function paginator($nombreParPage, $page){
+      $qb = $this->createQueryBuilder('u')
+                ->orderBy('u.nom', 'ASC');
+        $qb->setFirstResult(($page - 1) * $nombreParPage)
+                ->setMaxResults($nombreParPage);
+        return new Paginator($qb);
+}
     public function findUserByNomPrenom($motcle) {
         $qb = $this->createQueryBuilder('u')
                 ->where('u.nom LIKE :motcle OR u.prenom LIKE :motcle')
@@ -30,12 +38,14 @@ class UserRepository extends EntityRepository {
         return $qb->getQuery()
                         ->getResult();
     }
+
     public function findUserByUserName($id) {
         $qb = $this->createQueryBuilder('u')
                 ->where('u.username LIKE :id')
-                ->setParameter('id',"%".$id."%")
-                ;
+                ->setParameter('id', "%" . $id . "%")
+        ;
         return $qb->getQuery()
                         ->getOneOrNullResult();
     }
+
 }

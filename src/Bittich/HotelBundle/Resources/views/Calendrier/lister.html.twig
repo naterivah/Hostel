@@ -59,6 +59,16 @@
                 </tr>
         {% endfor %}
             </table>
+  <div class="pagination">
+    <ul>
+      {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+      {% for p in range(1, nombrePage) %}
+        <li{% if p == page %} class="active"{% endif %}>
+          <a href="{{ path('hotel_calendrier_lister', {'page': p}) }}">{{ p }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 {% if is_granted('ROLE_EMPLOYE') %}
 
             <p><a href=" {{path('hotel_calendrier_ajouter')}}">{{"calendrier.ajouter"|trans}}</a></p>

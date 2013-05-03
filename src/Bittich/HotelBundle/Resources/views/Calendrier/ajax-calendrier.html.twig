@@ -40,7 +40,12 @@
                        document.forms.date_create.reset();// on reset le formulaire 
                 resp= $.parseJSON(xhr.responseText);
                 //modal_resa modal_message
+                
                 message=resp.message;
+                if(message==0){
+                     message="Une erreur est survenue, vérifiez que les dates choisies ne sont pas déjà enregistrées.";
+
+                   }
                    }
                $('#modal_message').html('').append(message);
                 $('#modal_resa').modal("show");
@@ -58,7 +63,7 @@
        });
     </script>
 {% if is_granted('ROLE_EMPLOYE') %}
-    <form id = "date_create" class="form well" id="formulaire">
+    <form id = "date_create" class="form-vertical well" id="formulaire">
         <legend>{{ "calendrier.ajouter"|trans|upper }}</legend>
         <label for="{{ "calendrier.datedebut"|trans }}"></label>
         <input type="text" name="debut" id="debut" data-date-format="dd-mm-yyyy" required="true" placeholder="Date début">
@@ -67,22 +72,23 @@
         <label for="{{ "calendrier.litbebe"|trans }}"></label>
         <input name="lits" id="lits"  type="number" min= "0" required="true" value="0" placeholder="Nombre de lits bébés">
         <label for="{{ "tarif.label"|trans }}"></label>
-        <select name ="tarif" id="tarif">
+        <select class="input" name ="tarif" id="tarif">
                            {% for t in tarif %}
                 <option value="{{t.id}}">{{t.couleur}}</option> 
                 {% endfor %}
             </select>
+            <br/>
             <button type="submit" id="sub2" class="btn btn-success">Enregistrer<i class="icon-chevron-right icon-white"></i></button>
-            <img id="load" src="{{asset('img/ajax-loader.gif')}}">
 
 
 
 
-            </fieldset>
 
+        </fieldset>
 
+        <img id="load" src="{{asset('img/ajax-loader.gif')}}">
 
-        </form>
+    </form>
 
 
     {% endif  %}

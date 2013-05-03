@@ -8,6 +8,7 @@ use Bittich\HotelBundle\Entity\Calendrier;
 use Bittich\HotelBundle\Form\CalendrierType;
 use \Bittich\HotelBundle\Repository\CalendrierRepository;
 use Doctrine\DBAL\DBALException;
+
 //comm
 /**
  * Description of AccueilController
@@ -30,19 +31,19 @@ class CalendrierController extends Controller {
     }
 
     public function recurs($litbebe, $idtar, $val) {
-   
-            $em = $this->getDoctrine()->getManager();
-            $cal = new Calendrier();
-            $tarif = $em->getRepository('BittichHotelBundle:Tarif')
-                    ->findOneById($idtar);
-            $cal->setDatej($val);
-            $cal->setNbrelitbebe($litbebe);
-            $cal->setTarif($tarif);
-            $em->persist($cal);
-            $em->flush();
-            $em->clear();
-            
-        } 
+
+        $em = $this->getDoctrine()->getManager();
+        $cal = new Calendrier();
+        $tarif = $em->getRepository('BittichHotelBundle:Tarif')
+                ->findOneById($idtar);
+        $cal->setDatej($val);
+        $cal->setNbrelitbebe($litbebe);
+        $cal->setTarif($tarif);
+        $em->persist($cal);
+        $em->flush();
+        $em->clear();
+    }
+
     public function addRangeAction() {
         $req = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
@@ -58,10 +59,9 @@ class CalendrierController extends Controller {
                 try {
 
                     $resp = $this->recurs($litbebe, $idtar, $val);
-          
                 } catch (DBALException $e) {
                     $message = "Une erreur est survenue, vérifiez que les dates choisies ne sont pas déjà enregistrées.\n Voici le message: \n" + $e->getMessage();
-                   return new JsonResponse(array("message" => $message));
+                    return new JsonResponse(array("message" => $message));
                 }
 
                 // $em->clear();
@@ -74,13 +74,18 @@ class CalendrierController extends Controller {
         }
     }
 
-    public function listerAction() {
+    public function listerAction($page) {
         $em = $this->getDoctrine()->getManager();
         $cals =
                 $em->getRepository('BittichHotelBundle:Calendrier')
-                ->getCalendrierAvecTarif();
+                ->pagine(10, $page);
 
-        return $this->render('BittichHotelBundle:Calendrier:lister.html.twig', array('calendriers' => $cals));
+
+        return $this->render('BittichHotelBundle:Calendrier:lister.html.twig', array('calendriers' => $cals,
+        'page' => $page,
+        'nombrePage' => ceil(count($cals) / 10)
+
+        ));
     }
 
     public function supprimerAction($id = null) {

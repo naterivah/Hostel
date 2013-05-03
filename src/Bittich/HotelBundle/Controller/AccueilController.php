@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AccueilController extends Controller {
 
     public function indexAction() {
-        return $this->render('BittichHotelBundle:Default:index.html.twig');
+        return $this->render('::layout.html.twig');
     }
 
 

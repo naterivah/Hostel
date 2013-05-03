@@ -2,10 +2,12 @@
 {% block title %}  {{'admin.label'|trans}}
 {% endblock %}
 {% block menu %}
+{{ parent() }}
 {% if is_granted('ROLE_SUPER_ADMIN') %}
-<a href=" {{path('hotel_admin_lister')}}">{{'user.liste'|trans}}</a><br />
-<a href=" {{path('hotel_admin_lister_role',{'role' :'client'})}}">{{'client.liste'|trans}}</a><br />
-<a href=" {{path('hotel_admin_lister_role',{'role' :'employe'})}}">{{'employe.liste'|trans}}</a><br />
+
+<li><a href=" {{path('hotel_admin_lister')}}">{{'user.liste'|trans}}</a></li>
+<li><a href=" {{path('hotel_admin_lister_role',{'role' :'client'})}}">{{'client.liste'|trans}}</a></li>
+<li><a href=" {{path('hotel_admin_lister_role',{'role' :'employe'})}}">{{'employe.liste'|trans}}</a></li>
 
 {% endif %}
 
@@ -18,4 +20,5 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
+
        {% endblock  %}

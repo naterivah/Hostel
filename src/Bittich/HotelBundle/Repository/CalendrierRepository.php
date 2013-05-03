@@ -1,6 +1,7 @@
 <?php
 
 namespace Bittich\HotelBundle\Repository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -36,6 +37,22 @@ class CalendrierRepository extends EntityRepository {
                 ->orderBy('a.datej', 'ASC');
         return $qb->getQuery()
                         ->getResult();
+    }
+    
+    
+        public function pagine($nombreParPage, $page) {
+        if ($page < 1) {
+            throw new \InvalidArgumentException('L\'argument $page ne peut être inférieur à 1 (valeur : "' . $page . '").');
+        }
+        $qb = $this->createQueryBuilder('a')
+                ->leftJoin('a.tarif', 't')
+                ->leftJoin('a.chambres', 'c')
+                ->addSelect('t')
+                ->addSelect('c')
+                ->orderBy('a.datej', 'ASC');
+        $qb->setFirstResult(($page - 1) * $nombreParPage)
+                ->setMaxResults($nombreParPage);
+        return new Paginator($qb);
     }
 
 }

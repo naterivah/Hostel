@@ -51,8 +51,8 @@ class ReservationController extends Controller {
         $chbres = array();
         $nblit = 0;
         $interval = $this->dateInterv($arrivee, $depart);
-        if(count($interval)==0){
-            return array();// si le gars réserve pour une journée, pour éviter les réservations à 0 euros.
+        if (count($interval) == 0) {
+            return array(); // si le gars réserve pour une journée, pour éviter les réservations à 0 euros.
         }
         foreach ($chambres as $chambre) {
             if ($chambre->getLitbebe() == true) {
@@ -82,7 +82,7 @@ class ReservationController extends Controller {
             if (count($chbres) > 0) {
                 return new JsonResponse(array('chbres' => $chbres, 'status' => "ok"));
             } else {
-                return new JsonResponse(array('status' => 'nok','message'=>"Aucune chambre n'a été trouvée ou intervalle de dates trop court(min 1 nuit)"));
+                return new JsonResponse(array('status' => 'nok', 'message' => "Aucune chambre n'a été trouvée ou intervalle de dates trop court(min 1 nuit)"));
             }
         }
         return new JsonResponse("erreur fatal");
@@ -97,10 +97,10 @@ class ReservationController extends Controller {
             $message = '';
             try {
                 $resCh = $req->request->get('chambres'); // on récupère les id des chambres désirées
-                if($resCh==null || !isset($resCh) || count($resCh)==0){
-                    return new JsonResponse(array('message'=> "Vous n'avez séléctionné aucune chambre"));
+                if ($resCh == null || !isset($resCh) || count($resCh) == 0) {
+                    return new JsonResponse(array('message' => "Vous n'avez séléctionné aucune chambre"));
                 }
-                
+
                 $arrivee = new \DateTime($req->request->get('arrivee'));
                 $depart = new \DateTime($req->request->get('depart'));
                 $litbebe = $req->request->get('litbebe');
@@ -173,25 +173,31 @@ class ReservationController extends Controller {
         return new JsonResponse(array('message' => "Erreur Ligne 166 ReservationController"));
     }
 
-    public function listerAction() {
+    public function listerAction($page) {
         $em = $this->getDoctrine()->getManager();
 
         $reservations =
                 $em->getRepository('BittichHotelBundle:Reservation')
-                ->findAll();
+                ->pagine(5, $page); //cinq aricles par page
 
-        return $this->render('BittichHotelBundle:Reservation:lister.html.twig', array('reservations' => $reservations));
+        return $this->render('BittichHotelBundle:Reservation:lister.html.twig', array('reservations' => $reservations,
+                    'page' => $page,
+                    'all' => true,
+                    'nombrePage' => ceil(count($reservations) / 5)));
     }
 
-    public function listeReservationAction() {
+    public function listeReservationAction($page) {
         $em = $this->getDoctrine()->getManager();
         $uscl = $this->container->get('security.context')->getToken()->getUser();
         $usr = $em->getRepository('BittichUserBundle:User')->findUserByUserName($uscl);
         $reservations =
                 $em->getRepository('BittichHotelBundle:Reservation')
-                ->findByUser($usr->getId());
+                ->findByUser($usr->getId(),5, $page);
 
-        return $this->render('BittichHotelBundle:Reservation:lister.html.twig', array('reservations' => $reservations));
+        return $this->render('BittichHotelBundle:Reservation:lister.html.twig', array('reservations' => $reservations,
+                    'page' => $page,
+                    "all" => false,
+                    'nombrePage' => ceil(count($reservations) / 5)));
     }
 
     /* DEPRECATED*

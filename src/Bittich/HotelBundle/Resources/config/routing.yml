@@ -108,10 +108,11 @@ hotel_chambre_supprimer:
 #*******************************************************************************************************
 
 hotel_calendrier_lister:
-    pattern: /{_locale}/calendrier/liste
-    defaults: { _controller: BittichHotelBundle:Calendrier:lister, _locale: fr }
+    pattern: /{_locale}/calendrier/liste/{page}
+    defaults: { _controller: BittichHotelBundle:Calendrier:lister, _locale: fr,page: 1 }
     requirements:
       _locale: fr|en
+      page: \d+
 
 hotel_calendrier_ajouter:
     pattern: /{_locale}/employe/calendrier/ajouter
@@ -177,17 +178,18 @@ hotel_prix_supprimer:
 #*******************************************************************************************************
       
 hotel_reservation_lister:
-    pattern: /{_locale}/reservation/liste
-    defaults: { _controller: BittichHotelBundle:Reservation:lister, _locale: fr }
+    pattern: /{_locale}/reservation/liste/{page}
+    defaults: { _controller: BittichHotelBundle:Reservation:lister, _locale: fr, page: 1 }
     requirements:
       _locale: fr|en
+      page: \d+
 
 hotel_reservation_lister_client:
-    pattern: /{_locale}/reservation/liste-client
-    defaults: { _controller: BittichHotelBundle:Reservation:listereservation, _locale: fr }
+    pattern: /{_locale}/reservation/liste-client/{page}
+    defaults: { _controller: BittichHotelBundle:Reservation:listereservation, _locale: fr, page: 1 }
     requirements:
       _locale: fr|en
-      
+      page: \d+
 hotel_reservation_ajouter:
     pattern: /{_locale}/reservation/ajouter
     defaults: { _controller: BittichHotelBundle:Reservation:editer, _locale: fr }
@@ -243,17 +245,18 @@ hotel_reservation_search:
 #*******************************************************************************************************
 
 hotel_admin_lister:
-    pattern: /{_locale}/admin/liste
-    defaults: { _controller: BittichHotelBundle:Admin:lister, _locale: fr }
+    pattern: /{_locale}/admin/utilisateur/liste{page}
+    defaults: { _controller: BittichHotelBundle:Admin:lister, _locale: fr, page: 1 }
     requirements:
       _locale: fr|en   
-      
+      page: \d+
 hotel_admin_lister_role:
-    pattern: /{_locale}/admin/liste-role/{role}
-    defaults: { _controller: BittichHotelBundle:Admin:listerrole, _locale: fr }
+    pattern: /{_locale}/admin/liste-role/{role}/{page}
+    defaults: { _controller: BittichHotelBundle:Admin:listerrole, _locale: fr, page: 1 }
     requirements:
       _locale: fr|en  
-          
+      page: \d+
+         
 hotel_admin_accueil:
     pattern:  /{_locale}/admin/accueil.html
     defaults: { _controller: BittichHotelBundle:Admin:index, _locale: fr }

@@ -1,18 +1,20 @@
-{% extends '::layout.html.twig' %}
+{#% extends '::layout.html.twig' %#}
 
 {% block menu %}
 <li><a href=" {{path('hotel_modele_lister')}}">{{"modele.liste"|trans}}</a></li>
 <li><a href=" {{path('hotel_tarif_lister')}}">{{"tarif.liste"|trans}}</a></li>
 <li><a href=" {{path('hotel_chambre_lister')}}">{{"chambre.liste"|trans}}</a></li>
-<li><a href=" {{path('hotel_calendrier_lister')}}">{{"calendrier.liste"|trans}}</a></li>
-<li><a href=" {{path('hotel_calendrier_addrange')}}">{{"calendrier.ajouter"|trans}}</a></li>
 <li><a href=" {{path('hotel_prix_lister')}}">{{"prix.liste"|trans}}</a></li>
 {% if is_granted('ROLE_CLIENT') %}
+<li class="nav-header">Client</li>
 <li><a href=" {{path('hotel_reservation_lister')}}">{{"resa.liste"|trans}}</a></li>
 <li><a href=" {{path('hotel_reservation_lister_client')}}">{{"resa.liste.client"|trans}}</a></li>
 
 {% endif %}
 {% if is_granted('ROLE_SUPER_ADMIN') %}
+<li class="nav-header">Admin</li>
+<li><a href=" {{path('hotel_calendrier_lister')}}">{{"calendrier.liste"|trans}}</a></li>
+<li><a href=" {{path('hotel_calendrier_addrange')}}">{{"calendrier.ajouter"|trans}}</a></li>
 <li><a href=" {{path('hotel_admin_accueil')}}">{{"user.liste"|trans}}</a></li>
 {% endif %}
 
