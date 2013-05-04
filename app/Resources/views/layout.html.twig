@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
 {% endstylesheets %}
     <style type="text/css">
+            
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
@@ -34,9 +35,8 @@
             }
             .table th{
                 text-align: center;   
-
-            
             }
+     
 
             .sidebar-nav {
                 padding: 9px 0;
@@ -89,9 +89,8 @@
                         {#FOFM Connexion #}
                          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <ul class="nav nav-pills pull-right">
-                                <li class="active"> <a id="admin" rel="popover" data-original-title="Infos" data-content=
-                                                       "{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ app.user.email }}
-                                                      "
+                                <li class="active"> <a id="admin" rel="popover" data-original-title="{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}" data-content=
+                                                       "{{ app.user.email }}"
                                                        href="#"><i class="icon-user icon-white"></i>{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
                                 <li class="divider-vertical"></li>
                                 <li><a href="{{path("fos_user_security_logout")}}"><i class="icon-off icon-white"></i>{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
@@ -235,7 +234,7 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="item"> <img alt="" src="{{ asset('img/hotel3.jpg') }}"/>
+                                                <div class="item"> <img  alt="" src="{{ asset('img/hotel3.jpg') }}"/>
                                                     <div class="carousel-caption">
                                                     </div>
                                                 </div>

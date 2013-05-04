@@ -9,9 +9,17 @@
 <div class="flash-notice">
         {{ flashMessage }}
     </div>
+
 {% endfor %}
-    <table border="1">
-        <caption>{{ "resa.liste"|trans|upper }}</caption>
+{% if is_granted('ROLE_EMPLOYE') %}
+
+
+                                <p><a class="btn btn-inverse pull-right" href=" {{path('hotel_reservation_ajouter')}}">{{"resa.ajouter"|trans}}<i class="icon-forward icon-white"></i></a></p>
+                                                  {% endif %}
+           <table class="table table-bordered table-condensed table-striped">
+
+        <caption>{{ "resa.liste"|trans }}</caption>
+        <thead>
 
         <tr>
 
@@ -33,34 +41,41 @@
                                 {% endif %}
 
         </tr>
+                     </thead>
+        <tbody>
             {% for res in reservations %}
         
         <tr>
             <td>{{res.id}}</td>
-            <td>{{res.datearrivee|date('d/m/Y')}}</td>
-            <td>{{res.datedepart|date('d/m/Y')}}</td>
-            <td>{{res.prixtotal}}</td>
-            <td>{{res.nbrebebe}}</td>
-            <td>{{res.acomptedemande}}</td>
-            <td>{{res.datelimiteacompte|date('d/m/Y')}}</td>
-            <td>{{res.dateversementacompte|date('d/m/Y')}}</td>
-            <td>{{res.datereservation|date('d/m/Y')}}</td>
-            <td>{{res.client.username}}</td> 
-            <td> <select>
+            <td><span class="badge">{{res.datearrivee|date('d/m/Y')}}</span></td>
+            <td><span class="badge">{{res.datedepart|date('d/m/Y')}}</span></td>
+            <td><span class="badge badge-warning">{{res.prixtotal}}</span></td>
+            <td><span class="badge">{{res.nbrebebe}}</span></td>
+            <td><span class="badge">{{res.acomptedemande}}</span></td>
+            <td><span class="badge">{{res.datelimiteacompte|date('d/m/Y')}}</span></td>
+            <td><span class="badge">{{res.dateversementacompte|date('d/m/Y')}}</span></td>
+            <td><span class="badge">{{res.datereservation|date('d/m/Y')}}</span></td>
+            <td><span class="badge">{{res.client.username}}</span></td> 
+            <td> 
+                      {% if res.chambres is empty %}
+                <span class="badge">{{'chambre.aucun'|trans}}</span>
+                {% else %} 
+                
+                <select>
                 {% for ch in res.chambres %}
                             <option>{{ch.numeroetage}}</option>
                  {% endfor %}
-                        </select></td>
+                        </select> {% endif %}</td>
               
                                              {% if is_granted('ROLE_EMPLOYE') %}
 
                     <td>    
-                        <p><a href=" {{path('hotel_reservation_editer',
+                        <p><a class="btn btn-primary btn-small" href=" {{path('hotel_reservation_editer',
                 {'id' : res.id})}}">{{"modifier"|trans}}
                                   </a></p>
                             </td>
 
-                            <td>    <p><a href=" {{path('hotel_reservation_supprimer',
+                            <td>    <p><a class="btn btn-warning btn-small" href=" {{path('hotel_reservation_supprimer',
                 {'id': res.id})}}">
                 {{"supprimer"|trans}}</a></p></td>
                                                       {% endif %}
@@ -73,6 +88,8 @@
 
                                     </tr>
         {% endfor %}
+                                                                        </tbody>
+
                                 </table> 
   <div class="pagination pagination-centered">
     <ul>
@@ -88,10 +105,6 @@
       {% endfor %}
     </ul>
   </div>
-{% if is_granted('ROLE_EMPLOYE') %}
 
-
-                                <p><a href=" {{path('hotel_reservation_ajouter')}}">{{"resa.ajouter"|trans}}</a></p>
-                                                  {% endif %}
 
 {% endblock %}

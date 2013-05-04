@@ -3,52 +3,51 @@
 {{ "User"|trans }}
 
 {% endblock %}
-                      
+
 {% block content %}
 {% block javascripts %}
 {% endblock %}
-<form id="form_recherche" action= "{{path('hotel_admin_rechercher')}}" method="post">
-    {{form_widget(form)}}
-        <input type="submit" value = "{{"rechercher"|trans}}"/>
-    </form>
-          <div  class="loading progress progress-striped active" style="width:50%">
-                <div class="bar bar-primary" style="width: 100%;"></div>
-            </div>
-     
-    <div id="resultats_recherche">
-        {%include 'BittichHotelBundle:Admin:liste_base.html.twig' with {'users': users} %}
+<form class="form form-search" id="form_recherche" action= "{{path('hotel_admin_rechercher')}}" method="post">
+    <div class="input-append pull-right">   
+ {{form_widget(form.motcle)}}
+            <input class="btn btn-danger" type="submit" value = "{{"rechercher"|trans}}"/>
+
+        {{ form_rest(form) }} 
         </div>
+    </form>
 
-        <p><a href=" {{path('hotel_admin_accueil')}}">{{"index retour"|trans}}</a></p>
+ 
+    <div id="resultats_recherche">
 
-        <!-- Le script Ajax! -->
-        <script>
-         $(".loading").hide();
-        $("#form_recherche").submit(function(){ 
-         $(".loading").show();
-        var motcle=$("#rechercheform_motcle").val();
-        if(motcle == ''){
-          $(".loading").hide();
+        {%include 'BittichHotelBundle:Admin:liste_base.html.twig' with {'users': users} %}
+    </div>
+
+
+    <!-- Le script Ajax! -->
+    <script>
+    $("#form_recherche").submit(function(){ 
+    var motcle=$("#rechercheform_motcle").val();
+    if(motcle == ''){
+      $(".loading").hide();
           
-      }else{
-          $(".loading").show();
-          $("#resultats_recherche").hide();
-          var DATA = 'motcle=' + motcle;
-          jQuery.ajax({
-              type: 'POST',
-              url: "{{ path('hotel_admin_rechercher')}}",
-              data: DATA,
-              cache: false,
-              success: function(data){
-                 $('#resultats_recherche').html(data);
-                 $(".loading").hide();
-                 $("#resultats_recherche").show();
-              }
-          });
-      }
-      return false;
-  });
-            </script>
+  }else{
+      $("#resultats_recherche").hide();
+      var DATA = 'motcle=' + motcle;
+      jQuery.ajax({
+          type: 'POST',
+          url: "{{ path('hotel_admin_rechercher')}}",
+          data: DATA,
+          cache: false,
+          success: function(data){
+             $('#resultats_recherche').html(data);
 
-            
+             $("#resultats_recherche").show();
+          }
+      });
+  }
+  return false;
+});
+        </script>
+
+
 {% endblock %}

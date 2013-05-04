@@ -10,7 +10,11 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
-    <table class="table table-bordered table-condensed table-striped">
+            {% if is_granted('ROLE_EMPLOYE') %}
+
+                <p><a class="btn btn-inverse pull-right" href=" {{path('hotel_chambre_ajouter')}}">{{"chambre.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>
+                        {% endif %}
+    <table class=" table table-bordered table-condensed table-striped">
 
         <caption>{{ "chambre.liste"|trans }}</caption>
         <thead>
@@ -40,7 +44,7 @@
                     <td><span class="badge">{{cha.modele.id}}</span></td>
                     <td>
             {% if cha.disponibilites is empty %}
-                {{'calendrier.aucun'|trans}}
+                            <span class="badge"> {{'calendrier.aucun'|trans}}</span>
                 {% else %}
 
                             <select>
@@ -68,9 +72,15 @@
                     </tbody>
 
                 </table>
-            {% if is_granted('ROLE_EMPLOYE') %}
+  <div class="pagination pagination-centered">
+    <ul>
+      {% for p in range(1, nombrePage) %}
+        <li{% if p == page %} class="active"{% endif %}>
+          <a href="{{ path('hotel_chambre_lister', {'page': p}) }}">{{ p }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 
-                <p><a class="btn btn-success" href=" {{path('hotel_chambre_ajouter')}}">{{"chambre.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>
-                        {% endif %}
 
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace Bittich\HotelBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ChambreRepository
@@ -26,6 +27,16 @@ class ChambreRepository extends EntityRepository {
                         ->getResult();
     }
     
+    public function pagine($nombreParPage, $page) {
+        $qb = $this->createQueryBuilder('a')
+                ->leftJoin('a.modele', 'm')
+                ->leftJoin('a.disponibilites', 'd')
+                ->addSelect('d')
+                ->addSelect('m');
 
+        $qb->setFirstResult(($page - 1) * $nombreParPage)
+                ->setMaxResults($nombreParPage);
+        return new Paginator($qb);
+    }
 
 }

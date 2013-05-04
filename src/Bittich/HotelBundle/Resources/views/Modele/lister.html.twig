@@ -17,6 +17,11 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
+                        {% if is_granted('ROLE_EMPLOYE') %}
+
+        <p><a class="btn btn-inverse pull-right" href=" {{path('hotel_modele_ajouter')}}">{{"modele.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>
+                {% endif %}
+
     <table class="table table-bordered table-condensed table-striped">
         <caption>{{ "modele.liste"|trans }}</caption>
         <thead>
@@ -71,9 +76,5 @@
         {% endfor %}
             </tbody>
         </table>
-                        {% if is_granted('ROLE_EMPLOYE') %}
-
-        <p><a class="btn btn-success" href=" {{path('hotel_modele_ajouter')}}">{{"modele.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>
-                {% endif %}
 
 {% endblock %}

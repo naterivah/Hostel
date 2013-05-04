@@ -8,17 +8,14 @@
 {% if is_granted('ROLE_CLIENT') %}
 <li class="nav-header">Compte</li>
 <li><a href=" {{path('fos_user_profile_edit')}}">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</a></li>
-
-<li><a href=" {{path('hotel_reservation_lister')}}">{{"resa.liste"|trans}}</a></li>
 <li><a href=" {{path('hotel_reservation_lister_client')}}">{{"resa.liste.client"|trans}}</a></li>
 
 {% endif %}
 {% if is_granted('ROLE_SUPER_ADMIN') %}
 <li class="nav-header">Admin</li>
+<li><a href=" {{path('hotel_reservation_lister')}}">{{"resa.liste"|trans}}</a></li>
 <li><a href=" {{path('hotel_calendrier_lister')}}">{{"calendrier.liste"|trans}}</a></li>
 <li><a href=" {{path('hotel_calendrier_addrange')}}">{{"calendrier.ajouter"|trans}}</a></li>
-
-
 <li><a href=" {{path('hotel_admin_lister')}}">{{'user.liste'|trans}}</a></li>
 <li><a href=" {{path('hotel_admin_lister_role',{'role' :'client'})}}">{{'client.liste'|trans}}</a></li>
 <li><a href=" {{path('hotel_admin_lister_role',{'role' :'employe'})}}">{{'employe.liste'|trans}}</a></li>

@@ -10,6 +10,10 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
+                                             {% if is_granted('ROLE_EMPLOYE') %}
+
+    <p><a class="btn btn-inverse pull-right" href=" {{path('hotel_tarif_ajouter')}}">{{"tarif.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>
+                        {% endif %}
      <table class="table table-bordered table-condensed table-striped">
         <caption>{{ "tarif.liste"|trans }}</caption>
         <thead>
@@ -49,9 +53,6 @@
                 </tbody>
 
     </table>
-                                             {% if is_granted('ROLE_EMPLOYE') %}
 
-    <p><a class="btn btn-success" href=" {{path('hotel_tarif_ajouter')}}">{{"tarif.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>
-                        {% endif %}
 
 {% endblock %}

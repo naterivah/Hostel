@@ -77,11 +77,11 @@ hotel_modele_supprimer:
 #*******************************************************************************************************
 
 hotel_chambre_lister:
-    pattern: /{_locale}/chambre/liste
-    defaults: { _controller: BittichHotelBundle:Chambre:lister, _locale: fr }
+    pattern: /{_locale}/chambre/liste/{page}
+    defaults: { _controller: BittichHotelBundle:Chambre:lister, _locale: fr, page: 1 }
     requirements:
       _locale: fr|en
-
+      page: \d+
 hotel_chambre_ajouter:
     pattern: /{_locale}/employe/chambre/ajouter
     defaults: { _controller: BittichHotelBundle:Chambre:editer, _locale: fr }
@@ -267,7 +267,7 @@ hotel_admin_rechercher:
     pattern: /{_locale}/admin/rechercher
     defaults: { _controller: BittichHotelBundle:Admin:recherchenom, _locale: fr}
     requirements:
-           _method: POST
+           _method: POST|GET
            _locale: fr|en   
 
 hotel_admin_promote:

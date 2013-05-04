@@ -20,16 +20,18 @@ class ChambreController extends Controller {
         //return new Response('<html><body>Hello all!</body></html>');
     }
 
-    public function listerAction() {
+    public function listerAction($page) {
         $em = $this->getDoctrine()->getManager();
     //on recupere toutes les chambres et leur modele(sinon on risque de requêter dans la boucle )
        
         $chambres=
                $em->getRepository('BittichHotelBundle:Chambre')
-                ->getChambre() ;
+                ->pagine(5,$page) ;
        
         return $this->render('BittichHotelBundle:Chambre:lister.html.twig',
-                array('chambres' => $chambres));
+                array('chambres' => $chambres,
+                            'page' => $page,
+        'nombrePage' => ceil(count($chambres) / 5)));
        
     }
     public function supprimerAction($id=null){

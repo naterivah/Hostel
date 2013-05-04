@@ -146,7 +146,7 @@ class AdminController extends Controller {
                         'titre' => 'user.liste',
                     ));
         } else {
-            return $this->listerAction();
+            return $this->listerAction(1);
         }
     }
 

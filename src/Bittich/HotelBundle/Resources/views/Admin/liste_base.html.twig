@@ -3,8 +3,11 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
-<table border="1">
-        <caption>{{titre|trans|upper }}</caption>
+
+           <table class="table table-bordered table-striped">
+
+        <caption>{{titre|trans }}</caption>
+        <thead>
 
         <tr>
          
@@ -20,6 +23,8 @@
             <th>Action</th>
 
         </tr>
+                     </thead>
+        <tbody>
             {% for usr in users %}
         <tr>
             <td>{{usr.nom}}</td>
@@ -27,38 +32,57 @@
             <td>{{usr.adresse}}</td>
             <td>{{usr.npostal}}</td>
             <td>{{usr.localite}}</td>
-            <td>{{usr.username}}</td>
-            <td>{{usr.email}}</td>
+            <td><span class="badge">{{usr.username}}</span></td>
+            <td><span class="badge">{{usr.email}}</span></td>
             <td>
+                
                 {% if usr.roles[0] == 'ROLE_CLIENT' %}
-                    {{'client.label'|trans}}  | <a href="{{path('hotel_admin_promote',{'id':usr.id})}}">{{'user.promote'|trans}}</a>
+                    <div class="btn-group">
+                    <a class="btn btn-small disabled">{{'client.label'|trans}}</a>
+                    <a class="btn btn-primary btn-small" href="{{path('hotel_admin_promote',{'id':usr.id})}}">{{'user.promote'|trans}}</a>
+                     </div>  
                     {% elseif usr.roles[0] == 'ROLE_EMPLOYE' %}
-                    {{'employe.label'|trans}}| <a href="{{path('hotel_admin_demote',{'id':usr.id})}}">{{'user.demote'|trans}}</a>
+                                    <div class="btn-group">
+
+                    <a class="btn btn-small disabled">{{'employe.label'|trans}}</a>
+                    <a class="btn btn-warning btn-small" href="{{path('hotel_admin_demote',{'id':usr.id})}}">{{'user.demote'|trans}}</a>
+                                         </div>  
+
+                                     
                     {% else %}
-                    Admin
+                    <a class="btn btn-small disabled">{{'admin.label'|trans}}</a>
                 {% endif %}
+                   
             </td>
             
             <td>
                 {% if usr.roles[0] != 'ROLE_SUPER_ADMIN'  %}
                     {% if usr.enabled %}
-                            {{'actif'|trans}} | <a href="{{path('hotel_admin_desactiver',{'id': usr.id})}}">{{'user.desactiver'|trans}}</a>
-                    {% else %}
-                            {{'inactif'|trans}} | <a href="{{path('hotel_admin_activer',{'id': usr.id})}}">
-                            {{'user.activer'|trans}}</a> 
+                                        <div class="btn-group">
+
+                            <a class="btn btn-small disabled">{{'actif'|trans}}</a> 
+                            <a class="btn btn-primary btn-small" href="{{path('hotel_admin_desactiver',{'id': usr.id})}}">{{'user.desactiver'|trans}}</a>
+                    
+                                        </div>  
+                            {% else %}
+                             <div class="btn-group">
+
+                            <a class="btn btn-small disabled">{{'inactif'|trans}}</a> 
+                            <a class="btn btn-warning btn-small" href="{{path('hotel_admin_activer',{'id': usr.id})}}">{{'user.activer'|trans}}</a> 
+                            </div>
                     {% endif %}
                 {% else %}
-                            <p>{{'admin.label'|trans}}</p>
+                    <a class="btn btn-small disabled">{{'admin.label'|trans}}</a>
                 {% endif %}
             </td>
             
             <td>
                 {% if usr.roles[0] != 'ROLE_SUPER_ADMIN' and usr.enabled %}
                     {% autoescape false %}
-                        <a href="{{url('hotel_accueil',{'_switch_user': usr.username})}}"> {{'admin.switch'|trans}} {{usr.nom}}</a>
+                        <a class="btn btn-inverse btn-small" href="{{url('hotel_accueil',{'_switch_user': usr.username})}}"> {{'admin.switch'|trans}} {{usr.nom}}</a>
                     {% endautoescape %}
                 {% else %}
-                         <p>~</p>
+                        <a class="btn btn-small disabled">~</a>
                 {% endif %}
                 </td>
         </tr>
@@ -68,10 +92,13 @@
 
         </tr>
         {% endfor %}
+            </tbody>
     </table>
+      
   <div class="pagination pagination-centered">
     <ul>
       {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+            {% if nombrePage is defined %}
       {% for p in range(1, nombrePage) %}
         <li{% if p == page %} class="active"{% endif %}>
             {% if all %}
@@ -81,6 +108,7 @@
 {% endif %}
         </li>
       {% endfor %}
+        {% endif %}
     </ul>
   </div>
 

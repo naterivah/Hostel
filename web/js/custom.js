@@ -51,7 +51,7 @@ $(document).ready(function() {
     $("#show_select").hide();
     $("#loading").hide();
     $(function (){
-        $('#admin').popover({placement:'bottom', html: true, trigger:'hover'});
+        $('#admin').popover({placement:'bottom', trigger:'hover'});
     });
                                              
     var addOption= function(option){

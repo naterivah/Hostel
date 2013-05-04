@@ -10,8 +10,13 @@
         {{ flashMessage }}
     </div>
 {% endfor %}
-    <table border="1">
-        <caption>{{ "calendrier.liste"|trans|upper }}</caption>
+{% if is_granted('ROLE_EMPLOYE') %}
+
+            <p><a class="btn btn-inverse pull-right" href=" {{path('hotel_calendrier_addrange')}}">{{"calendrier.ajouter"|trans}}<i class="icon-forward icon-white"></i></a></p>
+    {% endif  %}
+        <table class="table table-bordered table-condensed table-striped">
+        <caption>{{ "calendrier.liste"|trans }}</caption>
+        <thead>
 
         <tr>
 
@@ -25,14 +30,17 @@
             <th colspan="2">Options</th>
     {% endif %}        
         </tr>
+                </thead>
+        <tbody>
+
             {% for cal in calendriers %}
         <tr>
-            <td>{{cal.datej|date('d/m/Y')}}</td>
-            <td>{{cal.tarif.couleur}}</td>
-            <td>{{cal.chambres|length}}</td>
+            <td><span class="badge badge-info">{{cal.datej|date('d/m/Y')}}</span></td>
+            <td><span class="badge">{{cal.tarif.couleur}}</span></td>
+            <td><span class="badge">{{cal.chambres|length}}</span></td>
             <td>
              {% if cal.chambres is empty %}
-                {{'chambre.aucun'|trans}}
+                <span class="badge">{{'chambre.aucun'|trans}}</span>
                 {% else %}
 
                     <select>
@@ -42,13 +50,13 @@
                         </select>
 
           {% endif %}</td>
-                            <td>{{cal.nbrelitbebe}}</td>
+                <td><span class="badge">{{cal.nbrelitbebe}}</span></td>
 
                 {% if is_granted('ROLE_EMPLOYE') %}
 
-                    <td>    <p><a href=" {{path('hotel_calendrier_editer',{'id' : cal.id})}}">{{"modifier"|trans}}</a></p></td>
+                    <td>    <p><a class="btn btn-primary btn-small" href=" {{path('hotel_calendrier_editer',{'id' : cal.id})}}">{{"modifier"|trans}}</a></p></td>
 
-                    <td>    <p><a href=" {{path('hotel_calendrier_supprimer',{'id' : cal.id})}}">{{"supprimer"|trans}}</a></p></td>
+                    <td>    <p><a class="btn btn-warning btn-small" href=" {{path('hotel_calendrier_supprimer',{'id' : cal.id})}}">{{"supprimer"|trans}}</a></p></td>
     {% endif %}        
 
                 </tr>
@@ -58,6 +66,8 @@
 
                 </tr>
         {% endfor %}
+                                    </tbody>
+
             </table>
   <div class="pagination pagination-centered">
     <ul>
@@ -69,8 +79,5 @@
       {% endfor %}
     </ul>
   </div>
-{% if is_granted('ROLE_EMPLOYE') %}
 
-            <p><a href=" {{path('hotel_calendrier_ajouter')}}">{{"calendrier.ajouter"|trans}}</a></p>
-    {% endif  %}
 {% endblock %}

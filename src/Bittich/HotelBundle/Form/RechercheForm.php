@@ -10,7 +10,14 @@ class RechercheForm extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('motcle','text', array('label' => "motcle"));
+                ->add('motcle','text', array(
+                   
+                     'attr'   =>  array(
+                        'class'   => 'input-medium search-query',
+                        'placeholder' => 'search')
+                    
+                    
+                    ));
     }
 
 
