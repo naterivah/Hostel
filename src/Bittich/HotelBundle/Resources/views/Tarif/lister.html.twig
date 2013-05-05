@@ -5,11 +5,7 @@
 
 
 {% block content %}
-    {% for flashMessage in app.session.flashbag.get('message') %}
-    <div class="flash-notice">
-        {{ flashMessage }}
-    </div>
-{% endfor %}
+
                                              {% if is_granted('ROLE_EMPLOYE') %}
 
     <p><a class="btn btn-inverse pull-right" href=" {{path('hotel_tarif_ajouter')}}">{{"tarif.ajouter"|trans}} <i class="icon-forward icon-white"></i></a></p>

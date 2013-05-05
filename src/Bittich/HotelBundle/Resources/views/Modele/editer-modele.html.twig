@@ -3,49 +3,71 @@
 {{ typeAction }}
 {% endblock %}
 {% block content %}  
-<p>{{typeAction}}</p>
+                                    
+
             {% if form is defined %}
-<form action ="" method="post" {{form_enctype(form)}}>
-               {# {{form_widget(form)}}   -> version courte #}
         <div class="erreur">
                         {{form_errors(form)}}
             </div>
-            <table border ="1">
-                <tr>
-                    <td> {{ form_label(form.bain) }} </td>
-                    <td> {{ form_label(form.douche) }} </td>
-                   <td> {{ form_label(form.wc) }} </td>
-                    <td> {{ form_label(form.nbrelit2) }} </td>
-                    <td> {{ form_label(form.nbrelit1) }} </td>
-
-                </tr>
-                <tr>
-                    <td> 
-                         {{ form_errors(form.bain) }}  
-                         {{ form_widget(form.bain) }} 
-                    </td>
-                    <td> 
-                         {{ form_errors(form.douche) }}  
-                         {{ form_widget(form.douche) }} 
-                    </td>                 
-                    <td> 
-                         {{ form_errors(form.wc) }}  
+<form class="form-vertical well" action ="" method="post" {{form_enctype(form)}}>
+   <legend>{{typeAction}}</legend>
+<div class="control-group">
+    <label class="control-label">{{ form_label(form.bain) }}</label>
+    <div class="controls">
+        
+         {{ form_errors(form.bain) }}  
+         {{ form_widget(form.bain) }} 
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">{{ form_label(form.douche) }}</label>
+    <div class="controls">
+      {{ form_errors(form.douche) }}  
+      {{ form_widget(form.douche) }} 
+    </div>
+</div>            
+<div class="control-group">
+    <label class="control-label">{{ form_label(form.wc) }}</label>
+    <div class="controls">
+                           {{ form_errors(form.wc) }}  
                          {{ form_widget(form.wc) }} 
-                    </td>
-                    <td> 
-                         {{ form_errors(form.nbrelit2) }}  
+    </div>
+</div>                      
+  <div class="control-group">
+    <label class="control-label">{{ form_label(form.nbrelit2) }}</label>
+    <div class="controls">
+                               {{ form_errors(form.nbrelit2) }}  
                          {{ form_widget(form.nbrelit2) }} 
-                    </td>
-                    <td> 
+    </div>
+</div>                       
+    <div class="control-group">
+    <label class="control-label">{{ form_label(form.nbrelit1) }} </label>
+    <div class="controls">
                          {{ form_errors(form.nbrelit1) }}  
                          {{ form_widget(form.nbrelit1) }} 
-                    </td>
-                </tr>
+    </div>
+</div>                    
+                   
+                    
 
-                 </table>
+                
+               
+                    
+                      
+                
+                   
+                  
+
+                   
+                    
+                 
+
+                
+
+               
                {{ form_rest(form) }} 
 {#fonction obligatoire, va permettre d'ajouter les champs qui n'ont pas été renseigné plus haut#}
-        <input type="submit" value="{{'enregistrer'|trans}}"/>
+        <input class="btn btn-inverse" type="submit" value="{{'enregistrer'|trans}}"/>
 
                         </form>
             {% endif %}

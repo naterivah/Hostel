@@ -69,6 +69,8 @@
                                     </tbody>
 
             </table>
+                                            {% if calendriers|length > 0 %}
+
   <div class="pagination pagination-centered">
     <ul>
       {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
@@ -79,5 +81,5 @@
       {% endfor %}
     </ul>
   </div>
-
+{% endif %}
 {% endblock %}

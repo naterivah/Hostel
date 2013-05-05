@@ -3,42 +3,58 @@
 {{ typeAction }}
 {% endblock %}
 {% block content %}  
-<p>{{typeAction}}</p>
             {% if form is defined %}
-<form action ="" method="post" {{form_enctype(form)}}>
-               {# {{form_widget(form)}}   -> version courte #}
-        <div class="erreur">
+<div class="erreur">
                         {{form_errors(form)}}
-            </div>
-            <table border ="1">
-                <tr>
-                    <td> {{ form_label(form.etage) }} </td>
-                    <td> {{ form_label(form.litbebe) }} </td>
-                    <td> {{ form_label(form.modele) }} </td>
-                    <td> {{ form_label(form.disponibilites) }} </td>
-                    
-                </tr>
-                <tr>
-                    <td> {{ form_errors(form.etage) }}  
-                             {{ form_widget(form.etage) }} 
-                        </td>
-                        <td> {{ form_errors(form.litbebe) }} 
-                             {{ form_widget(form.litbebe) }}
-                            </td>
-                            <td> {{ form_errors(form.modele) }} 
-                             {{ form_widget(form.modele) }}
-                                </td>
-                             <td> {{ form_errors(form.disponibilites) }} 
-                             {{ form_widget(form.disponibilites) }}
-                                </td>    
-                            </tr>
+    </div>
+    <form class="form-vertical well"  action ="" method="post" {{form_enctype(form)}}>
 
-                        </table>
+        <legend>{{typeAction}}</legend>
+        <div class="control-group">
+            <label class="control-label">{{ form_label(form.etage) }}</label>
+            <div class="controls">
+    {{ form_errors(form.etage) }}  
+                             {{ form_widget(form.etage) }} 
+                </div>
+            </div>
+      <div class="control-group">
+            <label class="control-label">{{ form_label(form.litbebe) }}</label>
+            <div class="controls">
+        {{ form_errors(form.litbebe) }} 
+                             {{ form_widget(form.litbebe) }}
+                </div>
+            </div>
+  <div class="control-group">
+            <label class="control-label">{{ form_label(form.modele) }}</label>
+            <div class="controls">
+   {{ form_errors(form.modele) }} 
+                             {{ form_widget(form.modele) }}
+                </div>
+            </div>                  
+   <div class="control-group">
+            <label class="control-label">{{ form_label(form.disponibilites) }}</label>
+            <div class="controls">
+ {{ form_errors(form.disponibilites) }} 
+                             {{ form_widget(form.disponibilites) }}
+                </div>
+            </div>                     
+                   
+
+
+
+
+               
+
+                            
+
+                             
+
+
                {{ form_rest(form) }} 
 {#fonction obligatoire, va permettre d'ajouter les champs qui n'ont pas été renseigné plus haut#}
-                        <input type="submit" value="{{'enregistrer'|trans}}"/>
+            <input class= "btn btn-inverse" type="submit" value="{{'enregistrer'|trans}}"/>
 
-                    </form>
+        </form>
             {% endif %}
-                    <p><a href=" {{path('hotel_chambre_lister')}}">{{"chambre.liste.retour"|trans}}</a></p>
+        <p><a  href=" {{path('hotel_chambre_lister')}}">{{"chambre.liste.retour"|trans}}</a></p>
  {% endblock %}

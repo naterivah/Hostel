@@ -14,49 +14,77 @@ class AdminReservationType extends AbstractType {
         $builder
                 ->add('dateArrivee', 'date', array(
                     'label' => 'resa.date_arrivee',
-                    'format' => 'd/M/y',
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-y',
                     'required' => true,
                     'years' => \range($ycurr, $ycurr + 1, 1),
-                        )
-                )
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
+                ))
                 ->add('dateDepart', 'date', array(
                     'label' => 'resa.date_depart',
-                    'format' => 'd/M/y',
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-y',
                     'required' => true,
                     'years' => \range($ycurr, $ycurr + 1, 1),
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
                         )
                 )
                 ->add('prixtotal', 'integer', array(
                     'label' => 'resa.prix_total',
                     'required' => false,
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
                 ))
                 ->add('nbreBebe', 'integer', array(
                     'label' => 'resa.nbre_bebe',
                     'required' => false,
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
                 ))
                 ->add('acompteDemande', 'integer', array(
                     'label' => 'resa.accompte',
                     'required' => false,
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
                 ))
                 ->add('dateLimiteacompte', 'date', array(
                     'label' => 'resa.date_limite',
-                    'format' => 'd/M/y',
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-y',
                     'required' => false,
                     'years' => \range($ycurr, $ycurr + 1, 1),
+                          'attr' => array(
+                        'class' => 'input-medium',
+                    )
                         )
                 )
                 ->add('dateVersementacompte', 'date', array(
                     'label' => 'resa.date_versement',
-                    'format' => 'd/M/y',
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-y',
                     'required' => false,
                     'years' => \range($ycurr, $ycurr + 1, 1),
+                          'attr' => array(
+                        'class' => 'input-medium',
+                    )
                         )
                 )
                 ->add('dateReservation', 'date', array(
                     'label' => 'resa_date_resa',
-                    'format' => 'd/M/y',
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-y',
                     'required' => true,
                     'read_only' => true,
+                          'attr' => array(
+                        'class' => 'input-medium',
+                    ),
                     'years' => \range($ycurr, $ycurr + 1, 1),
                 ))
                 ->add('client', 'entity', array(
@@ -65,6 +93,9 @@ class AdminReservationType extends AbstractType {
                     'multiple' => false,
                     'required' => true,
                     'disabled' => true,
+                          'attr' => array(
+                        'class' => 'input-medium',
+                    ),
                     'label' => 'client.label',
                 ))
                 ->add('chambres', 'entity', array(
@@ -73,8 +104,11 @@ class AdminReservationType extends AbstractType {
                     'multiple' => true,
                     'required' => true,
                     'label' => 'chambre.liste',
+                          'attr' => array(
+                        'class' => 'input-medium',
+                    )
                 ))
-            
+
 
         ;
     }

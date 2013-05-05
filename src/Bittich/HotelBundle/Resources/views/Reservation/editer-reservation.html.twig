@@ -3,14 +3,14 @@
 {{ typeAction }}
 {% endblock %}
 {% block content %}  
-<p>{{typeAction}}</p>
             {% if form is defined %}
-<form action ="" method="post" {{form_enctype(form)}}>
-                {{form_widget(form)}}   {#-> version courte #}
+<form class="form-vertical well" action ="" method="post" {{form_enctype(form)}}>
+            <legend>{{typeAction}}</legend>
+                {{form_widget(form)}}   {#-> version courte , fénéantise style#}
 
-                        <input type="submit" value="{{'enregistrer'|trans}}"/>
+                        <input class="btn btn-inverse" type="submit" value="{{'enregistrer'|trans}}"/>
 
                     </form>
             {% endif %}
-                    <p><a href=" {{path('hotel_reservation_lister')}}">{{"resa.liste.retour"|trans}}</a></p>
+                    <p><a  href=" {{path('hotel_reservation_lister')}}">{{"resa.liste.retour"|trans}}</a></p>
  {% endblock %}

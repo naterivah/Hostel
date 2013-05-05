@@ -245,11 +245,12 @@ hotel_reservation_search:
 #*******************************************************************************************************
 
 hotel_admin_lister:
-    pattern: /{_locale}/admin/utilisateur/liste{page}
+    pattern: /{_locale}/admin/utilisateur/liste/{page}
     defaults: { _controller: BittichHotelBundle:Admin:lister, _locale: fr, page: 1 }
     requirements:
       _locale: fr|en   
       page: \d+
+      
 hotel_admin_lister_role:
     pattern: /{_locale}/admin/liste-role/{role}/{page}
     defaults: { _controller: BittichHotelBundle:Admin:listerrole, _locale: fr, page: 1 }
@@ -257,11 +258,11 @@ hotel_admin_lister_role:
       _locale: fr|en  
       page: \d+
          
-hotel_admin_accueil:
-    pattern:  /{_locale}/admin/accueil.html
-    defaults: { _controller: BittichHotelBundle:Admin:index, _locale: fr }
-    requirements:
-          _locale: fr|en  
+#hotel_admin_accueil:
+ #   pattern:  /{_locale}/admin/accueil.html
+  #  defaults: { _controller: BittichHotelBundle:Admin:index, _locale: fr }
+   # requirements:
+    #      _locale: fr|en  
 
 hotel_admin_rechercher:
     pattern: /{_locale}/admin/rechercher

@@ -5,12 +5,7 @@
 
 
 {% block content %}
-    {% for flashMessage in app.session.flashbag.get('message') %}
-<div class="flash-notice">
-        {{ flashMessage }}
-    </div>
 
-{% endfor %}
 {% if is_granted('ROLE_EMPLOYE') %}
 
 
@@ -33,7 +28,7 @@
             <th>{{'resa.date_versement'|trans }}</th>   
             <th>{{'resa_date_resa'|trans }}</th> 
             <th>{{'client.label'|trans }}</th> 
-            <th>{{'chambre.label'|trans }}</th> 
+         
 
                         {% if is_granted('ROLE_EMPLOYE') %}
 
@@ -57,15 +52,7 @@
             <td><span class="badge">{{res.datereservation|date('d/m/Y')}}</span></td>
             <td><span class="badge">{{res.client.username}}</span></td> 
             <td> 
-                      {% if res.chambres is empty %}
-                <span class="badge">{{'chambre.aucun'|trans}}</span>
-                {% else %} 
-                
-                <select>
-                {% for ch in res.chambres %}
-                            <option>{{ch.numeroetage}}</option>
-                 {% endfor %}
-                        </select> {% endif %}</td>
+
               
                                              {% if is_granted('ROLE_EMPLOYE') %}
 
@@ -82,15 +69,17 @@
 
 
                                     </tr>
+                                    
     {% else %}
                                     <tr>
-                                        <td colspan="11" style="background-color:#FF0000">{{"resa.aucun" |trans}}</td>
+                                        <td colspan="10" style="background-color:#FF0000">{{"resa.aucun" |trans}}</td>
 
                                     </tr>
         {% endfor %}
                                                                         </tbody>
 
                                 </table> 
+                                {% if reservations|length > 0 %}
   <div class="pagination pagination-centered">
     <ul>
       {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
@@ -105,6 +94,6 @@
       {% endfor %}
     </ul>
   </div>
-
+{% endif %}
 
 {% endblock %}
