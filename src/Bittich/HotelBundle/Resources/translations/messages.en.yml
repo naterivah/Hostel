@@ -149,3 +149,5 @@ arrivee: Arrival
 apropos: About
 codesource: Source code
 connexion: Connection
+user.login.erreur: An error occured. Wrong username or password
+warning: Warning!

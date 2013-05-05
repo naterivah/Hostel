@@ -148,3 +148,5 @@ arrivee: Date d'arrivée
 apropos: A propos
 codesource: Code Source
 connexion: Connexion
+user.login.erreur: Une erreur est survenue. Login ou mot de passe incorrect.
+warning: Attention!

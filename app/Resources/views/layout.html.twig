@@ -297,20 +297,32 @@
                             <hr>
 
                             <footer>
-                                
+
                                 <p class="muted text-center"> &copy; Nordine Bittich - 2013 & Copier le code des autres c'est mal. Don't.</p>
                             </footer>
 
                         </div><!--/.fluid-container-->
 
-  {% block javascripts %}
-
+  {% block modal %}
+                        <!-- Modal d'erreur login user, ptet utiliser qu'une modal au lieu de deux. mais la flemme -->
+                        <div class="modal hide fade" id="erruser">
+                            <div class="modal-header">
+                                <a class="close" data-dismiss="modal">&times;</a>
+                                <h3>{{'warning'|trans}}</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{'user.login.erreur'|trans}}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="false">{{'close'|trans}}</button>             
+                            </div>   
+                        </div>
 
 
 
    {% endblock %}
 
-                                                   {#Modal réservation #}
+                                                   {#Modal #}
                         <div class="modal hide fade" id="modal_resa">
                             <div class="modal-header">
                                 <a class="close" data-dismiss="modal">&times;</a>
@@ -320,9 +332,9 @@
                                 <p id ="modal_message"></p>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>             
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">{{'close'|trans}}</button>             
                             </div>   
                         </div>
 
-                        </body>
-                    </html>
+                    </body>
+                </html>
