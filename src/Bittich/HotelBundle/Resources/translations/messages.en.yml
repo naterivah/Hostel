@@ -64,6 +64,7 @@ calendrier.modifier.succes: Date  successfully edited!
 calendrier.supprimer.succes: Date successfully deleted! 
 calendrier.disponibilites: Availabilities
 calendrier.range: Range of Dates
+
 #Modele
 modele.label: Model
 modele.bain: Bathroom
@@ -126,6 +127,8 @@ resa.modifier.succes: Reservation successfully edited!
 resa.supprimer.succes: Reservation successfully deleted!
 resa.ajouter.succes: Reservation successfully added!
 resa.liste.client: Your reservations
+reserver: Book a goulag
+
 #Général
 enregistrer: Save
 modifier: Edit
@@ -141,3 +144,8 @@ search: Search
 accueil: Index
 admin: Admin
 compte: Account
+depart: Departure
+arrivee: Arrival
+apropos: About
+codesource: Source code
+connexion: Connection

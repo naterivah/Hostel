@@ -11,7 +11,7 @@
 
                                 <p><a class="btn btn-inverse pull-right" href=" {{path('hotel_reservation_ajouter')}}">{{"resa.ajouter"|trans}}<i class="icon-forward icon-white"></i></a></p>
                                                   {% endif %}
-           <table class="table table-bordered table-condensed table-striped">
+           <table class="table table-bordered table-condensed table-hover">
 
         <caption>{{ "resa.liste"|trans }}</caption>
         <thead>
@@ -42,13 +42,13 @@
         
         <tr>
             <td>{{res.id}}</td>
-            <td><span class="badge">{{res.datearrivee|date('d/m/Y')}}</span></td>
-            <td><span class="badge">{{res.datedepart|date('d/m/Y')}}</span></td>
+            <td>{{res.datearrivee|date('d/m/Y')}}</td>
+            <td>{{res.datedepart|date('d/m/Y')}}</td>
             <td><span class="badge badge-warning">{{res.prixtotal}}</span></td>
             <td><span class="badge">{{res.nbrebebe}}</span></td>
             <td><span class="badge">{{res.acomptedemande}}</span></td>
-            <td><span class="badge">{{res.datelimiteacompte|date('d/m/Y')}}</span></td>
-            <td><span class="badge">{{res.dateversementacompte|date('d/m/Y')}}</span></td>
+            <td>{{res.datelimiteacompte|date('d/m/Y')}}</td>
+            <td>{{res.dateversementacompte|date('d/m/Y')}}</td>
             <td><span class="badge">{{res.datereservation|date('d/m/Y')}}</span></td>
             <td><span class="badge">{{res.client.username}}</span></td> 
             <td> 

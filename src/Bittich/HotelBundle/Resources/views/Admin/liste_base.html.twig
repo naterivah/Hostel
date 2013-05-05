@@ -1,10 +1,6 @@
-    {% for flashMessage in app.session.flashbag.get('message') %}
-<div>
-        {{ flashMessage }}
-    </div>
-{% endfor %}
 
-           <table class="table table-bordered table-striped">
+
+           <table class="table table-bordered table-hover">
 
         <caption>{{titre|trans }}</caption>
         <thead>
@@ -32,8 +28,8 @@
             <td>{{usr.adresse}}</td>
             <td>{{usr.npostal}}</td>
             <td>{{usr.localite}}</td>
-            <td><span class="badge">{{usr.username}}</span></td>
-            <td><span class="badge">{{usr.email}}</span></td>
+            <td><span class="badge badge-info">{{usr.username}}</span></td>
+            <td><span>{{usr.email}}</td>
             <td>
                 
                 {% if usr.roles[0] == 'ROLE_CLIENT' %}
@@ -79,7 +75,7 @@
             <td>
                 {% if usr.roles[0] != 'ROLE_SUPER_ADMIN' and usr.enabled %}
                     {% autoescape false %}
-                        <a class="btn btn-inverse btn-small" href="{{url('hotel_accueil',{'_switch_user': usr.username})}}"> {{'admin.switch'|trans}} {{usr.nom}}</a>
+                        <a class="btn btn-inverse btn-small" href="{{url('hotel_accueil',{'_switch_user': usr.username})}}"> {{'admin.switch'|trans}} {{usr.username}}</a>
                     {% endautoescape %}
                 {% else %}
                         <a class="btn btn-small disabled">~</a>

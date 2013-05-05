@@ -100,14 +100,14 @@
 
                         <div id="bar" class="well sidebar-nav">
                             <ul class="nav nav-list">
-                                <li class="nav-header">Réserver un goulag</li>
+                                <li class="nav-header">{{'reserver'|trans}}</li>
 
                                 <form class="form-vertical" id="nouv_res" action= "#" method = "post">   
 
-                                    <li> <input type="text" name="arrivee" id="arrivee" data-date-format="dd-mm-yyyy" required="true" placeholder="Date d'arrivée"></li>
-                                    <li><input type="text" name ="depart" id="depart"   data-date-format="dd-mm-yyyy" required="true" placeholder="Date de départ"></li>
+                                    <li> <input type="text" name="arrivee" id="arrivee" data-date-format="dd-mm-yyyy" required="true" placeholder="{{'arrivee'|trans}}"></li>
+                                    <li><input type="text" name ="depart" id="depart"   data-date-format="dd-mm-yyyy" required="true" placeholder="{{'depart'|trans}}"></li>
 
-                                    <li><input name="litbebe" id="litbebe"  type="number" min= "0" required="true" value="0" placeholder="Nombre de lits bébés"></li>
+                                    <li><input name="litbebe" id="litbebe"  type="number" min= "0" required="true" value="0" placeholder="{{'resa.nbre_bebe'|trans}}"></li>
 
 
                                     <li><button type="submit" id="sub" class="btn btn-success">{{'search'|trans}}<i class="icon-chevron-right icon-white"></i></button></li>
@@ -233,7 +233,7 @@
 
                                                     <div class="span4">
 
-                                                        <h3>A propos</h3>
+                                                        <h3>{{'apropos'|trans}}</h3>
 
                                                         <div class="well muted">
 
@@ -246,7 +246,7 @@
                                                     </div>
                                                     <div class="span4">
 
-                                                        <h3>Code Source</h3>
+                                                        <h3>{{'codesource'|trans}}</h3>
 
                                                         <div class="well muted">
 
@@ -261,7 +261,7 @@
 
                                                     </div>
                                                     <div class="span4">
-                                                        <h3>Connexion</h3>
+                                                        <h3>{{'connexion'|trans}}</h3>
                                                         <div class="well muted">
 
 
@@ -297,7 +297,8 @@
                             <hr>
 
                             <footer>
-                                <p class="muted"> &copy; Nordine Bittich - 2013 & Copier le code des autres c'est mal. Don't.</p>
+                                
+                                <p class="muted text-center"> &copy; Nordine Bittich - 2013 & Copier le code des autres c'est mal. Don't.</p>
                             </footer>
 
                         </div><!--/.fluid-container-->
