@@ -80,7 +80,7 @@ calendrier.ajouter.succes: Date ajoutée avec succès!
 calendrier.modifier.succes: Date  modifiée avec succès!
 calendrier.supprimer.succes: Date  supprimée avec succès! 
 calendrier.disponibilites: Disponibilités
-
+calendrier.range: Intervale de dates
 #Chambre
 chambre.label: Chambre
 chambre.etage: Etage
@@ -126,7 +126,7 @@ resa.modifier: Modifier une réservation
 resa.modifier.succes: Réservation modifiée avec succès!
 resa.supprimer.succes:  Réservation supprimée avec succès!
 resa.ajouter.succes: Réservation ajoutée avec succès!
-
+resa.liste.client: Vos réservations
 #Général
 enregistrer: Enregistrer
 modifier: Modifier
@@ -134,3 +134,11 @@ supprimer: Supprimer
 user: Compte Utilisateur
 actif: Activé
 inactif: Désactivé
+comment: Commentaires
+commenter: Commenter
+bug: Signaler un bug
+close: Fermer
+search: Rechercher
+accueil: Accueil
+admin: Administration
+compte: Compte

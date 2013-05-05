@@ -10,7 +10,9 @@ class ChambreType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('etage', 'integer', array('label' => 'chambre.etage'))
+                ->add('etage', 'integer', array('label' => 'chambre.etage', 'attr' => array(
+                        'class' => 'input-medium',
+                        )))
                 ->add('litbebe', 'checkbox', array('label' => 'chambre.litbebe', 'required' => false))
                 ->add('modele', 'entity', array(
                     'class' => 'Bittich\HotelBundle\Entity\Modele',
@@ -18,6 +20,9 @@ class ChambreType extends AbstractType {
                     'multiple' => false,
                     'required' => true,
                     'label' => "modele.label",
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    ),
                 ))
                 ->add('disponibilites', 'entity', array(
                     'class' => 'Bittich\HotelBundle\Entity\Calendrier',
@@ -25,6 +30,9 @@ class ChambreType extends AbstractType {
                     'multiple' => true,
                     'required' => false,
                     'label' => "calendrier.disponibilites",
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
                 ))
         ;
     }

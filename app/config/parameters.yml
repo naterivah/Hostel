@@ -5,10 +5,10 @@ parameters:
     database_name: hotel
     database_user: root
     database_password: 
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_transport: gmail
+    mailer_host: ~
+    mailer_user: komintern1988
+    mailer_password: kikoolol
     locale: fr
     secret: 99910888cb764a3f4c14e2c4a5ace939b
     database_path: null

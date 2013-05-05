@@ -7,7 +7,12 @@ hotel_accueil:
     defaults: { _controller: BittichHotelBundle:Accueil:index, _locale: fr }
     requirements:
       _locale: fr|en
-  
+
+hotel_accueil_commenter:
+    pattern: /{_locale}/commentaires
+    defaults: { _controller: BittichHotelBundle:Accueil:commenter, _locale: fr }
+    requirements:
+      _locale: fr|en
 #*******************************************************************************************************
 #Tarif**************************************************************************************************
 #*******************************************************************************************************
@@ -298,3 +303,4 @@ hotel_admin_activer:
     requirements:
         id: \d+   
         _locale: fr|en  
+        

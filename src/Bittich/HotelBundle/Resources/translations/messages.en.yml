@@ -63,7 +63,7 @@ calendrier.ajouter.succes: Date successfully added!
 calendrier.modifier.succes: Date  successfully edited!
 calendrier.supprimer.succes: Date successfully deleted! 
 calendrier.disponibilites: Availabilities
-
+calendrier.range: Range of Dates
 #Modele
 modele.label: Model
 modele.bain: Bathroom
@@ -125,7 +125,7 @@ resa.modifier: Edit a reservation
 resa.modifier.succes: Reservation successfully edited!
 resa.supprimer.succes: Reservation successfully deleted!
 resa.ajouter.succes: Reservation successfully added!
-
+resa.liste.client: Your reservations
 #Général
 enregistrer: Save
 modifier: Edit
@@ -133,3 +133,11 @@ supprimer: Delete
 user: User Account
 actif: Enabled
 inactif: Disabled
+comment: Comments
+commenter: Comment
+bug: Signale a bug
+close: Close
+search: Search
+accueil: Index
+admin: Admin
+compte: Account

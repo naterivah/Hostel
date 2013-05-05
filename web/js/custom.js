@@ -1,7 +1,7 @@
 /*Date*/
 (function ($){
     window.dateRivah={
-        
+
         init:function(dateA,dateB){ 
             var nowTemp = new Date();
             var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
@@ -53,6 +53,7 @@ $(document).ready(function() {
     $(function (){
         $('#admin').popover({placement:'bottom', trigger:'hover'});
     });
+
                                              
     var addOption= function(option){
         var txt= '<option value="'+option+'">Chambre '+option+"</option>";

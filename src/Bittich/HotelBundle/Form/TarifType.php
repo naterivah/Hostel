@@ -13,9 +13,13 @@ class TarifType extends AbstractType
         $builder
             ->add('couleur','text',array('label'=>'tarif.couleur',
                     'required'=>true,
-                
+                 'attr'   =>  array(
+                        'class'   => 'input-medium',
+                        ),
                 ))
-            ->add('prixlitbebe', 'integer', array('label'=>'tarif.bebe'))
+            ->add('prixlitbebe', 'integer', array('label'=>'tarif.bebe', 'attr'   =>  array(
+                        'class'   => 'input-medium',
+                        )))
         ;
     }
 

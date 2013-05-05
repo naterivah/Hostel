@@ -13,169 +13,133 @@
     <link rel="stylesheet" href="{{ asset('css/datepicker.css') }}" type="text/css" />
 
     {% stylesheets '@FOSCommentBundle/Resources/assets/css/comments.css' %}
+
     <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
 {% endstylesheets %}
-    <style type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}" type="text/css" />
 
-
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-
-
-            input {
-                width: 90%;
-
-            } 
-            #chambres{
-                width: 95%;
-            }
-            .table td{
-                text-align: center;
-             
-            }
-            .table th{
-                text-align: center;   
-            }
-
-
-            .sidebar-nav {
-                padding: 9px 0;
-
-            }
-
-            @media (max-width: 980px) {
-
-                .navbar-text.pull-right {
-                    float: none;
-                    padding-left: 5px;
-                    padding-right: 5px;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}" type="text/css" />
 
         {% endblock %}
 
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-          <script src="../assets/js/html5shiv.js"></script>
-        <![endif]-->
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-        <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-        <script src="{{asset('js/bootstrap.js')}}"></script>
-        <script src="{{asset('js/custom.js')}}"></script>
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('img/apple-touch-icon-144-precomposed.png')}}">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('img/apple-touch-icon-114-precomposed.png')}}">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
-        <link rel="apple-touch-icon-precomposed" href="{{asset('img/apple-touch-icon-57-precomposed.png')}}">
-        <link rel="shortcut icon" href="{{asset('img/assets/ico/favicon.png')}}">
-    </head>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script src="{{asset('js/bootstrap.js')}}"></script>
+    <script src="{{asset('js/custom.js')}}"></script>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('img/apple-touch-icon-144-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{asset('img/apple-touch-icon-114-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('img/apple-touch-icon-72-precomposed.png')}}">
+    <link rel="apple-touch-icon-precomposed" href="{{asset('img/apple-touch-icon-57-precomposed.png')}}">
+    <link rel="shortcut icon" href="{{asset('img/assets/ico/favicon.png')}}">
+</head>
     {% endblock %}
-    <body>
+<body>
 
       {% block navbar  %}
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="brand"  href="{{path('hotel_accueil')}}"> Projet Internet/Intranet</a>
-                    <div class="nav-collapse collapse">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand"  href="{{path('hotel_accueil')}}"> Projet Internet/Intranet</a>
+                <div class="nav-collapse collapse">
                         {#FOFM Connexion #}
                          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <ul class="nav nav-pills pull-right">
-                                <li class="active"> <a id="admin" rel="popover" data-original-title="{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}" data-content=
-                                                       "{{ app.user.email }}"
-                                                       href="#"><i class="icon-user icon-white"></i>{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
-                                <li class="divider-vertical"></li>
-                                <li><a href="{{path("fos_user_security_logout")}}"><i class="icon-off icon-white"></i>{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
-                            </ul>
+                        <ul class="nav nav-pills pull-right">
+                            <li class="active"> <a id="admin" rel="popover" data-original-title="{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}" data-content=
+                                                   "{{ app.user.email }}"
+                                                   href="#"><i class="icon-user icon-white"></i>{{'layout.logged_in_as'|trans({'%username%': app.user.username},'FOSUserBundle')}}</a></li>
+                            <li class="divider-vertical"></li>
+                            <li><a href="{{path("fos_user_security_logout")}}"><i class="icon-off icon-white"></i>{{'layout.logout'|trans([],'FOSUserBundle')}}</a></li>
+                        </ul>
                          {% else %}
                             {% render(path("fos_user_security_login")) %}
                          {% endif %}
-                            <ul class="nav">
-                                <li class="divider-vertical"></li>
-                                <li><a href="{{path('hotel_accueil', {'_locale':'en'})}}"><i class="icon-globe icon-white"></i>English</a></li>
-                                <li class="divider-vertical"></li>
-                                <li><a href="{{path('hotel_accueil', {'_locale':'fr'})}}"><i class="icon-map-marker icon-white"></i>Français</a></li>
+                        <ul class="nav">
+                            <li class="divider-vertical"></li>
+                            <li><a href="{{path('hotel_accueil', {'_locale':'en'})}}"><i class="icon-globe icon-white"></i>English</a></li>
+                            <li class="divider-vertical"></li>
+                            <li><a href="{{path('hotel_accueil', {'_locale':'fr'})}}"><i class="icon-map-marker icon-white"></i>Français</a></li>
                                       {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
-                                <li class="divider-vertical"></li>
-                                <li>
+                            <li class="divider-vertical"></li>
+                            <li>
 
-                                    <a href="{{path("fos_user_registration_register")}}"><i class="icon-hand-right icon-white"></i>{{'layout.register'|trans([],'FOSUserBundle')}}</a>
+                                <a href="{{path("fos_user_registration_register")}}"><i class="icon-hand-right icon-white"></i>{{'layout.register'|trans([],'FOSUserBundle')}}</a>
 
-                                </li>
+                            </li>
                                     {% endif %}
 
-                            </ul>
-                        </div><!--/.nav-collapse -->
-                    </div>
+                        </ul>
+                    </div><!--/.nav-collapse -->
                 </div>
             </div>
+        </div>
      {% endblock %}
 
 
 
-            <div class="container-fluid">
-                <div class="row-fluid">
+        <div class="container-fluid">
+            <div class="row-fluid">
 
 
-                    <div class="span2">
+                <div class="span2">
                                                                          {% if is_granted('ROLE_CLIENT') %}
 
 
 
 
 
-                            <div id="bar" class="well sidebar-nav">
-                                <ul class="nav nav-list">
-                                    <li class="nav-header">Réserver un goulag</li>
+                        <div id="bar" class="well sidebar-nav">
+                            <ul class="nav nav-list">
+                                <li class="nav-header">Réserver un goulag</li>
 
-                                    <form class="form-vertical" id="nouv_res" action= "#" method = "post">   
+                                <form class="form-vertical" id="nouv_res" action= "#" method = "post">   
 
-                                        <li> <input type="text" name="arrivee" id="arrivee" data-date-format="dd-mm-yyyy" required="true" placeholder="Date d'arrivée"></li>
-                                        <li><input type="text" name ="depart" id="depart"   data-date-format="dd-mm-yyyy" required="true" placeholder="Date de départ"></li>
+                                    <li> <input type="text" name="arrivee" id="arrivee" data-date-format="dd-mm-yyyy" required="true" placeholder="Date d'arrivée"></li>
+                                    <li><input type="text" name ="depart" id="depart"   data-date-format="dd-mm-yyyy" required="true" placeholder="Date de départ"></li>
 
-                                        <li><input name="litbebe" id="litbebe"  type="number" min= "0" required="true" value="0" placeholder="Nombre de lits bébés"></li>
-
-
-                                        <li><button type="submit" id="sub" class="btn btn-success">Rechercher<i class="icon-chevron-right icon-white"></i></button></li>
+                                    <li><input name="litbebe" id="litbebe"  type="number" min= "0" required="true" value="0" placeholder="Nombre de lits bébés"></li>
 
 
-                                    </form>
-                                    <li>
-                                        <div  id="loading" class="progress progress-striped active">
-                                            <div class="bar bar-primary" style="width: 100%;"></div>
-                                        </div></li>
+                                    <li><button type="submit" id="sub" class="btn btn-success">{{'search'|trans}}<i class="icon-chevron-right icon-white"></i></button></li>
+
+
+                                </form>
+                                <li>
+                                    <div  id="loading" class="progress progress-striped active">
+                                        <div class="bar bar-primary" style="width: 100%;"></div>
+                                    </div></li>
                                     {#!--<li><img id="loading" src="{{asset('img/ajax-loader.gif')}}"></li>#}
-                                    <li><div class="control-group" id="show_select">
-                                            <label class="control-label badge badge-info" for="chambres">{{'chambre.label'|trans }}</label>
-                                            <div class="controls">
+                                <li><div class="control-group" id="show_select">
+                                        <label class="control-label badge badge-info" for="chambres">{{'chambre.label'|trans }}</label>
+                                        <div class="controls">
 
-                                                <select name ="chambres[]" id="chambres" multiple="multiple">
+                                            <select name ="chambres[]" id="chambres" multiple="multiple">
 
-                                                </select>
-                                            </div>
+                                            </select>
                                         </div>
-                                    </li>
-                                    <li id="show_button">
+                                    </div>
+                                </li>
+                                <li id="show_button">
 
-                                        <button class="btn btn-primary" id="confirm">Confirmer</button> 
+                                    <button class="btn btn-primary" id="confirm">Confirmer</button> 
 
-                                    </li>
+                                </li>
 
 
 
-                                </ul>
+                            </ul>
 
-                            </div><!--/.well -->
+                        </div><!--/.well -->
                                                     {%  endif %}
 
 
@@ -186,47 +150,47 @@
 
 
 
-                            <div class="well sidebar-nav">
+                        <div class="well sidebar-nav">
 
-                                <ul class="nav nav-list">
+                            <ul class="nav nav-list">
 
-                                    <li class="nav-header">Accueil</li>
+                                <li class="nav-header">{{'accueil'|trans}}</li>
 
 
                              {% block menu %}
                                      {% include 'BittichHotelBundle:Default:index.html.twig' %} 
                             {% endblock %}
 
-                                </ul>
+                            </ul>
 
-                            </div><!--/.well -->
+                        </div><!--/.well -->
 
-                        </div><!--/span-->
-
-
+                    </div><!--/span-->
 
 
 
 
 
 
-                        <div class="span10">
-                            <div class="page-header">
-                                <h1>
+
+
+                    <div class="span10">
+                        <div class="page-header">
+                            <h1>
                         {% block title %}
-                                        Kom'in'Tern - Hotel 
-                                        </br><span class="badge badge-info">La bureaucratie au service de l'hôtellerie</span>
-                                         <a class="btn btn-danger pull-right" href="#modal_coms" data-toggle="modal" data-target="#modal_coms"><i class="icon-comment icon-white"></i>Commenter</a>
+                                    Kom'in'Tern - Hotel 
+                                    </br><span class="badge badge-info">La bureaucratie au service de l'hôtellerie</span>
+                                    <a class="btn btn-danger pull-right" href="{{path('hotel_accueil_commenter')}}">{{'commenter'|trans}}<i class="icon-comment icon-white"></i></a>
 
                         {% endblock %}
 
-                                    </h1>
+                                </h1>
 
-                                </div>
+                            </div>
 
 
-                                <div class="row-fluid">
-                                    <div class="span12">
+                            <div class="row-fluid">
+                                <div class="span12">
                                         {% block carousel %} <div id="myCarousel" class="carousel slide ">
                                             <div class="carousel-inner thumbnail">
                                                 <div class="item active"> <img alt="" src="{{ asset('img/hotel1.jpg') }}"/>
@@ -248,58 +212,58 @@
                                             <a class="carousel-control left" data-slide="prev" href="#myCarousel">‹</a> <a class="carousel-control right" data-slide="next" href="#myCarousel">›</a> </div>
                                                 {% endblock %}
                                     </div>
-                                        
+
                                 </div>
                                 <div class="row-fluid">
                                     <div class="span12">
                                         {% for flashMessage in app.session.flashbag.get('message') %}
-                                        <div class="alert alert-info flash-notice">
+                                            <div class="alert alert-info flash-notice">
                                                   {{ flashMessage }}
-                                            </div>
+                                                </div>
                                                 {% endfor %}
                             {% block content %}
-                                        <blockquote>
-                                            <p>Le Goulag le plus en vogue chez les traîtres et les contre-révolutionnaires. Je reviendrai!</p>
-                                            <small>Léon Trotsky</small>
-                                        </blockquote>
-                                                  
-                                                   
+                                                <blockquote>
+                                                    <p>Le Goulag le plus en vogue chez les traîtres et les contre-révolutionnaires. Je reviendrai!</p>
+                                                    <small>Léon Trotsky</small>
+                                                </blockquote>
 
-                                            <div class="row-fluid">
 
-                                                <div class="span4">
 
-                                                    <h3>A propos</h3>
- 
-                                                    <div class="well muted">
+                                                <div class="row-fluid">
 
-                                                       Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
+                                                    <div class="span4">
+
+                                                        <h3>A propos</h3>
+
+                                                        <div class="well muted">
+
+                                                            Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
                                                             du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
                                                             d'un framework php MVC d'autre part.
+                                                        </div>
+
+
                                                     </div>
+                                                    <div class="span4">
 
+                                                        <h3>Code Source</h3>
 
-                                                </div>
-                                                <div class="span4">
+                                                        <div class="well muted">
 
-                                                    <h3>Code Source</h3>
-                                        
-                                                    <div class="well muted">
-                                                       
 
                                                             Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a>. N'hésitez-pas à laisser
                                                             un commentaire, signaler un bug,... ET surtout tester le site! Les qualités du framework Symfony sont nombreuses, et il est impossible de toute les dénombrer. 
                                                             L'utilisation de bundles externes est l'un des concepts fondamental de Symfony. 
-                                                          
 
-                                                       
+
+
+                                                        </div>
+
                                                     </div>
+                                                    <div class="span4">
+                                                        <h3>Connexion</h3>
+                                                        <div class="well muted">
 
-                                                </div>
-                                                <div class="span4">
-                                                    <h3>Connexion</h3>
-                                                    <div class="well muted">
-                                                     
 
                                                             Le site a été développé dans un but éducatif, il est donc incomplet et inutilisable en l'état dans un but réel d'implémentation d'un système de réservation d'hôtel.
                                                             Par conséquent, les identifiants de SUPER_ADMIN vous sont fournis:
@@ -307,6 +271,10 @@
                                                             mot de passe: admin
                                                             Un utilisateur peut avoir l'un de ces trois rôles : client, employé, anonyme. 
 
+                                                        </div>
+
+
+
                                                     </div>
 
 
@@ -315,28 +283,24 @@
 
 
 
-                                            </div>
-
-
-
 
 
                             {% endblock %}
-                                            <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
+                                                <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
+                                            </div><!--/span-->
+
                                         </div><!--/span-->
+                                    </div><!--/row-->
+                                </div><!--/span-->
+                            </div><!--/row-->
 
-                                    </div><!--/span-->
-                                </div><!--/row-->
-                            </div><!--/span-->
-                        </div><!--/row-->
+                            <hr>
 
-                        <hr>
+                            <footer>
+                                <p class="muted"> &copy; Nordine Bittich - 2013 & Copier le code des autres c'est mal. Don't.</p>
+                            </footer>
 
-                        <footer>
-                            <p>&copy; Nordine Bittich - 2013</p>
-                        </footer>
-
-                    </div><!--/.fluid-container-->
+                        </div><!--/.fluid-container-->
 
   {% block javascripts %}
 
@@ -346,33 +310,18 @@
    {% endblock %}
 
                                                    {#Modal réservation #}
-                    <div class="modal hide fade" id="modal_resa">
-                        <div class="modal-header">
-                            <a class="close" data-dismiss="modal">&times;</a>
-                            <h3>Résérvation</h3>
-                        </div>
-                        <div class="modal-body">
-                            <p id ="modal_message"></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>             
-                        </div>   
-                    </div>
-
-                                                            {#Modal pour les commentaires#}
-                    <div class="modal hide fade" id="modal_coms">
-                        <div class="modal-header">
-
-                            <h3>Commentaires</h3>
-                        </div>
-                        <div class="modal-body">
-                                         {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}                                                     
-
+                        <div class="modal hide fade" id="modal_resa">
+                            <div class="modal-header">
+                                <a class="close" data-dismiss="modal">&times;</a>
+                                <h3>Résérvation</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p id ="modal_message"></p>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>             
                             </div>   
                         </div>
-                    </body>
-                </html>
+
+                        </body>
+                    </html>

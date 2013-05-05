@@ -16,6 +16,9 @@ class PrixType extends AbstractType {
                     'multiple' => false,
                     'required' => true,
                     'label' => 'modele.label',
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
                 ))
                 ->add('tarif', 'entity', array(
                     'class' => 'Bittich\HotelBundle\Entity\Tarif',
@@ -23,8 +26,16 @@ class PrixType extends AbstractType {
                     'multiple' => false,
                     'required' => true,
                     'label' => 'tarif.label',
+                     'attr' => array(
+                        'class' => 'input-medium',
+                    )
                 ))
-                ->add('prix','integer',array('label'=>'prix.label'))
+                ->add('prix','integer',array('label'=>'prix.label',
+                     'attr' => array(
+                        'class' => 'input-medium',
+                    )
+                    
+                    ))
 
         ;
     }

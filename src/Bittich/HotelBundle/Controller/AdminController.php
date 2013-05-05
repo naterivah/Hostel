@@ -149,5 +149,7 @@ class AdminController extends Controller {
             return $this->listerAction(1);
         }
     }
+    
+
 
 }

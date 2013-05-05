@@ -11,28 +11,22 @@
             </div>
 <form class="form-vertical well" action ="" method="post" {{form_enctype(form)}}>
    <legend>{{typeAction}}</legend>
-<div class="control-group">
-    <label class="control-label">{{ form_label(form.bain) }}</label>
-    <div class="controls">
-        
-         {{ form_errors(form.bain) }}  
-         {{ form_widget(form.bain) }} 
-    </div>
-</div>
-<div class="control-group">
-    <label class="control-label">{{ form_label(form.douche) }}</label>
-    <div class="controls">
-      {{ form_errors(form.douche) }}  
-      {{ form_widget(form.douche) }} 
-    </div>
-</div>            
-<div class="control-group">
-    <label class="control-label">{{ form_label(form.wc) }}</label>
-    <div class="controls">
-                           {{ form_errors(form.wc) }}  
-                         {{ form_widget(form.wc) }} 
-    </div>
-</div>                      
+   <label class="checkbox">
+   {{ form_widget(form.bain) }} 
+  {{ form_label(form.bain) }}
+               {{ form_errors(form.bain) }}  
+</label>
+   <label class="checkbox">
+  {{ form_widget(form.douche) }} 
+ {{ form_label(form.douche) }}
+               {{ form_errors(form.douche) }}  
+</label>
+  <label class="checkbox">
+         {{ form_widget(form.wc) }} 
+ {{ form_label(form.wc) }}
+                 {{ form_errors(form.wc) }}  
+</label>        
+                      
   <div class="control-group">
     <label class="control-label">{{ form_label(form.nbrelit2) }}</label>
     <div class="controls">

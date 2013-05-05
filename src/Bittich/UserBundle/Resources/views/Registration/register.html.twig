@@ -1,0 +1,5 @@
+{% extends "BittichUserBundle::layout.html.twig" %}
+{% block title %}{{'layout.register'|trans([],'FOSUserBundle')}}{% endblock %}
+{% block fos_user_content %}
+{% include "BittichUserBundle:Registration:register_content.html.twig" %}
+{% endblock  %}

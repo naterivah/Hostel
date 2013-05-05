@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="fos_user_registration_register" pattern="/">
-        <default key="_controller">FOSUserBundle:Registration:register</default>
+        <default key="_controller">BittichUserBundle:Registration:register</default>
     </route>
 
     <route id="fos_user_registration_check_email" pattern="/check-email">

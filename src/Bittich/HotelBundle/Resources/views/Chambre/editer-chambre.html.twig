@@ -7,8 +7,11 @@
 <div class="erreur">
                         {{form_errors(form)}}
     </div>
-    <form class="form-vertical well"  action ="" method="post" {{form_enctype(form)}}>
-
+<script>
+    dateRivah.initAll();
+</script>    
+<form class="form-vertical well"  action ="" method="post" {{form_enctype(form)}}>
+        
         <legend>{{typeAction}}</legend>
         <div class="control-group">
             <label class="control-label">{{ form_label(form.etage) }}</label>
@@ -17,13 +20,13 @@
                              {{ form_widget(form.etage) }} 
                 </div>
             </div>
-      <div class="control-group">
-            <label class="control-label">{{ form_label(form.litbebe) }}</label>
-            <div class="controls">
-        {{ form_errors(form.litbebe) }} 
-                             {{ form_widget(form.litbebe) }}
-                </div>
-            </div>
+         <label class="checkbox">
+         {{ form_widget(form.litbebe) }}
+{{ form_label(form.litbebe) }}
+               {{ form_errors(form.litbebe) }} 
+</label>        
+            
+  
   <div class="control-group">
             <label class="control-label">{{ form_label(form.modele) }}</label>
             <div class="controls">

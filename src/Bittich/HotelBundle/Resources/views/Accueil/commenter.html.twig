@@ -1,0 +1,31 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+{{ 'comment'|trans }}
+
+{% endblock %}
+
+{% block content %}
+<div class="span10 well">
+     {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}  
+
+</div>
+<script>
+        $('#load').hide();
+
+$(document).on('fos_comment_before_load_thread', function (event, data) {
+       /* il faudrait faire qq chose mais la flemme*/
+
+
+    });
+ $(document).on('fos_comment_add_comment', function (event, data) {
+      /* il faudrait recharger la page mais la flemme morray */
+
+
+    });   
+    
+    
+    
+
+    </script>
+
+{% endblock %}

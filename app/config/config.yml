@@ -60,12 +60,14 @@ doctrine:
         auto_mapping: true
 
 # Swiftmailer Configuration, à tester une fois que le site sera en prod
-swiftmailer:
-    transport: smtp              
-    host:      smtp.bittich.be
-    username:  projet@bittich.be
-    password:  j3tS0ny2KiO%
-    #spool:     { type: memory }
+#swiftmailer:
+ #   transport: smtp              
+  #  host:      smtp.bittich.be
+   # username:  projet@bittich.be
+    #password:  j3tS0ny2KiO%
+    ####spool:     { type: memory }
+    
+
 
 # FOS User Bundle
 fos_user:

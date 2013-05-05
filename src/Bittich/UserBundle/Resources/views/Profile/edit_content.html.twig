@@ -1,0 +1,7 @@
+<form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="form-vertical well fos_user_profile_edit">
+    <legend>{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</legend>
+    {{ form_widget(form) }}
+    <div>
+        <input class="btn btn-inverse" type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+</form>

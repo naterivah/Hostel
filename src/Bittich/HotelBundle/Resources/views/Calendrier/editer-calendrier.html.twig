@@ -3,41 +3,48 @@
 {{ typeAction }}
 {% endblock %}
 {% block content %}  
-<p>{{typeAction}}</p>
             {% if form is defined %}
-<form action ="" method="post" {{form_enctype(form)}}>
-               {# {{form_widget(form)}}   -> version courte #}
         <div class="erreur">
                         {{form_errors(form)}}
             </div>
-            <table border ="1">
-                <tr>
-                    <td> {{ form_label(form.datej) }} </td>
-                    <td> {{ form_label(form.tarif) }} </td>
-                    <td> {{ form_label(form.nbrelitbebe) }} </td>
-
-                   {# <td> {{ form_label(form.nbredispo) }} </td> #}
-
-                </tr>
-                <tr>
-                    <td> {{ form_errors(form.datej) }}  
+<form class="form-vertical well" action ="" method="post" {{form_enctype(form)}}>
+          <legend>{{typeAction}}</legend>
+            
+        <div class="control-group">
+            <label class="control-label">{{ form_label(form.datej) }}</label>
+            <div class="controls">
+                            {{ form_errors(form.datej) }}  
                              {{ form_widget(form.datej) }} 
-                        </td>
-                        <td> {{ form_errors(form.tarif) }} 
+                </div>
+            </div>
+         <div class="control-group">
+            <label class="control-label">{{ form_label(form.tarif) }}</label>
+            <div class="controls">
+{{ form_errors(form.tarif) }} 
                              {{ form_widget(form.tarif) }}
-                            </td>
-                            <td> {{ form_errors(form.nbrelitbebe) }} 
+                </div>
+            </div>     
+           <div class="control-group">
+            <label class="control-label">{{ form_label(form.nbrelitbebe) }}</label>
+            <div class="controls">
+              {{ form_errors(form.nbrelitbebe) }} 
                              {{ form_widget(form.nbrelitbebe) }}
-                                </td>
-                           {# <td> {{ form_errors(form.nbredispo) }} 
-                             {{ form_widget(form.nbredispo) }}
-                                </td>#}
-                            </tr>
+                </div>
+            </div>     
+                              
+                     
+                   
+                     
 
-                        </table>
+                 
+
+
+
+
+
                {{ form_rest(form) }} 
-{#fonction obligatoire, va permettre d'ajouter les champs qui n'ont pas été renseigné plus haut#}
-                        <input type="submit" value="{{'enregistrer'|trans}}"/>
+
+                        <input class="btn btn-inverse" type="submit" value="{{'enregistrer'|trans}}"/>
 
                     </form>
             {% endif %}

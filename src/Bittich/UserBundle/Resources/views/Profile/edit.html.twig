@@ -1,0 +1,5 @@
+{% extends "BittichUserBundle::layout.html.twig" %}
+{% block title %}{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}{% endblock %}
+{% block fos_user_content %}
+{% include "BittichUserBundle:Profile:edit_content.html.twig" %}
+{% endblock fos_user_content %}

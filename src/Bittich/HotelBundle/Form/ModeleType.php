@@ -14,8 +14,14 @@ class ModeleType extends AbstractType
             ->add('bain', 'checkbox',array('label'=>'modele.bain','required'=>false,'value'=>0))
             ->add('douche', 'checkbox',array('label'=>'modele.douche','required'=>false,'value'=>0))
             ->add('wc', 'checkbox',array('label'=>'modele.wc','required'=>false,'value'=>0))
-            ->add('nbrelit2', 'integer', array('label'=>'modele.nbrelit2'))
-            ->add('nbrelit1', 'integer', array('label'=>'modele.nbrelit1'))
+            ->add('nbrelit2', 'integer', array('label'=>'modele.nbrelit2',  'attr'   =>  array(
+                        'class'   => 'input-medium',),))
+            ->add('nbrelit1', 'integer', array('label'=>'modele.nbrelit1',
+                  'attr'   =>  array(
+                        'class'   => 'input-medium',
+                        )
+                
+                ))
         ;
     }
 

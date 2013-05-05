@@ -12,13 +12,20 @@ class CalendrierType extends AbstractType {
         $builder
                 ->add('datej', 'date', array(
                     'label' => 'calendrier.datej',
-                    'format' => 'd/M/y',
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-y',
                     'required' => true,
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
                         )
                 )
                 ->add('nbrelitbebe', 'integer', array(
                     'label' => 'calendrier.nbrelitbebe',
                     'required' => true,
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
                         )
                 )
                 //->add('nbredispo', 'integer', array('label' => 'calendrier.nbredispo'))
@@ -28,6 +35,9 @@ class CalendrierType extends AbstractType {
                     'multiple' => false,
                     'required' => true,
                     'label' => 'tarif.couleur',
+                    'attr' => array(
+                        'class' => 'input-medium',
+                    )
                 ))
 
         ;
