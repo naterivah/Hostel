@@ -1,0 +1,9 @@
+{% extends '::layout.html.twig' %}
+{% block title %}
+   
+{% endblock %}
+
+{% block content %}
+ {{ exception.message }} ({{ status_code }} {{ status_text }})
+{% endblock %}
+

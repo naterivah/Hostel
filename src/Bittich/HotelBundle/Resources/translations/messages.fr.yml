@@ -150,3 +150,7 @@ codesource: Code Source
 connexion: Connexion
 user.login.erreur: Une erreur est survenue. Login ou mot de passe incorrect.
 warning: Attention!
+retour: Retour
+erreur: Erreur %code%
+message500: Erreur serveur. Vous avez probablement tenté de supprimer une ligne dans la base de données que vous ne pouviez point supprimer.
+message404: Erreur 404. On fait tout ce qu'on peut pour régler le problème.</br>Mais dans un régime technocrate bureaucrate dictaoriale stalinien</br>dirigé par les social-fascistes, tout prend un temps fou...

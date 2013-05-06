@@ -1,0 +1,49 @@
+<HTML>
+<HEAD><TITLE>{{'erreur'|trans({'%code%':  status_code })|upper}}</TITLE>
+<SCRIPT src="http://code.jquery.com/jquery-1.9.1.min.js"></SCRIPT>
+<script>
+$(document).ready(function(){
+    $(document).on('keypress', function(e) {
+        var url= "{{path('hotel_accueil')}}";
+        document.location.href=url;
+});
+
+
+});
+    </script>
+</HEAD>
+<BODY TEXT="#ffffff" BGCOLOR="#0000cc" LINK="#ffffcc" VLINK="#ff9966">
+
+<CENTER><DIV ALIGN="center">
+<PRE><CODE>
+
+ {{ exception.message }}
+
+
+<TABLE BORDER=0 BGCOLOR="#C0C0C0"><TR><TD><CODE><FONT COLOR="#330033">{{ status_code|upper }}</FONT></CODE></TD></TR></TABLE>
+
+
+FFFFFF0 FFFFFFF FF00000 FF00000 0FFFFF0 FF000FF FF000FF
+FF000FF 000F000 FF00000 FF00000 FF000FF FF000FF 0FF0FF0
+FFFFFF0 000F000 FF00000 FF00000 0FFF000 FF000FF 00FFF00
+FFFFFF0 000F000 FF00000 FF00000 000FFF0 FF000FF 00FFF00
+FF000FF 000F000 FF00000 FF00000 FF000FF FF000FF 0FF0FF0
+FFFFFF0 FFFFFFF FFFFFFF FFFFFFF 0FFFFF0 0FFFFF0 FF000FF
+       _.-;;-._
+'-..-'|   ||   |
+'-..-'|_.-;;-._|
+'-..-'|   ||   |
+'-..-'|_.-''-._|
+ 
+<span>
+
+{{'message404'|trans|upper|raw}}
+</span>
+
+Press any key to continue<BLINK>_</BLINK>
+</CODE></PRE>
+</DIV></CENTER>
+
+
+</BODY>
+</HTML>

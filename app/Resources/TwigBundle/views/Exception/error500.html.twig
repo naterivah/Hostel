@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+{% block title %}
+{{'erreur'|trans({'%code%': status_code  })}}
+
+{% endblock %}
+{% block content %}
+<div class="well">
+   <p class="alert alert-danger">{{'message500'|trans}}</p>
+   <p class="alert alert-danger">{{status_text}}</p>
+
+</div>
+{% endblock %}

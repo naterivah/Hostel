@@ -151,3 +151,7 @@ codesource: Source code
 connexion: Connection
 user.login.erreur: An error occured. Wrong username or password
 warning: Warning!
+retour: Back to Black
+erreur: Error %code%
+message500: Error 500, You may tried to delete a row on the database with depedencies
+message404: ERROR 404. STALINE KILLED EVERYBODY AND NO ONE COULD REPAIR THIS. SORRY FOR TROUBLECHOUTING MORRAY

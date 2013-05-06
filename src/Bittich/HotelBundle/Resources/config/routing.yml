@@ -26,21 +26,21 @@ hotel_tarif_lister:
       
 
 hotel_tarif_ajouter:
-    pattern: /{_locale}/admin/tarif/ajouter
+    pattern: /{_locale}/employe/tarif/ajouter
     defaults: { _controller: BittichHotelBundle:Tarif:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
 
 hotel_tarif_editer:
-    pattern: /{_locale}/admin/tarif/editer/{id}
+    pattern: /{_locale}/employe/tarif/editer/{id}
     defaults: { _controller: BittichHotelBundle:Tarif:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
       
 hotel_tarif_supprimer:
-    pattern: /{_locale}/admin/tarif/supprimer/{id}
+    pattern: /{_locale}/employe/tarif/supprimer/{id}
     defaults: { _controller: BittichHotelBundle:Tarif:supprimer, _locale: fr }
     requirements:
       _locale: fr|en
@@ -158,21 +158,21 @@ hotel_prix_lister:
       _locale: fr|en
 
 hotel_prix_ajouter:
-    pattern: /{_locale}/admin/prix/ajouter
+    pattern: /{_locale}/employe/prix/ajouter
     defaults: { _controller: BittichHotelBundle:Prix:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
 
 hotel_prix_editer:
-    pattern: /{_locale}/admin/prix/{idmodele}-{idtarif}
+    pattern: /{_locale}/employe/prix/{idmodele}-{idtarif}
     defaults: { _controller: BittichHotelBundle:Prix:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
       
 hotel_prix_supprimer:
-    pattern: /{_locale}/admin/prix/supprimer/{idmodele}-{idtarif}
+    pattern: /{_locale}/employe/prix/supprimer/{idmodele}-{idtarif}
     defaults: { _controller: BittichHotelBundle:Prix:supprimer, _locale: fr }
     requirements:
       _locale: fr|en
