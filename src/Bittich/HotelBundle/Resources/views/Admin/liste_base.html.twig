@@ -75,7 +75,7 @@
             <td>
                 {% if usr.roles[0] != 'ROLE_SUPER_ADMIN' and usr.enabled %}
                     {% autoescape false %}
-                        <a class="btn btn-inverse btn-small" href="{{url('hotel_accueil',{'_switch_user': usr.username})}}"> {{'admin.switch'|trans}} {{usr.username}}</a>
+                        <a href="{{url('hotel_accueil',{'_switch_user': usr.username})}}"> {{'admin.switch'|trans}} {{usr.username}}</a>
                     {% endautoescape %}
                 {% else %}
                         <a class="btn btn-small disabled">~</a>

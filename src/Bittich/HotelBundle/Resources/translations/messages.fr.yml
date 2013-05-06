@@ -69,7 +69,7 @@ modele.supprimer.succes: Modèle %name% supprimé avec succès!
 #Calendrier
 calendrier.label: Calendrier
 calendrier.datej: Date
-
+calendrier.nbrelitbebe: Nombre de bébés
 calendrier.nbredispo: Nombre de disponibilités
 calendrier.liste: Calendrier de dates
 calendrier.liste.retour: Retour au calendrier
@@ -154,3 +154,4 @@ retour: Retour
 erreur: Erreur %code%
 message500: Erreur serveur. Vous avez probablement tenté de supprimer une ligne dans la base de données que vous ne pouviez point supprimer.
 message404: Erreur 404. On fait tout ce qu'on peut pour régler le problème.</br>Mais dans un régime technocrate bureaucrate dictaoriale stalinien</br>dirigé par les social-fascistes, tout prend un temps fou...
+wait: Un instant... Chargement...

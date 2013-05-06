@@ -94,7 +94,14 @@ form.fos_comment_comment_form.error textarea {
     color: #ff0000;
 }
 .fos_comment_submit {
-    text-align: right;
+    text-align: left;
+}
+textarea
+{
+    border:1px solid #999999;
+    width:100%;
+    margin:5px 0;
+    padding:3px;
 }
 .fos_comment_submit input {
     font-size: 1.2em;

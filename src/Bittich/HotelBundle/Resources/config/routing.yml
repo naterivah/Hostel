@@ -196,21 +196,21 @@ hotel_reservation_lister_client:
       _locale: fr|en
       page: \d+
 hotel_reservation_ajouter:
-    pattern: /{_locale}/reservation/ajouter
+    pattern: /{_locale}/reservation/employe/ajouter
     defaults: { _controller: BittichHotelBundle:Reservation:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
 
 hotel_reservation_editer:
-    pattern: /{_locale}/reservation/editer/{id}
+    pattern: /{_locale}/reservation/employe/editer/{id}
     defaults: { _controller: BittichHotelBundle:Reservation:editer, _locale: fr }
     requirements:
       _locale: fr|en
       id: \d+
       
 hotel_reservation_supprimer:
-    pattern: /{_locale}/reservation/supprimer/{id}
+    pattern: /{_locale}/reservation/employesupprimer/{id}
     defaults: { _controller: BittichHotelBundle:Reservation:supprimer, _locale: fr }
     requirements:
       _locale: fr|en

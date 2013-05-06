@@ -64,7 +64,7 @@ calendrier.modifier.succes: Date  successfully edited!
 calendrier.supprimer.succes: Date successfully deleted! 
 calendrier.disponibilites: Availabilities
 calendrier.range: Range of Dates
-
+calendrier.nbrelitbebe: Number of babies
 #Modele
 modele.label: Model
 modele.bain: Bathroom
@@ -155,3 +155,4 @@ retour: Back to Black
 erreur: Error %code%
 message500: Error 500, You may tried to delete a row on the database with depedencies
 message404: ERROR 404. STALINE KILLED EVERYBODY AND NO ONE COULD REPAIR THIS. SORRY FOR TROUBLECHOUTING MORRAY
+wait: One moment please...Loading...

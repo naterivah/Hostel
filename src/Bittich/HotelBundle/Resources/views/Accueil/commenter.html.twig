@@ -5,27 +5,49 @@
 {% endblock %}
 
 {% block content %}
-<div class="span12 well">
+
+<div id= "cont" class="span12 well">
      {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': 'foo'} %}  
 
-</div>
-<script>
-        $('#load').hide();
+    </div>
 
-$(document).on('fos_comment_before_load_thread', function (event, data) {
-       /* il faudrait faire qq chose mais la flemme*/
+                                                   {#Modal #}
+    <div class="modal hide fade" id="modal_load">
+        <div class="modal-header">
+            <h3>{{"wait"|trans}}</h3>
+        </div>
+        <div class="modal-body">
+            <div id="loadcoms" class="progress progress-striped active">
+                <div class="bar" style="width: 100%;"></div>
+            </div
+        </div>
+
+    </div>
+
+    <script>
+                           $('#cont').hide();
+
+
+            $(document).ajaxStart(function(){
 
 
     });
- $(document).on('fos_comment_add_comment', function (event, data) {
-      /* il faudrait recharger la page mais la flemme morray */
+        $(document).ajaxStop(function(){
+                  $('#modal_load').modal('hide');
+                  $('#cont').show();
 
 
-    });   
-    
-    
-    
+    });
+     $(document).on('fos_comment_before_load_thread', function (event, data) {
+                          $('#cont').hide();
+                $('#modal_load').modal('show');
 
-    </script>
+
+
+        });   
+
+
+
+        </script>
 
 {% endblock %}

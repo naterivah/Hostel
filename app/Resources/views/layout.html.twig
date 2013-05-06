@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
 
         {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
@@ -179,7 +179,7 @@
                             <h1>
                         {% block title %}
                                     Kom'in'Tern - Hotel 
-                                    </br><span class="badge badge-info">La bureaucratie au service de l'hôtellerie</span>
+                                    </br><span class="badge badge-info">V 0.9</span>
                                     <a class="btn btn-warning pull-right" href="{{path('hotel_accueil_commenter')}}">{{'commenter'|trans}}<i class="icon-comment icon-white"></i></a>
 
                         {% endblock %}
@@ -189,31 +189,7 @@
                             </div>
 
 
-                            <div class="row-fluid">
-                                <div class="span12">
-                                        {% block carousel %} <div id="myCarousel" class="carousel slide ">
-                                            <div class="carousel-inner thumbnail">
-                                                <div class="item active"> <img alt="" src="{{ asset('img/hotel1.jpg') }}"/>
-
-                                                </div>
-                                                <div class="item"> <img alt="" src="{{ asset('img/hotel2.jpg') }}"/>
-
-                                                </div>
-                                                <div class="item"> <img  alt="" src="{{ asset('img/hotel3.jpg') }}"/>
-
-                                                </div>
-                                                <div class="item"> <img alt="" src="{{ asset('img/hotel4.jpg') }}"/>
-
-                                                </div>
-                                                <div class="item"> <img alt="" src="{{ asset('img/hotel5.jpg') }}"/>
-
-                                                </div>
-                                            </div>
-                                            <a class="carousel-control left" data-slide="prev" href="#myCarousel">‹</a> <a class="carousel-control right" data-slide="next" href="#myCarousel">›</a> </div>
-                                                {% endblock %}
-                                    </div>
-
-                                </div>
+                
                                 <div class="row-fluid">
                                     <div class="span12">
                                         {% for flashMessage in app.session.flashbag.get('message') %}
@@ -222,119 +198,103 @@
                                                 </div>
                                                 {% endfor %}
                             {% block content %}
-                                                <blockquote>
-                                                    <p>Le Goulag le plus en vogue chez les traîtres et les contre-révolutionnaires. Je reviendrai!</p>
-                                                    <small>Léon Trotsky</small>
-                                                </blockquote>
 
+                                                   <h3>{{'apropos'|trans}}</h3>
 
+                                                    <div class="well muted">
 
-                                                <div class="row-fluid">
-
-                                                    <div class="span4">
-
-                                                        <h3>{{'apropos'|trans}}</h3>
-
-                                                        <div class="well muted">
-
-                                                            Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
-                                                            du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
-                                                            d'un framework php MVC d'autre part.
-                                                        </div>
-
-
+                                                        Projet développé par Nordine Bittich dans le cadre du cours de Mme Lenartowski. Le Site a été développé à l'aide du framework php Symfony 2 ainsi que 
+                                                        du framework html/css Bootstrap et de la librairie javascript jQuery. Ce projet m'a permis de m'initier au développement web d'une part, à l'utilisation
+                                                        d'un framework php MVC d'autre part.
                                                     </div>
-                                                    <div class="span4">
+                                                       <h3>{{'connexion'|trans}}</h3>
 
-                                                        <h3>{{'codesource'|trans}}</h3>
-
-                                                        <div class="well muted">
+                                                    <div class="well muted">
 
 
-                                                            Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a>. N'hésitez-pas à laisser
-                                                            un commentaire, signaler un bug,... ET surtout tester le site! Les qualités du framework Symfony sont nombreuses, et il est impossible de toute les dénombrer. 
-                                                            L'utilisation de bundles externes est l'un des concepts fondamental de Symfony. 
+                                                        Vous trouverez toutes les sources du projet dans ce <a href ="https://github.com/naterivah/Hostel.git">Repository Github</a>. N'hésitez-pas à laisser
+                                                        un commentaire, signaler un bug,... ET surtout tester le site! Les qualités du framework Symfony sont nombreuses, et il est impossible de toute les dénombrer. 
+                                                        L'utilisation de bundles externes est l'un des concepts fondamental de Symfony. 
 
 
 
-                                                        </div>
+                                                    </div> 
+                                                     <h3>{{'codesource'|trans}}</h3>
 
-                                                    </div>
-                                                    <div class="span4">
-                                                        <h3>{{'connexion'|trans}}</h3>
-                                                        <div class="well muted">
+                                                    <div class="well muted">
 
 
-                                                            Le site a été développé dans un but éducatif, il est donc incomplet et inutilisable en l'état dans un but réel d'implémentation d'un système de réservation d'hôtel.
-                                                            Par conséquent, les identifiants de SUPER_ADMIN vous sont fournis:
-                                                            user : admin
-                                                            mot de passe: admin
-                                                            Un utilisateur peut avoir l'un de ces trois rôles : client, employé, anonyme. 
-
-                                                        </div>
-
-
+                                                        Le site a été développé dans un but éducatif, il est donc incomplet et inutilisable en l'état dans un but réel d'implémentation d'un système de réservation d'hôtel.
+                                                        Par conséquent, les identifiants de SUPER_ADMIN vous sont fournis:
+                                                        user : admin
+                                                        mot de passe: admin
+                                                        Un utilisateur peut avoir l'un de ces trois rôles : client, employé, anonyme. 
 
                                                     </div>
 
 
 
-                                                </div>
+
+
+
+
+
+                                            </div>
 
 
 
 
 
                             {% endblock %}
-                                                <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
-                                            </div><!--/span-->
-
+                                            <!-- <p><a class="btn" href="#">View details &raquo;</a></p> -->
                                         </div><!--/span-->
-                                    </div><!--/row-->
-                                </div><!--/span-->
-                            </div><!--/row-->
 
-                            <hr>
+                                    </div><!--/span-->
+                                </div><!--/row-->
+                            </div><!--/span-->
+                        </div><!--/row-->
 
-                            <footer>
+                        <hr>
 
-                                <p class="muted text-center"> &copy; Nordine Bittich - 2013 & Copier le code des autres c'est mal. Don't.</p>
-                            </footer>
+                        <footer>
 
-                        </div><!--/.fluid-container-->
+                            <p class="muted text-center"> &copy; Nordine Bittich - 2013 & Copier le code des autres c'est mal. Don't.</p>
+                        </footer>
+
+                    </div><!--/.fluid-container-->
 
   {% block modal %}
-                        <!-- Modal d'erreur login user, ptet utiliser qu'une modal au lieu de deux. mais la flemme -->
-                        <div class="modal hide fade" id="erruser">
-                            <div class="modal-header">
-                                <a class="close" data-dismiss="modal">&times;</a>
-                                <h3>{{'warning'|trans}}</h3>
-                            </div>
-                            <div class="modal-body">
-                                <p>{{'user.login.erreur'|trans}}</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn" data-dismiss="modal" aria-hidden="false">{{'close'|trans}}</button>             
-                            </div>   
+                    <!-- Modal d'erreur login user, ptet utiliser qu'une modal au lieu de deux. mais la flemme -->
+                    <div class="modal hide fade" id="erruser">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">&times;</a>
+                            <h3>{{'warning'|trans}}</h3>
                         </div>
+                        <div class="modal-body">
+                            <p>{{'user.login.erreur'|trans}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="false">{{'close'|trans}}</button>             
+                        </div>   
+                    </div>
 
 
 
    {% endblock %}
 
                                                    {#Modal #}
-                        <div class="modal hide fade" id="modal_resa">
-                            <div class="modal-header">
-                                <a class="close" data-dismiss="modal">&times;</a>
-                                <h3>Résérvation</h3>
-                            </div>
-                            <div class="modal-body">
-                                <p id ="modal_message"></p>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn" data-dismiss="modal" aria-hidden="true">{{'close'|trans}}</button>             
-                            </div>   
+                    <div class="modal hide fade" id="modal_resa">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">&times;</a>
+                            <h3>Résérvation</h3>
                         </div>
+                        <div class="modal-body">
+                            <p id ="modal_message"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">{{'close'|trans}}</button>             
+                        </div>   
+                    </div>
 
-                    </body>
-                </html>
+                </body>
+            </html>

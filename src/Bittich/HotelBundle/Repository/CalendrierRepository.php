@@ -27,7 +27,14 @@ class CalendrierRepository extends EntityRepository {
         return $qb->getQuery()
                         ->getResult();
     }
-    
+    public function findAll(){
+        $qb = $this->createQueryBuilder('a')
+                ->orderBy('a.datej', 'ASC');
+        return $qb->getQuery()
+                        ->getResult();
+        
+        
+    }
         public function getCalendrierAvecTarif() {
         $qb = $this->createQueryBuilder('a')
                 ->leftJoin('a.tarif', 't')
